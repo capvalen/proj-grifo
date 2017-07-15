@@ -57,10 +57,10 @@
 						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
 				</li>
 				<li>
-						<a href="reportes.php"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
+						<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
 				</li>
 				<li >
-						<a href="inventario.php"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
+						<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
 				</li>
 				<li>
 						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
@@ -282,9 +282,6 @@
 <script src="js/bootstrap-datepicker.es.min.js"></script>
 
 <script>
-$(window).load(function() {
-    $('.filter-option').addClass('mayuscula');
-});
 $(document).ready(function(){
 	
 	$('.selectpicker').selectpicker('refresh');
