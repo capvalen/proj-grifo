@@ -15,7 +15,7 @@
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.1" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.2" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.1">
 		<link rel="stylesheet" href="css/icofont.css">
@@ -54,7 +54,7 @@
 						<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
 				</li>
 				<li>
-						<a href="compras.php"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
+						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
 				</li>
 				<li>
 						<a href="reportes.php"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
@@ -235,14 +235,14 @@
 								<strong>
 									<div class="col-sm-3">Producto</div>
 									<div class="col-sm-3">Suma consumo</div>
-									<div class="col-sm-3">Suma Ventas</div>
+									<div class="col-sm-3">Suma ventas</div>
 								</strong>
 							</div>
 							<span id="spanListadoResumen">
 							
 							</span>
 							<div class="row">
-								<span class="pull-right" style="padding-right: 150px"><strong >Suma Total: S/. -</strong></span>
+								<span class="pull-right" style="padding-right: 150px"><strong >Suma Total: S/. <span id="spanSumaTotal"></span></strong></span>
 							</div>
 							</div>
 							</div>
@@ -266,7 +266,7 @@
 </div>
 <!-- /#page-content-wrapper -->
 </div><!-- /#wrapper -->
-
+<?php include ('php/llamandoModals.php'); ?>
 
 	
 <!-- jQuery -->
@@ -276,14 +276,17 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js"></script>
+<script src="js/accionesGlobales.js"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>
 
-<!-- Menu Toggle Script -->
 <script>
+$(window).load(function() {
+    $('.filter-option').addClass('mayuscula');
+});
 $(document).ready(function(){
-	$('.filter-option').addClass('mayuscula');
+	
 	$('.selectpicker').selectpicker('refresh');
 
 		$('.mitooltip').tooltip();
@@ -323,9 +326,9 @@ $('#btnAgregarProductoCuadrar').click(function () {
 		
 		$('#spanListadoResumen').append(`
 			<div class="row">
-				<div class="col-sm-2 divProducResumen mayuscula">${producto}</div>
-				<div class="col-sm-2">-</div>
-				<div class="col-sm-2">S/. -</div>
+				<div class="col-sm-3 divProducResumen mayuscula">${producto}</div>
+				<div class="col-sm-3"><span id="spanSumaFinalConsumo">0</span></div>
+				<div class="col-sm-3">S/. <span id="spanSumaFinalMontos">0.00</span></div>
 			</div>`);
 	}
 	}
@@ -336,7 +339,6 @@ $('#spanListadoNuevosCuadres').on('change', '.txtValorNumericoConsumo', function
 	var nuevoValor=parseFloat($(this).val());
 	var precioFijo=parseFloat(contenedorRow.find('.divPrecioFijo').text());
 	var contadorPrevio=parseFloat(contenedorRow.find('.divContadorPrevio').text());
-	var grupoRow=contenedorRow.find('.spanGrupo').text();
 	var productoRow=contenedorRow.find('.spanProducto').text();
 
 	var consumoRealHoy=nuevoValor-contadorPrevio;
@@ -350,8 +352,25 @@ $('#spanListadoNuevosCuadres').on('change', '.txtValorNumericoConsumo', function
 		contenedorRow.find('.divVentaConsumo').text(precFinventa).removeClass('text-danger').addClass('text-success');
 	}
 
-	
+	sumarTotales();
 });
+function sumarTotales(){
+var sumaTotales=0;
+$('#spanListadoResumen .row').each( function (i, elem) {
+	var produdctoABuscar=$(elem).find('.divProducResumen').text()
+	var sumaParcialConsumo=0, sumaParcialVenta=0;
+	$(`#spanListadoNuevosCuadres .spanProducto:contains("${produdctoABuscar}")`).parent().parent().parent().each(function (i, arg) {
+		
+		sumaParcialConsumo+=parseFloat( $(arg).find('.divConsumoProd').text())
+		sumaParcialVenta+=parseFloat( $(arg).find('.divVentaConsumo').text())
+	});
+	//console.log( produdctoABuscar+' = ' + parseFloat(sumaParcialVenta).toFixed(2) )
+	sumaTotales+=sumaParcialVenta;
+	$(elem).find('#spanSumaFinalConsumo').text(sumaParcialConsumo);
+	$(elem).find('#spanSumaFinalMontos').text(parseFloat(sumaParcialVenta).toFixed(2));
+});
+$('#spanSumaTotal').text(parseFloat(sumaTotales).toFixed(2));
+}
 </script>
 
 </body>

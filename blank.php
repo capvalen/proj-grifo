@@ -54,7 +54,7 @@
 						<a href="ventas.php"><i class="icofont icofont-cart"></i> Cuadrar caja</a>
 				</li>
 				<li>
-						<a href="compras.php"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
+						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
 				</li>
 				<li>
 						<a href="reportes.php"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>

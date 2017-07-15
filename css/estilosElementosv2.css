@@ -138,7 +138,7 @@ h2{margin-top: 0px; } .breadcrumb{margin-bottom: 10px; }
 .resulDiv:hover{background-color: #ffeec9; border-radius: 6px;}
 .resulDiv{padding-top:6px; padding-bottom:6px;transition: all .7s;}
 #detProductoInv>.row{padding-top:6px; padding-bottom:6px;}
-.modal-title >i{color: rgba(5, 16, 16, 0.69);}
+.modal-title >i{color: rgba(255, 255, 255, 0.67);}
 /*.modal-header-negro>.modal-title> i{color: rgba(255, 255, 255, 0.68);}*/
 
 #listadoDivs>.row:hover{ border-radius: 6px; background-color: #fce7ba; cursor: default;transition: all .6s;}

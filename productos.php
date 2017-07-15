@@ -54,7 +54,7 @@
 						<a href="ventas.php"><i class="icofont icofont-cart"></i> Cuadrar caja</a>
 				</li>
 				<li>
-						<a href="compras.php"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
+						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
 				</li>
 				<li>
 						<a href="reportes.php"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
@@ -294,49 +294,7 @@
 </div>
 <!-- /#page-content-wrapper -->
 </div><!-- /#wrapper -->
-
-<!-- Modal para indicar que falta completar campos o datos con error -->
-	<div class="modal fade modal-mostrarDetalleInventario" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header-info">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel"><i class="icofont icofont-help-robot"></i> Detalles del inventario: <span id="spanIdInventario"></span></h4>
-			</div>
-			<div class="modal-body">
-				<div class="row container"> <strong>
-					<div class="col-xs-4">Producto</div>
-					<div class="col-xs-1">Cantidad</div>
-					<div class="col-xs-2">Precio</div>
-					<div class="col-xs-2">Sub-Total</div></strong>
-				</div>
-				<div class="row container" id="detProductoInv">
-					
-				</div>
-				<div class="row container-fluid text-right" style="padding-right: 100px"><strong>Total valorizado:</strong> <span id="spanvalorInvent">S/. 3.00</span></div>
-			</div>
-			<div class="modal-footer"> <button class="btn btn-primary btn-outline" data-dismiss="modal"><i class="icofont icofont-alarm"></i> Aceptar</button></div>
-		</div>
-		</div>
-	</div>
-
-		
-<!-- Modal para indicar que falta completar campos o datos con error -->
-	<div class="modal fade modal-faltaCompletar" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-	<div class="modal-dialog modal-sm" role="document">
-		<div class="modal-content">
-			<div class="modal-header-danger">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel"><i class="icofont icofont-help-robot"></i> Campos incorrectos o faltantes</h4>
-			</div>
-			<div class="modal-body">
-				Ups, un error: <i class="icofont icofont-animal-squirrel"></i> <strong id="lblFalta"></strong>
-			</div>
-			<div class="modal-footer"> <button class="btn btn-danger btn-outline" data-dismiss="modal"><i class="icofont icofont-alarm"></i> Ok, revisaré</button></div>
-		</div>
-		</div>
-	</div>
-
+<?php include ('php/llamandoModals.php'); ?>
 	
 <!-- jQuery -->
 <script src="js/jquery-2.2.4.min.js"></script>
@@ -345,6 +303,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js"></script>
+<script src="js/accionesGlobales.js"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>
