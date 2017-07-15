@@ -44,13 +44,13 @@
 				<div class="logoEmpresa ocultar-mostrar-menu">
 					<img class="img-responsive" src="images/empresa.png" alt="">
 				</div>
-				<li class="active">
+				<li>
 						<a href="principal.php"><i class="icofont icofont-space-shuttle"></i> Inicio</a>
 				</li>
 				<li>
 						<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
 				</li>
-				<li>
+				<li class="active">
 						<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
 				</li>
 				<li>
