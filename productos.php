@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (@!$_SESSION['Atiende']){//sino existe enviar a index
+	header("Location:index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -104,9 +110,9 @@
 										<span class="form-control-clear glyphicon glyphicon-remove-circle form-control-feedback hidden"></span>
 									</div>
 								 </li>
-								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span id="menuNombreUsuario">Carlos Pariona</span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"><?php require('php/gethora.php') ?></span> </small></a></li>
+								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span class="mayuscula" id="menuNombreUsuario"><?php echo $_SESSION["Atiende"]; ?></span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"><?php require('php/gethora.php') ?></span> </small></a></li>
 									
-				<li class="text-center"><a href="#!"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-sign-out"></i></a></li>
+				<li class="text-center"><a href="php/desconectar.php"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-sign-out"></i></a></li>
 							</ul>
 							
 					</div>
@@ -184,7 +190,7 @@
 						<div class="container-fluid">
 						<table class="table table-hover">
 						<thead>
-							<tr class="filters">
+							<tr >
 								<th>N° Producto</th>
 								<th>Precio S/.</th>
 								<th>Última actualización</th>
@@ -192,8 +198,8 @@
 								<th>Acciones</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="tbodyProductosListado">
+							<!-- <tr>
 								<td><strong>1. Gasolina 94</strong></td>
 								<td>14.50</td>
 								<td>Lunes, 24 Mayo 2017</td>
@@ -212,17 +218,8 @@
 									<button class="btn btn-morita btn-outline mitooltip" data-toggle="tooltip" title="Editar"><i class="icofont icofont-edit"></i></button>
 									<button class="btn btn-danger btn-outline mitooltip" data-toggle="tooltip" title="Eliminar"><i class="icofont icofont-error"></i></button>
 								</td>
-							</tr>
-							<tr>
-								<td><strong>3. Kerosene</strong></td>
-								<td>9.80</td>
-								<td>Viernes, 11 Agosto 2016</td>
-								<td>Grupo 2</td>
-								<td>
-									<button class="btn btn-morita btn-outline mitooltip" data-toggle="tooltip" title="Editar"><i class="icofont icofont-edit"></i></button>
-									<button class="btn btn-danger btn-outline mitooltip" data-toggle="tooltip" title="Eliminar"><i class="icofont icofont-error"></i></button>
-								</td>
-							</tr>
+							</tr> -->
+							
 						</tbody>
 						</table>
 						</div>
@@ -302,7 +299,7 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js"></script>
+<script src="js/inicializacion.js?version=1.0.1"></script>
 <script src="js/accionesGlobales.js"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
@@ -314,8 +311,28 @@ $(document).ready(function(){
 	
 	var existeProd= <?php if (isset( $_GET['idproducto'])){echo $_GET['idproducto']; } else { echo 0;} ?>;
 	
-	if(existeProd==0){console.log('No hay ningún producto')}
+	if(existeProd==0){console.log('No hay ningún producto seleccionado')}
 	else{}
+	moment.locale('es');
+	$.get({url: 'php/listarTodosProductos.php', type: 'POST'}).done(function (resp) {
+		//console.log(resp)
+		$('#tbodyProductosListado').children().remove();
+		$.JsonProductos=JSON.parse(resp);
+		$.each(JSON.parse(resp), function (i, dato) {// console.log(dato)
+			$('#tbodyProductosListado').append(`<tr  class='${dato.prodColorMaterialize}'>
+				<td><strong>${i+1}. ${dato.prodNombre}</strong></td>
+				<td>${parseFloat(dato.prodPrecioActual).toFixed(2)}</td>
+				<td>${moment(dato.prodUltimaActualizacion).format('dddd DD, MMMM YYYY hh:mm a')}</td>
+				<td>${dato.grupoDescripcion}</td>
+				<td>
+					<button class="btn btn-morita btn-outline mitooltip btnMovilProductoEditar" id="${i}" data-toggle="tooltip" title="Editar"><i class="icofont icofont-edit"></i></button>
+					<button class="btn btn-danger btn-outline mitooltip btnMovilProductoEliminar" id="${i}" data-toggle="tooltip" title="Eliminar"><i class="icofont icofont-error"></i></button>
+				</td>
+			</tr>`);
+
+		});
+		$('.mitooltip').tooltip();
+	});
 	
 });
 $('#divSelectProductoListado').on('click','.optProducto',function () {
@@ -330,6 +347,20 @@ $('#btnGuardarProdNuevo').click(function () {
 		console.log(valor); //devuelve el id del campo seleccionado
 	}
 	
+});
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+	
+var target = $(e.target).attr("href");
+//console.log(target);
+if(target=='#tabListarProd'){
+	//$.queMichiEs='nada'; console.log('tabnada')
+	
+}
+});
+$('#tbodyProductosListado').on('click', '.btnMovilProductoEditar', function () {
+	idProdAlterno=$(this).attr('id');//id en el JSON solicitado por primera vez de la BD
+	console.log('Intentando editar el id:' + idProdAlterno +' ' +$.JsonProductos[idProdAlterno].prodNombre);
+	console.log($.JsonProductos)
 });
 </script>
 

@@ -1,6 +1,6 @@
 <?php
-	$server="localhost";
-	$username="root";
+	$server="173.194.104.222";
+	$username="infocat_root";
 	$password="*123456*";
 	$db='grifo';
 	$conection= mysqli_connect($server,$username,$password)or die("No se ha podido establecer la conexion");

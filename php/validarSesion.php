@@ -12,7 +12,7 @@ $row = mysqli_fetch_array($log, MYSQLI_ASSOC);
 if ($row['idUsuario']>=1){
 	$_SESSION['idSucursal']=$row['idSucursal'];
 	$_SESSION['Sucursal']=$row['sucLugar'];
-	$_SESSION['Atiende']=$row['usuNombres'];
+	$_SESSION['Atiende']=$row['usuNombres'].', '.$row['usuApellido'];
 	$_SESSION['Power']=$row['usuPoder'];
 	$_SESSION['idUsuario']=$row['idUsuario'];
 	echo "Welcome guy!";

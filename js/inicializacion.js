@@ -75,3 +75,6 @@ $("input").focus(function(){
 	//Josefin+Sans
 	//Harmattan
 	//Quattrocento+Sans
+window.addEventListener('load',function(){
+	$('.mitooltip').tooltip();
+});

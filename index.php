@@ -14,7 +14,7 @@ if (isset($_SESSION['usuario'])){
 	<link rel="stylesheet" href="css/icofont.css"> <!--Iconos en: https://design.google.com/icons/-->
 	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/inicio.css" rel="stylesheet">
+	<link href="css/inicio.css?version=1.0" rel="stylesheet">
 	<link href="css/animate.css" rel="stylesheet">
 	<title>Info-Farma: Inicio Sesión</title>
 	<link rel="shortcut icon" href="images/peto.png" />
@@ -56,7 +56,7 @@ if (isset($_SESSION['usuario'])){
 			
 			<div class="form-group text-center">
 				<button class="btn btn-danger btn-outline" id="btnCancelar"><i class="icofont icofont-logout"></i> Cancelar</button>
-				<button class="btn btn-morado btn-outline" id="btnAcceder"><i class="icofont icofont-key"></i> Iniciar</button>
+				<button class="btn btn-morado btn-outline" id="btnAcceder"><div class="fa-spin sr-only"><i class="icofont icofont-spinner"></i> </div><i class="icofont icofont-key"></i> Iniciar</button>
 			</div>
 			<div class="form-group text-center text-danger hidden" id="divError">Error en alguno de los datos, complételos todos cuidadosamente.</div>
 			
@@ -68,6 +68,7 @@ if (isset($_SESSION['usuario'])){
 </body>
 
 	<script src="js/jquery-2.2.3.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
 	<!-- <script src="./node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script> 
 	<script src="js/socketCliente.js"></script>-->
@@ -77,6 +78,7 @@ if (isset($_SESSION['usuario'])){
 			$('#txtPassw').val('');
 			$('#txtUser_grifo').focus();
 			$('.wello').addClass('animated bounceIn');
+			$('.fa-spin').addClass('sr-only');
 			//$('body').css("background-image", "url(images/fondo.jpg)");		
 		});
 		$('#txtPassw').keypress(function(event){
@@ -86,6 +88,7 @@ if (isset($_SESSION['usuario'])){
 			 }
 		});
 		$('#btnAcceder').click(function() {
+			$('.fa-spin').removeClass('sr-only');$('.icofont-key').addClass('sr-only');
 			$.ajax({
 				type:'POST',
 				url: 'php/validarSesion.php',
@@ -102,6 +105,7 @@ if (isset($_SESSION['usuario'])){
 								$(this).removeClass('animated wobble');
 						});
 						$('#txtUser_grifo').select();
+						$('.fa-spin').addClass('sr-only');$('.icofont-key').removeClass('sr-only');
 						//console.log(iduser);
 						console.log('error en los datos')}
 				}
