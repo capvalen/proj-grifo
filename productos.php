@@ -182,7 +182,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<div class="tab-pane fade container-fluid" id="tabListarProd">
 						<!--Inicio de pestaña 02-->
 						<h3>Listado de todos los productos</h3>
-						<div class="panel panel-negro ">
+						<div class="panel panel-cielo ">
 						<div class="panel-heading">
 							<h3 class="panel-title">Productos activos</h3>
 							
@@ -195,6 +195,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<th>Precio S/.</th>
 								<th>Última actualización</th>
 								<th>Grupo</th>
+								<th>Lado</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -203,16 +204,6 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<td><strong>1. Gasolina 94</strong></td>
 								<td>14.50</td>
 								<td>Lunes, 24 Mayo 2017</td>
-								<td>Grupo 1</td>
-								<td>
-									<button class="btn btn-morita btn-outline mitooltip" data-toggle="tooltip" title="Editar"><i class="icofont icofont-edit"></i></button>
-									<button class="btn btn-danger btn-outline mitooltip" data-toggle="tooltip" title="Eliminar"><i class="icofont icofont-error"></i></button>
-								</td>
-							</tr>
-							<tr>
-								<td><strong>2. Gas</strong></td>
-								<td>3.80</td>
-								<td>Sábado, 14 Junio 2017</td>
 								<td>Grupo 1</td>
 								<td>
 									<button class="btn btn-morita btn-outline mitooltip" data-toggle="tooltip" title="Editar"><i class="icofont icofont-edit"></i></button>
@@ -234,11 +225,23 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<h3>Cambios registrados en el tiempo</h3>
 						<span class="pull-left">Seleccione el producto para ver los cambios</span>
 						<div class="col-sm-3">
+						<div  id="divSelectGrupoProListado">
+							<select class="selectpicker mayuscula" title="Grupo..."  data-width="100%" data-live-search="true"">
+								<!-- <option class="optProducto mayuscula" data-tokens="ga">grupo 1</option>
+								<option class="optProducto mayuscula" data-tokens="gb">grupo 2</option>
+								<option class="optProducto mayuscula" data-tokens="gc">grupo 3</option> -->
+							</select>
+						</div>
+						</div>
+						<div class="col-sm-3">
+						<div  id="divSelectLadoProListado">
+							<select class="selectpicker mayuscula" title="Lado..."  data-width="100%" data-live-search="true"">
+							</select>
+						</div>
+						</div>
+						<div class="col-sm-3">
 						<div  id="divSelectProductoListado">
 							<select class="selectpicker mayuscula" title="Producto..."  data-width="100%" data-live-search="true"">
-								<option class="optProducto mayuscula" data-tokens="aa">gas</option>
-								<option class="optProducto mayuscula" data-tokens="bb">Gasolina 84</option>
-								<option class="optProducto mayuscula" data-tokens="cc">Kerosene</option>
 							</select>
 						</div>
 						</div>
@@ -247,32 +250,25 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<hr>
 						<div class="panel panel-verde hidden" id="pnlTablaModificacionPrecio">
 						<div class="panel-heading">
-							<h3 class="panel-title">Listado de cambios para: <strong>Gas</strong></h3>
+							<h3 class="panel-title">Listado de cambios para: <strong id="strProducto">Gas</strong></h3>
 						</div>
 						<div class="container-fluid">
 						<table class="table table-hover">
 						<thead>
 							<tr class="filters">
 								<th>Fecha modificación</th>
-								<th>Precio S/.</th>
+								<th>Precio Nuevo S/.</th>
+								<th>Precio Anterior S/.</th>
 								<th>Responsable</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
+						<tbody id="tbodyRellenoHistorial">
+							<!-- <tr>
 								<td>Lunes, 24 Mayo 2018</td>
 								<td>14.50</td>
+								<td>14.10</td>
 								<td>Carlos Alex</td>
-							</tr>
-							<tr>
-								<td>Sábado, 14 Junio 2017</td>
-								<td>13.80</td>
-								<td>Rebeca</td>
-							</tr>
-							<tr>
-								<td>Viernes, 11 Agosto 2016</td>
-								<td>15.10</td>
-								<td>Manuel Angel</td>
+							</tr> -->
 							</tr>
 						</tbody>
 						</table>
@@ -292,14 +288,52 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <!-- /#page-content-wrapper -->
 </div><!-- /#wrapper -->
 <?php include ('php/llamandoModals.php'); ?>
-	
+
+
+<?php if ( $_SESSION['Power']== 1){ ?>
+<!-- Modal para cambiar los datos de un producto sleccionado  -->
+<div class="modal fade modal-editarProductoMod" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog  modal-sm" role="document">
+	<div class="modal-content">
+		<div class="modal-header-wysteria">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel"><i class="icofont icofont-help-robot"></i> Actualizar precios</h4>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid">
+			
+			<div class="row">
+				<p>Se está intentando cambiar un nuevo precio a <strong id="strModalProductoChange"></strong><span id="idHideProdModalChange"></span></p>
+				<label for="txtnewpriceProducto">Nuevo precio (S/.):</label>
+				<input type="number" class="form-control text-center txtNumeroDecimal" id="txtnewpriceProducto">
+				<div class="checkbox checkbox-success">
+					<input id="chkConfCambioPrecioProducto" class="styled" type="checkbox" value=1>
+					<label for="chkConfCambioPrecioProducto">
+							Confirmo el cambio de precio de éste producto.
+					</label>
+				</div>
+				<h4 class="red-text text-darken-2 sr-only" id="lblFalta"><i class="icofont icofont-animal-cat-alt-4"></i> <span></span></h4>
+			</div>
+			
+			</div>
+			
+		</div>
+			
+		<div class="modal-footer">
+			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cancelar</button>
+			<button class="btn btn-morita btn-outline" id="btnActualizarDataPrecioProducto"><i class="icofont icofont-social-meetme"></i> Actualizar</button></div>
+	</div>
+	</div>
+</div>
+<?php  } ?>
+
 <!-- jQuery -->
 <script src="js/jquery-2.2.4.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js?version=1.0.1"></script>
+<script src="js/inicializacion.js?version=1.0.3"></script>
 <script src="js/accionesGlobales.js"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
@@ -307,6 +341,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 <!-- Menu Toggle Script -->
 <script>
+datosUsuario();
 $(document).ready(function(){
 	
 	var existeProd= <?php if (isset( $_GET['idproducto'])){echo $_GET['idproducto']; } else { echo 0;} ?>;
@@ -318,12 +353,13 @@ $(document).ready(function(){
 		//console.log(resp)
 		$('#tbodyProductosListado').children().remove();
 		$.JsonProductos=JSON.parse(resp);
-		$.each(JSON.parse(resp), function (i, dato) {// console.log(dato)
+		$.each(JSON.parse(resp), function (i, dato) { //console.log(dato)
 			$('#tbodyProductosListado').append(`<tr  class='${dato.prodColorMaterialize}'>
 				<td><strong>${i+1}. ${dato.prodNombre}</strong></td>
 				<td>${parseFloat(dato.prodPrecioActual).toFixed(2)}</td>
 				<td>${moment(dato.prodUltimaActualizacion).format('dddd DD, MMMM YYYY hh:mm a')}</td>
 				<td>${dato.grupoDescripcion}</td>
+				<td>${dato.ladoDescripcion}</td>
 				<td>
 					<button class="btn btn-morita btn-outline mitooltip btnMovilProductoEditar" id="${i}" data-toggle="tooltip" title="Editar"><i class="icofont icofont-edit"></i></button>
 					<button class="btn btn-danger btn-outline mitooltip btnMovilProductoEliminar" id="${i}" data-toggle="tooltip" title="Eliminar"><i class="icofont icofont-error"></i></button>
@@ -335,18 +371,64 @@ $(document).ready(function(){
 	});
 	
 });
-$('#divSelectProductoListado').on('click','.optProducto',function () {
-	console.log('Seleccionaste: '+$(this).attr('data-tokens'));
+
+$('#divSelectGrupoProListado').on('click','.optProducto',function () {
+	//console.log('Seleccionaste: '+$(this).attr('data-tokens'));
 	$('.filter-option').addClass('mayuscula'); //Asigna mayúscula al boton de filtro
-	$('#pnlTablaModificacionPrecio').removeClass('hidden');
+	cmbProductoListadoLlenar();
 });
+$('#divSelectLadoProListado').on('click','.optProducto',function () {
+	//console.log('Seleccionaste: '+$(this).attr('data-tokens'));
+	$('.filter-option').addClass('mayuscula'); //Asigna mayúscula al boton de filtro
+	cmbProductoListadoLlenar();
+});
+$('#divSelectProductoListado').on('click','.optProducto',function () {
+	var idProd=$(this).attr('data-tokens');
+	var nomProd=$(this).text();
+	//console.log('Seleccionaste: '+$(this).attr('data-tokens'));
+	$('.filter-option').addClass('mayuscula'); //Asigna mayúscula al boton de filtro
+	//cmbProductoListadoLlenar();
+	if(idProd!=null){
+		$('#tbodyRellenoHistorial').children().remove();
+		$('#strProducto').text(nomProd);
+		$.ajax({url:'php/listarHistorialProducto.php', type: 'POST', data:{idPro: idProd}}).done(function (resp) {
+			//console.log(resp)
+			$.each(JSON.parse(resp), function (i, dato) {
+				$('#tbodyRellenoHistorial').append(`<tr><td>${moment(dato.histFechaCambio).format('LLLL')}</td>
+								<td>${parseFloat(dato.histPrecioCambio).toFixed(2)}</td>
+								<td>${parseFloat(dato.histPrecioAnterior).toFixed(2)}</td>
+								<td class="mayuscula">${dato.responsable}</td>
+							</tr>`);
+			});
+		});
+		$('#pnlTablaModificacionPrecio').removeClass('hidden');
+	}
+});
+function cmbProductoListadoLlenar(){
+	$('#pnlTablaModificacionPrecio').addClass('hidden');
+	$('#divSelectProductoListado option').remove();
+	$('#divSelectProductoListado selectpicker').selectpicker('destroy');
+	var grupo=$('#divSelectGrupoProListado').find('li.selected a').attr('data-tokens');
+	var lado=$('#divSelectLadoProListado').find('li.selected a').attr('data-tokens');
+	if(grupo==null || lado==null ){//cuando no hay nada seleccionado en el comboBox
+		//console.log('no ver ni buscar nada');
+		
+	}else{//Cuando los 3 cmbBox estan llenos
+		//console.log('algo pa ver o buscar');
+		$.ajax({url:'php/listarNombresProductos.php', type: 'POST', data: {dgrupo:grupo, dlado:lado}}).done(function (resp) {
+			$.each(JSON.parse(resp), function (i, dato) {
+				$('#divSelectProductoListado .selectpicker').append(`<option class="optProducto mayuscula" data-tokens="${dato.idproductos}">${dato.prodNombre}</option>`);
+				$('#divSelectProductoListado .selectpicker').selectpicker('refresh');
+			});
+		});
+	}
+}
 
 $('#btnGuardarProdNuevo').click(function () {
 	var valor=$('#spGrupoProducto').find('li.selected a').attr('data-tokens');
 	if(valor=='null'){console.log('nada')}else{
 		console.log(valor); //devuelve el id del campo seleccionado
 	}
-	
 });
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 	
@@ -356,11 +438,60 @@ if(target=='#tabListarProd'){
 	//$.queMichiEs='nada'; console.log('tabnada')
 	
 }
+if(target=='#tabHistorialPrecios'){
+	$('#divSelectGrupoProListado option').remove(); $('#divSelectGrupoProListado selectpicker').selectpicker('destroy');
+	$('#divSelectLadoProListado option').remove(); $('#divSelectLadoProListado selectpicker').selectpicker('destroy');
+
+	
+	$.ajax({url:'php/listarGruposTodos.php', type: 'POST'}).done(function (resp) {
+		$.each(JSON.parse(resp), function (i, dato) {
+			$('#divSelectGrupoProListado .selectpicker').append(`<option class="optProducto mayuscula" data-tokens="${dato.idGrupo}">${dato.grupoDescripcion}</option>`);
+			$('#divSelectGrupoProListado .selectpicker').selectpicker('refresh');
+		});
+	});
+	$.ajax({url:'php/listarLadosTodos.php', type: 'POST'}).done(function (resp) {
+		$.each(JSON.parse(resp), function (i, dato) {
+			$('#divSelectLadoProListado .selectpicker').append(`<option class="optProducto mayuscula" data-tokens="${dato.idlado}">${dato.ladoDescripcion}</option>`);
+			$('#divSelectLadoProListado .selectpicker').selectpicker('refresh');
+		});
+	});
+	
+}
 });
 $('#tbodyProductosListado').on('click', '.btnMovilProductoEditar', function () {
 	idProdAlterno=$(this).attr('id');//id en el JSON solicitado por primera vez de la BD
-	console.log('Intentando editar el id:' + idProdAlterno +' ' +$.JsonProductos[idProdAlterno].prodNombre);
-	console.log($.JsonProductos)
+	console.log('Intentando editar el id en Json interno:' + idProdAlterno +' ' +$.JsonProductos[idProdAlterno].prodNombre);
+	//console.log($.JsonProductos)
+	$('#strModalProductoChange').text($.JsonProductos[idProdAlterno].prodNombre);
+	$('#idHideProdModalChange').text($.JsonProductos[idProdAlterno].idproductos)
+	$('.modal-editarProductoMod').modal('show');
+});
+$('.modal-editarProductoMod').on('shown.bs.modal', function() { $('#txtnewpriceProducto').focus(); });
+$('#btnActualizarDataPrecioProducto').click(function () {
+	if(! $('#btnActualizarDataPrecioProducto').hasClass('disabled')){
+		$(this).addClass('disabled');
+		
+		var montoNuevo=parseInt($('#txtnewpriceProducto').val());
+		//console.log($('#chkConfCambioPrecioProducto:checked').val()==null)
+		if(isNaN(montoNuevo) || $('#txtnewpriceProducto').val()==''){$('.modal-editarProductoMod #lblFalta').removeClass('sr-only').find('span').text('Precio nuevo esta vacío!');}
+		else if(montoNuevo<=0 ){$('.modal-editarProductoMod #lblFalta').removeClass('sr-only').find('span').text('Precio nuevo no puede cero o menor.');}
+		else if ($('#chkConfCambioPrecioProducto:checked').val()==null){//console.log('no acepto los términos');
+			$('.modal-editarProductoMod #lblFalta').removeClass('sr-only').find('span').text('Falta aceptar el contrato');}
+		else{
+			
+				$('.modal-editarProductoMod #lblFalta').addClass('sr-only');}
+				$.ajax({url:'php/updateProductoPrecioHistorial.php', type: 'POST',
+					data:{idProd: $('#idHideProdModalChange').text(), newValue: $('#txtnewpriceProducto').val(), idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
+						if(resp==1){
+							location.reload();
+						}else{
+							$('.modal-editarProductoMod #lblFalta').removeClass('sr-only').find('span').text('Hubo un error interno, inténtelo más tarde.');
+						}//console.log(resp);
+				});
+
+	}/*else{
+		console.log('ya tiene disabled no hace nada')
+	}*/
 });
 </script>
 

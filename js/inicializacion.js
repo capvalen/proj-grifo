@@ -78,3 +78,13 @@ $("input").focus(function(){
 window.addEventListener('load',function(){
 	$('.mitooltip').tooltip();
 });
+
+
+function datosUsuario(){
+	$.ajax({ url: 'php/datosBasicosUsuario.php', type: 'POST'}).done(function (resp) {
+		$.JsonUsuario=JSON.parse(resp)[0]; //contiene los datos principales del usuario
+		//console.log($.JsonUsuario);
+	});
+	
+	
+}
