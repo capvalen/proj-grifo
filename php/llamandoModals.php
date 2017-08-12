@@ -12,41 +12,49 @@
 				<strong>Ups!</strong> <span class="spanError"></span>
 			</div>
 			<div class="row">
-				<label for="">D.N.I.</label> <span class="sr-only" id="userModalId"></span>
+				<label for="">D.N.I.</label> <span class="sr-only" id="txtModCreditoDni"></span>
 				<input type="number" class="form-control mayuscula" id="txtUsDNI">
 			</div>
 			<div class="row">
-				<label for="">Apellidos</label> <span class="sr-only" id="userModalId"></span>
+				<label for="">Apellidos</label> <span class="sr-only" id="txtModCreditoApellido"></span>
 				<input type="text" class="form-control mayuscula" id="txtUsapellido">
 			</div>
 			<div class="row">
 				<label for="">Nombres:</label>
-				<input type="text" class="form-control mayuscula" id="txtUsnombre">
+				<input type="text" class="form-control mayuscula" id="txtModCreditoNombre">
+			</div>
+			<div class="row">
+				<label for="">Comprobante:</label>
+				<input type="text" class="form-control mayuscula" id="txtModCreditoComprobante">
+			</div>
+			<div class="row">
+				<label for="">Cantidad de galones:</label>
+				<input type="text" class="form-control mayuscula" id="txtModCreditoCantidad">
 			</div>
 			<div class="row">
 				<label for="">Producto concedido a crédito:</label>
-				<div  id="divSelectProductoListado">
+				<div  id="divSelectModCreditoProducto">
 					<select class="selectpicker mayuscula slpProductos" title="Producto..."  data-width="100%" data-live-search="true">
-						<option class="optProducto mayuscula" data-tokens="aa">gas</option>
-						<option class="optProducto mayuscula" data-tokens="bb">Gasolina 84</option>
-						<option class="optProducto mayuscula" data-tokens="cc">Kerosene</option>
+						<?php require 'listarProductosNombresOption.php'; ?>
 					</select>
 				</div>
 			</div>
-			<div class="row">
+			
+			<div class="row blue-text text-accent-3">
 				<label for="">Precio por galón S/.</label>
-				<span>15.00</span>
+				<strong><span  id="spanModCreditoPrecioProd">0.00</span></strong>
 			</div>
-			<div class="row">
+			<div class="row blue-text text-accent-3">
 				<label for="">Total de crédito concedido S/.</label>
-				<span>15.00</span>
+				<strong><span  id="spanModCreditoTotal">0.00</span></strong>
 			</div>
+			<h4 class="red-text text-darken-2"><i class="icofont icofont-animal-cat-alt-4"></i><span id="spanError"></span></h4>
 			</div>
 		</div>
 			
 		<div class="modal-footer">
 			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cancelar</button>
-			<button class="btn btn-morita btn-outline" id="btnActualizarDataUser"><i class="icofont icofont-social-meetme"></i> Ingresar crédito</button></div>
+			<button class="btn btn-morita btn-outline" id="btnIngresarCreditoModal"><i class="icofont icofont-social-meetme"></i> Ingresar crédito</button></div>
 	</div>
 	</div>
 </div>
@@ -114,3 +122,4 @@
 	</div>
 	</div>
 </div>
+

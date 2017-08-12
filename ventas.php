@@ -15,13 +15,13 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Inicio: Info-Combustion</title>
+		<title>Ventas: Infocat-Grifo</title>
 
 		<!-- Bootstrap Core CSS -->
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.2" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.3" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.1">
 		<link rel="stylesheet" href="css/icofont.css">
@@ -110,7 +110,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 										<span class="form-control-clear glyphicon glyphicon-remove-circle form-control-feedback hidden"></span>
 									</div>
 								 </li>
-								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span class="mayuscula" id="menuNombreUsuario"><?php echo $_SESSION["Atiende"]; ?></span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"><?php require('php/gethora.php') ?></span> </small></a></li>
+								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span class="mayuscula" id="menuNombreUsuario"><?php echo $_SESSION["Atiende"]; ?></span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"> <?php require('php/gethora.php') ?></span> </small></a></li>
 									
 				<li class="text-center"><a href="php/desconectar.php"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-sign-out"></i></a></li>
 							</ul>
@@ -123,14 +123,15 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <!-- Page Content -->
 <div id="page-content-wrapper">
 	<div class="container-fluid">				 
-			<div class="row">
+			<div class="row ">
 				<div class="col-lg-12 contenedorDeslizable">
 				<!-- Empieza a meter contenido principal dentro de estas etiquetas -->
-				 <h2 class="purple-text text-lighten-1"><i class="icofont icofont-shopping-cart"></i> Ventas - Cuadre de caja</h2>
+				 <h2 class="purple-text text-lighten-1 hidden-print"><i class="icofont icofont-shopping-cart"></i> Ventas - Cuadre de caja</h2>
 
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs hidden-print">
 					<li class="active"><a href="#tabListaPreciosActual" data-toggle="tab">Lista de precios de productos</a></li>
-					<li><a href="#tabCuadrarCajaEmpleado" data-toggle="tab">Cuadrar caja</a></li>
+					<li><a href="#tabCuadrarCajaEmpleado" data-toggle="tab">Cuadrar caja ventas</a></li>
+					<li><a href="#tabCuadrarCajaEgreso" data-toggle="tab">Cuadrar caja egresos</a></li>
 					<li><a href="#tabExtra" data-toggle="tab">Pestaña extra</a></li>
 					
 					</ul>
@@ -148,28 +149,20 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="container-fluid">
 							<table class="table table-hover">
 							<thead>
-								<tr class="filters">
+								<tr >
+									<th>Grupo</th>
+									<th>Lado</th>
 									<th>Producto</th>
 									<th>Precio S/.</th>
 									<th>Última actualización</th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr>
+							<tbody  id="tbodyProductosListado">
+								<!-- <tr>
 									<td>Gasolina 84</td>
 									<td>11.70</td>
 									<td>Lunes, 11 Mayo 2017</td>
-								</tr>
-								<tr>
-									<td>Gas</td>
-									<td>13.80</td>
-									<td>Martes, 9 Junio 2017<td>
-								</tr>
-								<tr>
-									<td>Kerosene</td>
-									<td>15.10</td>
-									<td>Viernes, 23 Febrero 2017</td>
-								</tr>
+								</tr> -->
 							</tbody>
 							</table>
 							</div>
@@ -178,47 +171,49 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<!--Fin de pestaña 01-->
 						</div>
 
-						
-
 						<!--Panel para cuadrar caja-->
 						<div class="tab-pane fade container-fluid" id="tabCuadrarCajaEmpleado">
 						<!--Inicio de pestaña 02-->
-						<h3>Cuadrar caja del usuario: <small>Carlos Pariona</small></h3>
-						<span class="pull-left">Seleccione el grupo y luego el producto:</span>
+						<h3>Cuadre de caja del usuario: <small><?php echo $_SESSION['Atiende']; ?></small></h3>
+						<p class="visible-print"><?php require 'php/getFecha.php'; ?><?php require 'php/getHora.php'; ?></p>
+						<div class="hidden">
+							
+						<span class="pull-left">Seleccione los filtros del producto:</span>
 							<div class="col-sm-2">
 							<div  id="divSelectGrupoListado">
-								<select class="selectpicker mayuscula slpGrupos" title="Grupo..."  data-width="100%" data-live-search="true">
-									<option class="optGrupo mayuscula" data-tokens="aa">Grupo 1</option>
-									<option class="optGrupo mayuscula" data-tokens="bb">Grupo 2</option>
-									<option class="optGrupo mayuscula" data-tokens="cc">Grupo 3</option>
+								<select class="selectpicker mayuscula" title="Grupo..."  data-width="100%" data-live-search="true">
+									<?php require 'php/listarGruposOption.php' ?>
+								</select>
+							</div>
+							</div>
+							<div class="col-sm-2">
+							<div  id="divSelectLadoListado">
+								<select class="selectpicker mayuscula" title="Lado..."  data-width="100%" data-live-search="true">
+									<?php require 'php/listarLadosOption.php' ?>
 								</select>
 							</div>
 							</div>
 							<div class="col-sm-3">
 							<div  id="divSelectProductoListado">
-								<select class="selectpicker mayuscula slpProductos" title="Producto..."  data-width="100%" data-live-search="true">
-									<option class="optProducto mayuscula" data-tokens="aa">gas</option>
-									<option class="optProducto mayuscula" data-tokens="bb">Gasolina 84</option>
-									<option class="optProducto mayuscula" data-tokens="cc">Kerosene</option>
+								<select class="selectpicker mayuscula" title="Producto..."  data-width="100%" data-live-search="true">
 								</select>
 							</div>
 							</div>
 						<button class="btn btn-rosaKit btn-outline" id="btnAgregarProductoCuadrar"><i class="icofont icofont-cube"></i> Agregar producto</button>
-						<!--Fin de pestaña 02-->
+						</div>
 						
-						<div class="col-xs-12">
-							<hr>
+						<div class="col-xs-12 container-fluid">
 							<div class="row">
 								<strong>
-								<div class="col-sm-2">Producto</div>
-								<div class="col-sm-2">Precio</div>
-								<div class="col-sm-2">Cuenta anterior</div>
-								<div class="col-sm-2">Cuenta actual</div>
-								<div class="col-sm-2">Consumido</div>
-								<div class="col-sm-2">Venta</div>
+								<div class="col-xs-5 col-sm-3">Producto</div>
+								<div class="col-xs-2 col-sm-1">Precio</div>
+								<div class="col-xs-1 col-sm-1">Cuenta anterior</div>
+								<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+								<div class="col-xs-1 col-sm-1">Consumo</div>
+								<div class="col-xs-2 col-sm-2">Venta</div>
 							</strong>
 							</div>
-							<span id="spanListadoNuevosCuadres">
+							<span id="spanListadoNuevosCuadres" style="font-size: 15px;">
 								<!-- <div class="row">
 									<div class="col-sm-2"><strong>1.</strong> Grupo 1</div>
 									<div class="col-sm-3 mayuscula">Producto</div>
@@ -233,34 +228,73 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="row col-xs-8 col-xs-offset-2">
 							<div class="panel panel-negro ">
 							<div class="panel-heading">
-								<h3 class="panel-title">Resumen de cuadro</h3>
-								
+								<h3 class="panel-title">Resumen de ventas</h3>
 							</div>
 							<div class="container-fluid">
 							<div class="row">
 								<strong>
-									<div class="col-sm-3">Producto</div>
-									<div class="col-sm-3">Suma consumo</div>
-									<div class="col-sm-3">Suma ventas</div>
+									<div class="col-xs-4">Producto</div>
+									<div class="col-xs-4">Suma consumo</div>
+									<div class="col-xs-4">Suma ventas</div>
 								</strong>
 							</div>
 							<span id="spanListadoResumen">
-							
+							<div>
+								<?php require 'php/listarProdctosSoloNombresResumen.php' ?>
+							</div>
+								
 							</span>
 							<div class="row">
 								<span class="pull-right" style="padding-right: 150px"><strong >Suma Total: S/. <span id="spanSumaTotal"></span></strong></span>
 							</div>
 							</div>
 							</div>
+							<div class="row text-center">
+								<button class="btn btn-morado btn-outline hidden-print" id="btnGuardarReporte">Guardar e Imprimir reporte</button>
+							</div>
 							
-							
-						</div></div></div>
+						</div>
+						</div>
+						<!--Fin de pestaña 03--></div>
 
-						<!--Panel para -->
+						<div class="tab-pane fade container-fluid" id="tabCuadrarCajaEgreso">
+						<!--Inicio de pestaña 04-->
+						<h3>Cuadre de egresos en el turno <small><?php echo $_SESSION['Atiende']; ?></small></h3>
+							<div class="row">
+								<strong>
+								<div class="col-sm-2">N° Tipo egreso</div>
+								<div class="col-sm-4">Descripción</div>
+								<div class="col-sm-1">Monto S/.</div>
+								<div class="col-sm-2">Fecha</div>
+							</strong>
+							</div>
+							<span id="" style="font-size: 15px;">
+								<div class="row">
+									<div class="col-sm-2">1. Crédito</div>
+									<div class="col-sm-4">Se le dió al cliente Flores Ramos Roxana, 40 galones de gasolina</div>
+									<div class="col-sm-1">85.00</div>
+									<div class="col-sm-2">Lunes, 12/08/2017 8:00 am</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-2">2. Gasto</div>
+									<div class="col-sm-4">Se le entergó un adelanto de dinero a Porras Soto Miguel</div>
+									<div class="col-sm-1">28.00</div>
+									<div class="col-sm-2">Lunes, 12/08/2017 6:30 am</div>
+								</div>
+							</span>
+							<div class="row">
+							<br>
+								<div class="row text-center">
+								<button class="btn btn-morado btn-outline" id="btnGuardarReporte">Guardar e Imprimir reporte</button>
+							</div>
+							</div>
+						<!--Fin de pestaña 04-->
+						</div>
+
 						<div class="tab-pane fade container-fluid" id="tabExtra">
-						<!--Inicio de pestaña 02-->
+						<!--Inicio de pestaña 04-->
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, quis, facilis beatae recusandae optio molestias ipsam quibusdam aliquid rerum voluptatem incidunt in vero quo illo natus? Asperiores, ipsum placeat dolorum.
-						<!--Fin de pestaña 03-->
+						<!--Fin de pestaña 04-->
 						</div>
 						
 					</div>
@@ -281,17 +315,16 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js"></script>
-<script src="js/accionesGlobales.js"></script>
+<script src="js/inicializacion.js?version=1.0.1"></script>
+<script src="js/accionesGlobales.js?version=1.0.2"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>
 
 <script>
+datosUsuario();
 $(document).ready(function(){
-	
 	$('.selectpicker').selectpicker('refresh');
-
 		$('.mitooltip').tooltip();
 		$('input').keypress(function (e) {
 			if (e.keyCode == 13)
@@ -300,12 +333,40 @@ $(document).ready(function(){
 				//$(this).parent().next().children().removeAttr('disabled'); //agregar atributo desabilitado
 			} 
 		});
+	moment.locale('es');//
+	$.get({url: 'php/listarTodosProductos.php', type: 'POST'}).done(function (resp) {
+		console.log(resp)
+		$('#tbodyProductosListado').children().remove();
+		$.JsonProductosCliente=JSON.parse(resp);
+		$.each(JSON.parse(resp), function (i, dato) { //console.log(dato)
+			$('#tbodyProductosListado').append(`<tr  class='${dato.prodColorMaterialize}'>
+				<td>${dato.grupoDescripcion}</td>
+				<td>${dato.ladoCorto}</td>
+				<td><strong>${dato.prodNombre}</strong></td>
+				<td>${parseFloat(dato.prodPrecioActual).toFixed(2)}</td>
+				<td>${moment(dato.prodUltimaActualizacion).format('LLLL')}</td>
+			</tr>`);//dddd DD, MMMM YYYY hh:mm a
+/*<div class="col-xs-5 col-sm-3">Producto</div>
+								<div class="col-xs-2 col-sm-1">Precio</div>
+								<div class="col-xs-1 col-sm-1">Cuenta anterior</div>
+								<div class="col-xs-1 col-sm-1">Consumo</div>
+								<div class="col-xs-2 col-sm-2">Venta</div>*/
+			$('#spanListadoNuevosCuadres').append(`<div class="row ${dato.prodColorMaterialize}">
+				<div class="idProdConsumo hidden">${dato.idproductos}</div>
+				<div class="col-xs-5 col-sm-3 mayuscula"><strong>${i+1}. <span class="spanGrupo">${dato.grupoDescripcion}</span>, <span class="spanLado">${dato.ladoCorto}</span>, <span class="spanProducto">${dato.prodNombre}</span></strong></div>
+				<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+				<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
+				<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+				<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
+				<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
+			</div>`);
 
-
-
+		});
+		$('.mitooltip').tooltip();
+	});
 });
 
-$('#btnAgregarProductoCuadrar').click(function () {
+/*$('#btnAgregarProductoCuadrar').click(function () {
 	var index=$('#spanListadoNuevosCuadres .row').length+1;
 	var grupo= $('#divSelectGrupoListado').find('li.selected a').text();
 	var producto= $('#divSelectProductoListado').find('li.selected a').text();
@@ -316,7 +377,7 @@ $('#btnAgregarProductoCuadrar').click(function () {
 	$('#spanListadoNuevosCuadres').append(`
 		<div class="row">
 			<div class="idProdConsumo hidden">${index}</div>
-			<div class="col-sm-2 mayuscula"><strong>${index}. <span class="spanGrupo">${grupo}</span> - <span class="spanProducto">${producto}</span></strong></div>
+			<div class="col-sm-2 mayuscula"><button class=" btn btn-xs btn-default btn-outline red-text text-darken-2"><i class="icofont icofont-close"></i></span></button> ${index}. <span class="spanGrupo">${grupo}</span> - <span class="spanProducto">${producto}</span></strong></div>
 			<div class="col-sm-2 mayuscula">S/. <span class="divPrecioFijo">${precio}</span></div>
 			<div class="col-sm-2 divContadorPrevio">${contAnterior}</div>
 			<div class="col-sm-2"><input type="numeric" class="form-control txtValorNumericoConsumo" ></div>
@@ -336,13 +397,15 @@ $('#btnAgregarProductoCuadrar').click(function () {
 	}
 	}
 	
-});
+});*/
 $('#spanListadoNuevosCuadres').on('change', '.txtValorNumericoConsumo', function () {
+	var idCambiante=$(this).attr('id');
+	//console.log(idCambiante)
 	var contenedorRow=$(this).parent().parent();//.find('.idProdConsumo').text();
-	var nuevoValor=parseFloat($(this).val());
-	var precioFijo=parseFloat(contenedorRow.find('.divPrecioFijo').text());
-	var contadorPrevio=parseFloat(contenedorRow.find('.divContadorPrevio').text());
-	var productoRow=contenedorRow.find('.spanProducto').text();
+	var nuevoValor= parseFloat($(this).val());
+	var precioFijo=$.JsonProductosCliente[idCambiante].prodPrecioActual;//parseFloat(contenedorRow.find('.divPrecioFijo').text());
+	var contadorPrevio=parseFloat(contenedorRow.find('.divContadorPrevio').text()); //$.JsonProductosCliente[idCambiante].prodUltimoContador;
+	//var productoRow=contenedorRow.find('.spanProducto').text();
 
 	var consumoRealHoy=nuevoValor-contadorPrevio;
 	//console.log(precioFijo)
@@ -356,16 +419,24 @@ $('#spanListadoNuevosCuadres').on('change', '.txtValorNumericoConsumo', function
 	}
 
 	sumarTotales();
+	contenedorRow.next().find('input').focus();
+
 });
 function sumarTotales(){
 var sumaTotales=0;
+var cuantoConsumo=0, cuantoVendo=0;
 $('#spanListadoResumen .row').each( function (i, elem) {
 	var produdctoABuscar=$(elem).find('.divProducResumen').text()
+
 	var sumaParcialConsumo=0, sumaParcialVenta=0;
 	$(`#spanListadoNuevosCuadres .spanProducto:contains("${produdctoABuscar}")`).parent().parent().parent().each(function (i, arg) {
+		cuantoConsumo=parseFloat($(arg).find('.divConsumoProd').text());
+		cuantoVendo=parseFloat( $(arg).find('.divVentaConsumo').text());
+
+		if( ! isNaN(cuantoConsumo)){ sumaParcialConsumo+=cuantoConsumo; }else{cuantoConsumo=0;}
+		if( ! isNaN(cuantoVendo)){ sumaParcialVenta+=cuantoVendo; }else{cuantoConsumo=0;}
 		
-		sumaParcialConsumo+=parseFloat( $(arg).find('.divConsumoProd').text())
-		sumaParcialVenta+=parseFloat( $(arg).find('.divVentaConsumo').text())
+		
 	});
 	//console.log( produdctoABuscar+' = ' + parseFloat(sumaParcialVenta).toFixed(2) )
 	sumaTotales+=sumaParcialVenta;
@@ -374,8 +445,45 @@ $('#spanListadoResumen .row').each( function (i, elem) {
 });
 $('#spanSumaTotal').text(parseFloat(sumaTotales).toFixed(2));
 }
+
+$('#divSelectGrupoListado').on('click','.optProducto',function () {
+	//console.log('Seleccionaste: '+$(this).attr('data-tokens'));
+	$('.filter-option').addClass('mayuscula'); //Asigna mayúscula al boton de filtro
+	cmbProductoListadoLlenar();
+});
+$('#divSelectLadoListado').on('click','.optProducto',function () {
+	//console.log('Seleccionaste: '+$(this).attr('data-tokens'));
+	$('.filter-option').addClass('mayuscula'); //Asigna mayúscula al boton de filtro
+	cmbProductoListadoLlenar();
+});
+function cmbProductoListadoLlenar(){
+	$('#divSelectProductoListado option').remove();
+	$('#divSelectProductoListado selectpicker').selectpicker('destroy');
+	var grupo=$('#divSelectGrupoListado').find('li.selected a').attr('data-tokens');
+	var lado=$('#divSelectLadoListado').find('li.selected a').attr('data-tokens');
+	if(grupo==null || lado==null ){//cuando no hay nada seleccionado en el comboBox
+		//console.log('no ver ni buscar nada');
+		
+	}else{//Cuando los 3 cmbBox estan llenos
+		//console.log('algo pa ver o buscar');
+		$.ajax({url:'php/listarNombresProductos.php', type: 'POST', data: {dgrupo:grupo, dlado:lado}}).done(function (resp) {
+			$.each(JSON.parse(resp), function (i, dato) {
+				$('#divSelectProductoListado .selectpicker').append(`<option class="optProducto mayuscula" data-tokens="${dato.idproductos}">${dato.prodNombre}</option>`);
+				$('#divSelectProductoListado .selectpicker').selectpicker('refresh');
+			});
+		});
+	}
+}
+$('#btnGuardarReporte').click(function (argument) {
+	var divToPrint=document.getElementById("printTable");
+	   newWin= window.open("");
+	      newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
+});
 </script>
 
 </body>
 
 </html>
+

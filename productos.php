@@ -15,7 +15,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Inicio: Info-Combustion</title>
+		<title>Producto: Infocat-Grifo</title>
 
 		<!-- Bootstrap Core CSS -->
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -191,11 +191,12 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<table class="table table-hover">
 						<thead>
 							<tr >
-								<th>N° Producto</th>
+								<!-- <th>Grupo</th>
+								<th>Lado</th> -->
+								<th>Producto</th>
 								<th>Precio S/.</th>
+								<th>Responsable</th>
 								<th>Última actualización</th>
-								<th>Grupo</th>
-								<th>Lado</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -224,12 +225,9 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<!--Inicio de pestaña 02-->
 						<h3>Cambios registrados en el tiempo</h3>
 						<span class="pull-left">Seleccione el producto para ver los cambios</span>
-						<div class="col-sm-3">
+						<!-- <div class="col-sm-3">
 						<div  id="divSelectGrupoProListado">
 							<select class="selectpicker mayuscula" title="Grupo..."  data-width="100%" data-live-search="true"">
-								<!-- <option class="optProducto mayuscula" data-tokens="ga">grupo 1</option>
-								<option class="optProducto mayuscula" data-tokens="gb">grupo 2</option>
-								<option class="optProducto mayuscula" data-tokens="gc">grupo 3</option> -->
 							</select>
 						</div>
 						</div>
@@ -238,10 +236,11 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<select class="selectpicker mayuscula" title="Lado..."  data-width="100%" data-live-search="true"">
 							</select>
 						</div>
-						</div>
+						</div> -->
 						<div class="col-sm-3">
 						<div  id="divSelectProductoListado">
 							<select class="selectpicker mayuscula" title="Producto..."  data-width="100%" data-live-search="true"">
+								<?php require 'php/listarProductosNombresOption.php'; ?>
 							</select>
 						</div>
 						</div>
@@ -303,7 +302,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 			<div class="container-fluid">
 			
 			<div class="row">
-				<p>Se está intentando cambiar un nuevo precio a <strong id="strModalProductoChange"></strong><span id="idHideProdModalChange"></span></p>
+				<p>Se está intentando cambiar un nuevo precio a <strong id="strModalProductoChange"></strong><span class="sr-only" id="idHideProdModalChange"></span></p>
 				<label for="txtnewpriceProducto">Nuevo precio (S/.):</label>
 				<input type="number" class="form-control text-center txtNumeroDecimal" id="txtnewpriceProducto">
 				<div class="checkbox checkbox-success">
@@ -349,17 +348,18 @@ $(document).ready(function(){
 	if(existeProd==0){console.log('No hay ningún producto seleccionado')}
 	else{}
 	moment.locale('es');
-	$.get({url: 'php/listarTodosProductos.php', type: 'POST'}).done(function (resp) {
+	$.get({url: 'php/listarTodosProductosContenedor.php', type: 'POST'}).done(function (resp) {
 		//console.log(resp)
 		$('#tbodyProductosListado').children().remove();
-		$.JsonProductos=JSON.parse(resp);
+		$.JsonProductosContenedor=JSON.parse(resp);
 		$.each(JSON.parse(resp), function (i, dato) { //console.log(dato)
-			$('#tbodyProductosListado').append(`<tr  class='${dato.prodColorMaterialize}'>
-				<td><strong>${i+1}. ${dato.prodNombre}</strong></td>
-				<td>${parseFloat(dato.prodPrecioActual).toFixed(2)}</td>
+			$('#tbodyProductosListado').append(`<tr  class='${dato.contColorMaterialize}'>
+				<!--<td>${dato.grupoDescripcion}</td>
+				<td>${dato.ladoDescripcion}</td>-->
+				<td><strong>${dato.contDescripcion}</strong></td>
+				<td>${parseFloat(dato.contPrecio).toFixed(2)}</td>
+				<td>${dato.responsable}</td>-->
 				<td>${moment(dato.prodUltimaActualizacion).format('dddd DD, MMMM YYYY hh:mm a')}</td>
-				<td>${dato.grupoDescripcion}</td>
-				<td>${dato.ladoDescripcion}</td>
 				<td>
 					<button class="btn btn-morita btn-outline mitooltip btnMovilProductoEditar" id="${i}" data-toggle="tooltip" title="Editar"><i class="icofont icofont-edit"></i></button>
 					<button class="btn btn-danger btn-outline mitooltip btnMovilProductoEliminar" id="${i}" data-toggle="tooltip" title="Eliminar"><i class="icofont icofont-error"></i></button>
@@ -460,10 +460,10 @@ if(target=='#tabHistorialPrecios'){
 });
 $('#tbodyProductosListado').on('click', '.btnMovilProductoEditar', function () {
 	idProdAlterno=$(this).attr('id');//id en el JSON solicitado por primera vez de la BD
-	console.log('Intentando editar el id en Json interno:' + idProdAlterno +' ' +$.JsonProductos[idProdAlterno].prodNombre);
+	console.log('Intentando editar el id en Json interno:' + idProdAlterno +' ' +$.JsonProductosContenedor[idProdAlterno].contDescripcion);
 	//console.log($.JsonProductos)
-	$('#strModalProductoChange').text($.JsonProductos[idProdAlterno].prodNombre);
-	$('#idHideProdModalChange').text($.JsonProductos[idProdAlterno].idproductos)
+	$('#strModalProductoChange').text($.JsonProductosContenedor[idProdAlterno].contDescripcion);
+	$('#idHideProdModalChange').text($.JsonProductosContenedor[idProdAlterno].idcontenedorProductos)
 	$('.modal-editarProductoMod').modal('show');
 });
 $('.modal-editarProductoMod').on('shown.bs.modal', function() { $('#txtnewpriceProducto').focus(); });
@@ -486,7 +486,7 @@ $('#btnActualizarDataPrecioProducto').click(function () {
 							location.reload();
 						}else{
 							$('.modal-editarProductoMod #lblFalta').removeClass('sr-only').find('span').text('Hubo un error interno, inténtelo más tarde.');
-						}//console.log(resp);
+						}console.log(resp);
 				});
 
 	}/*else{

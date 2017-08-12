@@ -85,6 +85,4 @@ function datosUsuario(){
 		$.JsonUsuario=JSON.parse(resp)[0]; //contiene los datos principales del usuario
 		//console.log($.JsonUsuario);
 	});
-	
-	
 }
