@@ -21,7 +21,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.3" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.4" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.1">
 		<link rel="stylesheet" href="css/icofont.css">
@@ -316,7 +316,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js?version=1.0.1"></script>
-<script src="js/accionesGlobales.js?version=1.0.2"></script>
+<script src="js/accionesGlobales.js?version=1.0.3"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>
@@ -335,7 +335,7 @@ $(document).ready(function(){
 		});
 	moment.locale('es');//
 	$.get({url: 'php/listarTodosProductos.php', type: 'POST'}).done(function (resp) {
-		console.log(resp)
+		//console.log(resp)
 		$('#tbodyProductosListado').children().remove();
 		$.JsonProductosCliente=JSON.parse(resp);
 		$.each(JSON.parse(resp), function (i, dato) { //console.log(dato)

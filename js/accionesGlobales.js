@@ -51,3 +51,31 @@ for (var i = 0; i < $.JsonListaPreciosActualizada.length; i++) {
 	}
 }
 }
+$('#txtModCreditoDnioRUC').focusout(function () { console.log('aca')
+	if($('#txtModCreditoDnioRUC').val().length==8){
+		$('#txtModCreditoDnioRUC').prev().prev().text('D.N.I:');
+		$('#lblNombresORazon').text('Nombres y Apellidos:');}
+	if($('#txtModCreditoDnioRUC').val().length>8){
+		$('#txtModCreditoDnioRUC').prev().prev().text('R.U.C.:');
+		$('#lblNombresORazon').text('Razon Social:');}
+});
+$('#btnIngresarCreditoModal').click(function () {
+	//, txtModCreditoRazonSocial, txtModCreditoComprobante, txtModCreditoCantidad
+	var spanError=$('.modal-ingresarCredito #spanError');
+	var valor=$('#divSelectModCreditoProducto').find('li.selected a').attr('data-tokens');
+
+	if($('#txtModCreditoDnioRUC').val()==''){spanError.text('No puedes dejar el campo de DNI o RUC en blanco.'); spanError.parent().removeClass('sr-only');}
+	else if($('#txtModCreditoDnioRUC').val().length<8){spanError.text('Es un DNI inválido, revísalo por favor.'); spanError.parent().removeClass('sr-only');}
+	else if($('#txtModCreditoRazonSocial').val()==''){spanError.text('No puedes dejar el campo de Razón social o Apellidos en blanco.'); spanError.parent().removeClass('sr-only');}
+	else if($('#txtModCreditoCantidad').val()<=0){spanError.text('No puedes guardar cantidades en cero o menores'); spanError.parent().removeClass('sr-only');}
+	else if( isNaN(valor) || valor==null ){ spanError.text('Falta seleccionar un producto para el crédito'); spanError.parent().removeClass('sr-only'); }
+	else{
+		spanError.parent().addClass('sr-only');
+		// $.ajax({url: '', type: 'POST', data: {} }).done(function (resp) {
+		// 	// body...
+		// });
+	}
+
+	
+	
+});

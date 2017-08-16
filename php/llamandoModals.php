@@ -8,31 +8,24 @@
 		</div>
 		<div class="modal-body">
 			<div class="container-fluid">
-			<div class="alert alert-danger hidden">
-				<strong>Ups!</strong> <span class="spanError"></span>
+			<div class="row">
+				<label for="">D.N.I.</label>  <span class="red-text text-darken-2">*</span>
+				<input type="number" class="form-control mayuscula" id="txtModCreditoDnioRUC">
 			</div>
 			<div class="row">
-				<label for="">D.N.I.</label> <span class="sr-only" id="txtModCreditoDni"></span>
-				<input type="number" class="form-control mayuscula" id="txtUsDNI">
-			</div>
-			<div class="row">
-				<label for="">Apellidos</label> <span class="sr-only" id="txtModCreditoApellido"></span>
-				<input type="text" class="form-control mayuscula" id="txtUsapellido">
-			</div>
-			<div class="row">
-				<label for="">Nombres:</label>
-				<input type="text" class="form-control mayuscula" id="txtModCreditoNombre">
+				<label id="lblNombresORazon" for="">Nombres y Apellidos:</label> <span class="red-text text-darken-2">*</span>
+				<input type="text" class="form-control mayuscula" id="txtModCreditoRazonSocial">
 			</div>
 			<div class="row">
 				<label for="">Comprobante:</label>
 				<input type="text" class="form-control mayuscula" id="txtModCreditoComprobante">
 			</div>
 			<div class="row">
-				<label for="">Cantidad de galones:</label>
-				<input type="text" class="form-control mayuscula" id="txtModCreditoCantidad">
+				<label for="">Cantidad de galones:</label>  <span class="red-text text-darken-2">*</span>
+				<input type="number" class="form-control mayuscula text-center" id="txtModCreditoCantidad" value="0" step="1" min="1">
 			</div>
 			<div class="row">
-				<label for="">Producto concedido a crédito:</label>
+				<label for="">Producto concedido a crédito:</label> <span class="red-text text-darken-2">*</span>
 				<div  id="divSelectModCreditoProducto">
 					<select class="selectpicker mayuscula slpProductos" title="Producto..."  data-width="100%" data-live-search="true">
 						<?php require 'listarProductosNombresOption.php'; ?>
@@ -48,7 +41,7 @@
 				<label for="">Total de crédito concedido S/.</label>
 				<strong><span  id="spanModCreditoTotal">0.00</span></strong>
 			</div>
-			<h4 class="red-text text-darken-2"><i class="icofont icofont-animal-cat-alt-4"></i><span id="spanError"></span></h4>
+			<h4 class="red-text text-darken-2 sr-only"><i class="icofont icofont-animal-cat-alt-4"></i><span id="spanError">Hubo un error interno</span></h4>
 			</div>
 		</div>
 			
