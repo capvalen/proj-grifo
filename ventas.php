@@ -21,7 +21,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.4" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.5" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.1">
 		<link rel="stylesheet" href="css/icofont.css">
@@ -60,7 +60,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
 				</li>
 				<li>
-						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
+						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-ui-love-add"></i> Crédito nuevo</a>
 				</li>
 				<li>
 						<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
@@ -69,10 +69,13 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
 				</li>
 				<li>
-						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
+						<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
 				</li>
 				<li>
 						<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+				</li>
+				<li>
+						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
 				</li>
 				<li>
 						<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
@@ -131,7 +134,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 					<ul class="nav nav-tabs hidden-print">
 					<li class="active"><a href="#tabListaPreciosActual" data-toggle="tab">Lista de precios de productos</a></li>
 					<li><a href="#tabCuadrarCajaEmpleado" data-toggle="tab">Cuadrar caja ventas</a></li>
-					<li><a href="#tabCuadrarCajaEgreso" data-toggle="tab">Cuadrar caja egresos</a></li>
+					<li><a href="#tabCuadrarCajaEgreso" data-toggle="tab">Cuadrar Ingresos y Egresos</a></li>
 					<li><a href="#tabExtra" data-toggle="tab">Pestaña extra</a></li>
 					
 					</ul>
@@ -150,8 +153,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<table class="table table-hover">
 							<thead>
 								<tr >
-									<th>Grupo</th>
-									<th>Lado</th>
+									<!-- <th>Grupo</th>
+									<th>Lado</th> -->
 									<th>Producto</th>
 									<th>Precio S/.</th>
 									<th>Última actualización</th>
@@ -163,6 +166,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<td>11.70</td>
 									<td>Lunes, 11 Mayo 2017</td>
 								</tr> -->
+								<?php require 'php/listarProductosContenedorTR.php'; ?>
 							</tbody>
 							</table>
 							</div>
@@ -175,7 +179,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<div class="tab-pane fade container-fluid" id="tabCuadrarCajaEmpleado">
 						<!--Inicio de pestaña 02-->
 						<h3>Cuadre de caja del usuario: <small><?php echo $_SESSION['Atiende']; ?></small></h3>
-						<p class="visible-print"><?php require 'php/getFecha.php'; ?><?php require 'php/getHora.php'; ?></p>
+						<p class="visible-print"><?php require 'php/getFecha.php'; ?> <?php require 'php/getHora.php'; ?></p>
 						<div class="hidden">
 							
 						<span class="pull-left">Seleccione los filtros del producto:</span>
@@ -207,7 +211,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<strong>
 								<div class="col-xs-5 col-sm-3">Producto</div>
 								<div class="col-xs-2 col-sm-1">Precio</div>
-								<div class="col-xs-1 col-sm-1">Cuenta anterior</div>
+								<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
 								<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
 								<div class="col-xs-1 col-sm-1">Consumo</div>
 								<div class="col-xs-2 col-sm-2">Venta</div>
@@ -250,7 +254,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							</div>
 							</div>
 							<div class="row text-center">
-								<button class="btn btn-morado btn-outline hidden-print" id="btnGuardarReporte">Guardar e Imprimir reporte</button>
+								<button class="btn btn-morado btn-outline hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
 							</div>
 							
 						</div>
@@ -259,33 +263,43 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 						<div class="tab-pane fade container-fluid" id="tabCuadrarCajaEgreso">
 						<!--Inicio de pestaña 04-->
-						<h3>Cuadre de egresos en el turno <small><?php echo $_SESSION['Atiende']; ?></small></h3>
+						<h3>Cuadre de Ingresos Vs Egresos </h3>
+							<div class="row">
+								<div class="col-xs-6">
+									<h4>Turno <small><?php echo $_SESSION['Atiende']; ?></small></h4>
+									<h4>Fecha <small><?php require 'php/getFecha.php'; ?></small></h4>
+								</div>
+								<div class="col-xs-6"> <button class="btn btn-morado btn-outline hidden-print" id="btnRefreshIngVsEgr"><i class="icofont icofont-refresh"></i> Actualizar tabla</button></div>
+							</div>
 							<div class="row">
 								<strong>
-								<div class="col-sm-2">N° Tipo egreso</div>
-								<div class="col-sm-4">Descripción</div>
-								<div class="col-sm-1">Monto S/.</div>
-								<div class="col-sm-2">Fecha</div>
+								<div class="col-xs-2">N° Tipo</div>
+								<div class="col-xs-6">Descripción</div>
+								<div class="col-xs-1"><span class="hidden-print">Monto</span> S/.</div>
+								<div class="col-xs-3">Dia Hora</div>
 							</strong>
 							</div>
-							<span id="" style="font-size: 15px;">
+							<span id="contenidoACuadrarIngresVsEgres" >
 								<div class="row">
-									<div class="col-sm-2">1. Crédito</div>
-									<div class="col-sm-4">Se le dió al cliente Flores Ramos Roxana, 40 galones de gasolina</div>
-									<div class="col-sm-1">85.00</div>
-									<div class="col-sm-2">Lunes, 12/08/2017 8:00 am</div>
+									<div class="col-xs-12"><p class="text-muted">Aún no hay datos, pulse el boton de actualizar</p></div>
+								</div>
+								<!-- <div class="row">
+									<div class="col-xs-2">1. Crédito</div>
+									<div class="col-xs-7">Se le dió al cliente Flores Ramos Roxana, 40 galones de gasolina</div>
+									<div class="col-xs-1">85.00</div>
+									<div class="col-xs-2">8:00 am</div>
 								</div>
 								<div class="row">
-									<div class="col-sm-2">2. Gasto</div>
-									<div class="col-sm-4">Se le entergó un adelanto de dinero a Porras Soto Miguel</div>
-									<div class="col-sm-1">28.00</div>
-									<div class="col-sm-2">Lunes, 12/08/2017 6:30 am</div>
-								</div>
+									<div class="col-xs-2">2. Gasto</div>
+									<div class="col-xs-7">Se le entergó un adelanto de dinero a Porras Soto Miguel</div>
+									<div class="col-xs-1">28.00</div>
+									<div class="col-xs-2">6:30 am</div>
+								</div> -->
 							</span>
 							<div class="row">
 							<br>
 								<div class="row text-center">
-								<button class="btn btn-morado btn-outline" id="btnGuardarReporte">Guardar e Imprimir reporte</button>
+								<button class="btn btn-morado btn-outline hidden-print sr-only" id="btnGuardarReporteIngresoVsEgreso"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
 							</div>
 							</div>
 						<!--Fin de pestaña 04-->
@@ -316,10 +330,10 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js?version=1.0.1"></script>
-<script src="js/accionesGlobales.js?version=1.0.3"></script>
+<script src="js/accionesGlobales.js?version=1.0.7"></script>
 <script src="js/bootstrap-select.js"></script>
-<script src="js/bootstrap-datepicker.min.js"></script>
-<script src="js/bootstrap-datepicker.es.min.js"></script>
+<!-- <script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/bootstrap-datepicker.es.min.js"></script> -->
 
 <script>
 datosUsuario();
@@ -333,29 +347,39 @@ $(document).ready(function(){
 				//$(this).parent().next().children().removeAttr('disabled'); //agregar atributo desabilitado
 			} 
 		});
-	moment.locale('es');//
+	moment.locale('es');
+	$.each($('#tbodyProductosListado .fecha'), function (i, dato2) {
+		var fechaNue=moment($(dato2).text());
+		$(this).text( fechaNue.format('LLLL'));
+		});
+/*	$('#tbodyProductosListado').children().remove();
+	$.get({url:'php/listarTodosProductosContenedor.php', type: 'POST'}).done(function (resp) {
+		$.each(JSON.parse(resp), function (i, dato2) { console.log(dato2)
+			$('#tbodyProductosListado').append(`<tr  class='${dato2.contColorMaterialize}'>
+				<!--<td>${dato2.grupoDescripcion}</td>
+				<td>${dato2.ladoDescripcion}</td>-->
+				<td><strong>${dato2.contDescripcion}</strong></td>
+				<td>${parseFloat(dato2.contPrecio).toFixed(2)}</td>
+				<td>${moment(dato2.contUltimaFecha).format('LLLL')}</td>
+			</tr>`);//dddd DD, MMMM YYYY hh:mm a
+		});
+	});*/
 	$.get({url: 'php/listarTodosProductos.php', type: 'POST'}).done(function (resp) {
 		//console.log(resp)
-		$('#tbodyProductosListado').children().remove();
+		
 		$.JsonProductosCliente=JSON.parse(resp);
-		$.each(JSON.parse(resp), function (i, dato) { //console.log(dato)
-			$('#tbodyProductosListado').append(`<tr  class='${dato.prodColorMaterialize}'>
-				<td>${dato.grupoDescripcion}</td>
-				<td>${dato.ladoCorto}</td>
-				<td><strong>${dato.prodNombre}</strong></td>
-				<td>${parseFloat(dato.prodPrecioActual).toFixed(2)}</td>
-				<td>${moment(dato.prodUltimaActualizacion).format('LLLL')}</td>
-			</tr>`);//dddd DD, MMMM YYYY hh:mm a
-/*<div class="col-xs-5 col-sm-3">Producto</div>
-								<div class="col-xs-2 col-sm-1">Precio</div>
-								<div class="col-xs-1 col-sm-1">Cuenta anterior</div>
-								<div class="col-xs-1 col-sm-1">Consumo</div>
-								<div class="col-xs-2 col-sm-2">Venta</div>*/
+		$.each(JSON.parse(resp), function (i, dato) { // console.log(dato)
+				/*<div class="col-xs-5 col-sm-3">Producto</div>
+					<div class="col-xs-2 col-sm-1">Precio</div>
+					<div class="col-xs-1 col-sm-1">Cuenta anterior</div>
+					<div class="col-xs-1 col-sm-1">Consumo</div>
+					<div class="col-xs-2 col-sm-2">Venta</div>
+					Math.round(Math.random() * (900000 - 100000) + 100000) || dato.prodUltimoContador ------------ */
 			$('#spanListadoNuevosCuadres').append(`<div class="row ${dato.prodColorMaterialize}">
 				<div class="idProdConsumo hidden">${dato.idproductos}</div>
 				<div class="col-xs-5 col-sm-3 mayuscula"><strong>${i+1}. <span class="spanGrupo">${dato.grupoDescripcion}</span>, <span class="spanLado">${dato.ladoCorto}</span>, <span class="spanProducto">${dato.prodNombre}</span></strong></div>
 				<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-				<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
+				<div class="col-xs-1 col-sm-2 divContadorPrevio">${dato.prodUltimoContador}</div>
 				<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
 				<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 				<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
@@ -474,8 +498,49 @@ function cmbProductoListadoLlenar(){
 		});
 	}
 }
-$('#btnGuardarReporte').click(function (argument) {
+$('#btnGuardarReporte').click(function () {
 	window.print();
+});
+$('#btnGuardarReporteIngresoVsEgreso').click(function () {
+	var ids=''; cadena='';
+	$.each( $('#contenidoACuadrarIngresVsEgres .idCaja'), function (i, elem) {
+		
+		ids  = ids+ $(elem).text() +',';
+	});
+	cadena=ids.substring(0, ids.length-1);
+	console.log(cadena);
+	$.ajax({url: 'php/actualizarCajaImpresion.php', type: 'POST', data: {Losids: cadena }}).done(function (resp) {
+		console.log(resp)
+		if(resp=='1'){window.print();}
+		else{$('.modal-GuardadoError').modal('show');}
+	});
+});
+$('#btnRefreshIngVsEgr').click(function () {
+	$('#contenidoACuadrarIngresVsEgres').children().remove();
+
+	var sumaIngreso=0, sumaEgreso=0, sumaCredito=0;
+	$.ajax({url: 'php/listarCajaPorUsuario.php', type: 'POST', data:{ idUser: $.JsonUsuario.idUsuario}}).done(function (resp) {
+		elemento=JSON.parse(resp); //console.log(elemento);
+		$.each(elemento, function (i, dato) {
+
+			switch(dato.idTipoProceso){
+				case "3": sumaCredito+=parseFloat(dato.cajaMonto) ;break; //es credito
+				case "5": sumaEgreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
+				case "6": sumaIngreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
+			}
+			$('#contenidoACuadrarIngresVsEgres').append(`<div class="row">
+					<div class="idCaja sr-only">${dato.idcaja}</div>
+					<div class="col-xs-2">${i+1}. ${dato.tipoDescripcion}</div>
+					<div class="col-xs-6 mayuscula">${dato.cajaDescripcion}</div>
+					<div class="col-xs-1">${parseFloat(dato.cajaMonto).toFixed(2)}</div>
+					<div class="col-xs-3">${moment(dato.cajaFecha).format('dddd h:mm a')}</div>`);
+		});
+		$('#contenidoACuadrarIngresVsEgres').append(`
+			<div class="col-xs-4"><strong>Ingresos ${parseFloat(sumaIngreso).toFixed(2)}</strong></div>
+			<div class="col-xs-4"><strong>Gastos ${parseFloat(sumaEgreso).toFixed(2)}</strong></div>
+			<div class="col-xs-4"><strong>Créditos ${parseFloat(sumaCredito).toFixed(2)}</strong></div>`);
+		$('#btnGuardarReporteIngresoVsEgreso').removeClass('sr-only');
+	});
 });
 </script>
 

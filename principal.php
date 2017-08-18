@@ -21,7 +21,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.1" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.5" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.2">
 		<link rel="stylesheet" href="css/icofont.css">
@@ -58,22 +58,25 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
 				</li>
 				<li>
-						<a href="ventas.php"><i class="icofont icofont-cart"></i> Cuadrar caja</a>
+						<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
 				</li>
 				<li>
-						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
+						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-ui-love-add"></i> Crédito nuevo</a>
 				</li>
 				<li>
 						<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
 				</li>
-				<li >
+				<li>
 						<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
 				</li>
 				<li>
-						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
+						<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
 				</li>
 				<li>
 						<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+				</li>
+				<li>
+						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
 				</li>
 				<li>
 						<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
@@ -253,7 +256,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js?version=1.0.1"></script>
-<script src="js/accionesGlobales.js"></script>
+<script src="js/accionesGlobales.js?version=1.0.7"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>
