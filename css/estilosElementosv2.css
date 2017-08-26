@@ -152,7 +152,7 @@ h2{margin-top: 0px; } .breadcrumb{margin-bottom: 10px; }
 
 .btnEliminarCode{margin-right: 8px; margin-bottom: 3px}
 .form-control[disabled]{cursor: default;}
-#spanListadoNuevosCuadres>.row{padding-top: 5px;}
+#spanPremierB>.row, #spanPremierC>.row, #spanSurtidorGas>.row {padding-top: 5px;}
 .modal-ingresarCredito .row{padding-top: 10px;}
 
 

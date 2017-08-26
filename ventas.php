@@ -21,7 +21,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.5" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.7" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.1">
 		<link rel="stylesheet" href="css/icofont.css">
@@ -36,6 +36,11 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 </head>
 
 <body>
+<style>
+	@media print {
+		.tab-pane, h3{padding: 0px; margin: 0px;}
+}
+</style>
 
 <div id="wrapper">
 
@@ -206,16 +211,79 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<button class="btn btn-rosaKit btn-outline" id="btnAgregarProductoCuadrar"><i class="icofont icofont-cube"></i> Agregar producto</button>
 						</div>
 						
-						<div class="col-xs-12 container-fluid">
-							<div class="row">
+						<div class="col-xs-12 container">
+							<!-- <div class="row">
 								<strong>
-								<div class="col-xs-5 col-sm-3">Producto</div>
-								<div class="col-xs-2 col-sm-1">Precio</div>
-								<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
-								<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-								<div class="col-xs-1 col-sm-1">Consumo</div>
-								<div class="col-xs-2 col-sm-2">Venta</div>
-							</strong>
+									<div class="col-xs-5 col-sm-3">Producto</div>
+									<div class="col-xs-2 col-sm-1">Precio</div>
+									<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-2 col-sm-2">Venta</div>
+								</strong>
+							</div> -->
+						<div class="panel panel-morado">
+							<div class="panel-heading">
+								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier B</strong></h3>
+							</div>
+							<div class="container" style="padding-bottom: 10px;">
+								<div class="row" style="padding-top: 5px;">
+								<strong>
+									<div class="col-xs-3 col-sm-2">Producto</div>
+									<div class="col-xs-2 col-sm-1">Precio</div>
+									<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-2 col-sm-2">Venta</div>
+								</strong>
+								</div>
+							<span id="spanPremierB" style="font-size: 15px;">
+								
+							</span>
+							</div>
+
+						</div>
+						<div class="panel panel-morado">
+							<div class="panel-heading">
+								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier C</strong></h3>
+							</div>
+							<div class="container" style="padding-bottom: 10px;">
+							<div class="row" style="padding-top: 5px;">
+								<strong>
+									<div class="col-xs-3 col-sm-2">Producto</div>
+									<div class="col-xs-2 col-sm-1">Precio</div>
+									<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-2 col-sm-2">Venta</div>
+								</strong>
+							</div>
+							<span id="spanPremierC" style="font-size: 15px;">
+								
+							</span>
+							</div>
+
+						</div>
+							<div class="panel panel-morado">
+								<div class="panel-heading">
+									<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Surtidor de Gas</strong></h3>
+								</div>
+								<div class="container" style="padding-bottom: 10px;">
+									<div class="row" style="padding-top: 5px;">
+									<strong>
+										<div class="col-xs-3 col-sm-2">Producto</div>
+										<div class="col-xs-2 col-sm-1">Precio</div>
+										<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+										<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+										<div class="col-xs-1 col-sm-1">Consumo</div>
+										<div class="col-xs-2 col-sm-2">Venta</div>
+									</strong>
+									</div>
+								<span id="spanSurtidorGas" style="font-size: 15px;">
+									
+								</span>
+								</div>
+
 							</div>
 							<span id="spanListadoNuevosCuadres" style="font-size: 15px;">
 								<!-- <div class="row">
@@ -368,6 +436,7 @@ $(document).ready(function(){
 		//console.log(resp)
 		
 		$.JsonProductosCliente=JSON.parse(resp);
+		$('#spanPremierB').children().remove();$('#spanPremierC').children().remove();$('#spanSurtidorGas').children().remove();
 		$.each(JSON.parse(resp), function (i, dato) { // console.log(dato)
 				/*<div class="col-xs-5 col-sm-3">Producto</div>
 					<div class="col-xs-2 col-sm-1">Precio</div>
@@ -375,15 +444,50 @@ $(document).ready(function(){
 					<div class="col-xs-1 col-sm-1">Consumo</div>
 					<div class="col-xs-2 col-sm-2">Venta</div>
 					Math.round(Math.random() * (900000 - 100000) + 100000) || dato.prodUltimoContador ------------ */
-			$('#spanListadoNuevosCuadres').append(`<div class="row ${dato.prodColorMaterialize}">
+			/*$('#spanListadoNuevosCuadres').append(`<div class="row ${dato.prodColorMaterialize}">
 				<div class="idProdConsumo hidden">${dato.idproductos}</div>
-				<div class="col-xs-5 col-sm-3 mayuscula"><strong>${i+1}. <span class="spanGrupo">${dato.grupoDescripcion}</span>, <span class="spanLado">${dato.ladoCorto}</span>, <span class="spanProducto">${dato.prodNombre}</span></strong></div>
+				<div class="col-xs-5 col-sm-3 mayuscula"><strong>${i+1}. <span class="spanGrupo">${dato.grupoDescripcion}</span>, <span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 				<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-				<div class="col-xs-1 col-sm-2 divContadorPrevio">${dato.prodUltimoContador}</div>
+				<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
 				<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
 				<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 				<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
-			</div>`);
+			</div>`);*/
+			switch(dato.grupoDescripcion){
+				case 'Premier B': 
+					$('#spanPremierB').append(`<div class="row ${dato.prodColorMaterialize}">
+						<div class="idProdConsumo hidden">${dato.idproductos}</div>
+						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierB .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
+						<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+						<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
+						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
+						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
+						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
+					</div>`); break;
+				case 'Premier C': 
+					$('#spanPremierC').append(`<div class="row ${dato.prodColorMaterialize}">
+						<div class="idProdConsumo hidden">${dato.idproductos}</div>
+						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierC .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
+						<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+						<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
+						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
+						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
+						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
+					</div>`); break;
+				case 'Surtidor de Gas':
+					$('#spanSurtidorGas').append(`<div class="row ${dato.prodColorMaterialize}">
+						<div class="idProdConsumo hidden">${dato.idproductos}</div>
+						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
+						<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+						<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
+						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
+						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
+						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
+					</div>`); break;
+			}
 
 		});
 		$('.mitooltip').tooltip();
