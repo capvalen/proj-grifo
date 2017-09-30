@@ -22,9 +22,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 		<!-- Custom CSS -->
 		<link href="css/estilosElementosv2.css?version=1.0.5" rel="stylesheet">
-		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
+		<link href="css/sidebarDeslizable.css?version=1.0.2" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.2">
-		<link rel="stylesheet" href="css/icofont.css">
 		<link rel="stylesheet" href="css/animate.css">
 		<link rel="stylesheet" href="css/pacifico.css">
 
@@ -43,44 +42,44 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
-				<div class="sidebar-brand ocultar-mostrar-menu" >
-						<a href="#">
-								Control Panel
-						</a>
-				</div>
-				<div class="logoEmpresa ocultar-mostrar-menu">
-					<img class="img-responsive" src="images/empresa.png" alt="">
-				</div>
-				<li class="active">
-						<a href="principal.php"><i class="icofont icofont-space-shuttle"></i> Inicio</a>
-				</li>
-				<li>
-						<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
-				</li>
-				<li>
-						<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
-				</li>
-				<li>
-						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-ui-love-add"></i> Crédito nuevo</a>
-				</li>
-				<li>
-						<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
-				</li>
-				<li>
-						<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
-				</li>
-				<li>
-						<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
-				</li>
-				<li>
-						<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
-				</li>
-				<li>
-						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
-				</li>
-				<li>
-						<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
-				</li>
+			<div class="sidebar-brand ocultar-mostrar-menu" >
+					<a href="#">
+							Control Panel
+					</a>
+			</div>
+			<div class="logoEmpresa ocultar-mostrar-menu">
+				<img class="img-responsive" src="images/empresa.png" alt="">
+			</div>
+			<li class="active">
+					<a href="principal.php"><i class="icofont icofont-space-shuttle"></i> Inicio</a>
+			</li>
+			<li>
+					<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
+			</li>
+			<li>
+					<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
+			</li>
+			<li>
+					<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-ui-love-add"></i> Crédito nuevo</a>
+			</li>
+			<li>
+					<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
+			</li>
+			<li>
+					<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
+			</li>
+			<li>
+					<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
+			</li>
+			<li>
+					<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+			</li>
+			<li>
+					<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
+			</li>
+			<li>
+					<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
+			</li>
 		</ul>
 	</div>
 			<!-- /#sidebar-wrapper -->

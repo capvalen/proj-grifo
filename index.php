@@ -16,7 +16,7 @@ if (isset($_SESSION['usuario'])){
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/inicio.css?version=1.0" rel="stylesheet">
 	<link href="css/animate.css" rel="stylesheet">
-	<title>Info-Farma: Inicio Sesión</title>
+	<title>Bienvenido: Infocat-Grifo</title>
 	<link rel="shortcut icon" href="images/peto.png" />
 	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 
