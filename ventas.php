@@ -22,8 +22,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 		<!-- Custom CSS -->
 		<link href="css/estilosElementosv2.css?version=1.0.7" rel="stylesheet">
-		<link href="css/sidebarDeslizable.css?version=1.0.2" rel="stylesheet">
-		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.1">
+		<link href="css/sidebarDeslizable.css?version=1.0.4" rel="stylesheet">
+		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.3">
 		<link rel="stylesheet" href="css/icofont.css">
 		<link rel="stylesheet" href="css/animate.css">
 
@@ -37,8 +37,16 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 <body>
 <style>
-	@media print {
+@media print {
 		.tab-pane, h3{padding: 0px; margin: 0px;}
+}
+.panel-morado .col-xs-1 {
+	padding-left: 0px; padding-right: 0px;
+	width: 10%;
+}
+.panel-morado .col-xs-3 {
+	padding-left: 15px; padding-right: 0px;
+	width: 30%;
 }
 </style>
 
@@ -77,7 +85,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
 				</li>
 				<li>
-						<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+						<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
 				</li>
 				<li>
 						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
@@ -230,14 +238,14 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<div class="row" style="padding-top: 5px;">
 								<strong>
 									<div class="col-xs-3 col-sm-2">Producto</div>
-									<div class="col-xs-2 col-sm-1">Precio</div>
-									<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-1 col-sm-1">Precio</div>
+									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
 									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
 									<div class="col-xs-1 col-sm-1">Consumo</div>
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 								</div>
-							<span id="spanPremierB" style="font-size: 15px;">
+							<span class="spanSurtidores" id="spanPremierB" style="font-size: 15px;">
 								
 							</span>
 							</div>
@@ -251,81 +259,142 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="row" style="padding-top: 5px;">
 								<strong>
 									<div class="col-xs-3 col-sm-2">Producto</div>
-									<div class="col-xs-2 col-sm-1">Precio</div>
-									<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-1 col-sm-1">Precio</div>
+									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
 									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
 									<div class="col-xs-1 col-sm-1">Consumo</div>
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 							</div>
-							<span id="spanPremierC" style="font-size: 15px;">
+							<span class="spanSurtidores" id="spanPremierC" style="font-size: 15px;">
 								
 							</span>
 							</div>
 
 						</div>
-							<div class="panel panel-morado">
-								<div class="panel-heading">
-									<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Surtidor de Gas</strong></h3>
-								</div>
-								<div class="container" style="padding-bottom: 10px;">
-									<div class="row" style="padding-top: 5px;">
-									<strong>
-										<div class="col-xs-3 col-sm-2">Producto</div>
-										<div class="col-xs-2 col-sm-1">Precio</div>
-										<div class="col-xs-1 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
-										<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-										<div class="col-xs-1 col-sm-1">Consumo</div>
-										<div class="col-xs-2 col-sm-2">Venta</div>
-									</strong>
-									</div>
-								<span id="spanSurtidorGas" style="font-size: 15px;">
-									
-								</span>
-								</div>
-
-							</div>
-							<span id="spanListadoNuevosCuadres" style="font-size: 15px;">
-								<!-- <div class="row">
-									<div class="col-sm-2"><strong>1.</strong> Grupo 1</div>
-									<div class="col-sm-3 mayuscula">Producto</div>
-									<div class="col-sm-2 mayuscula">S/. 14.50</div>
-									<div class="col-sm-2">1456930</div>
-									<div class="col-sm-3"><input type="numeric" class="form-control"></div>
-								</div> -->
-							</span>
-							
-							
-							<hr>
-							<div class="row col-xs-8 col-xs-offset-2">
-							<div class="panel panel-negro ">
+						<div class="panel panel-morado">
 							<div class="panel-heading">
-								<h3 class="panel-title">Resumen de ventas</h3>
+								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Surtidor de Gas</strong></h3>
 							</div>
-							<div class="container-fluid">
-							<div class="row">
+							<div class="container" style="padding-bottom: 10px;">
+								<div class="row" style="padding-top: 5px;">
 								<strong>
-									<div class="col-xs-4">Producto</div>
-									<div class="col-xs-4">Suma consumo</div>
-									<div class="col-xs-4">Suma ventas</div>
+									<div class="col-xs-3 col-sm-2">Producto</div>
+									<div class="col-xs-1 col-sm-1">Precio</div>
+									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
-							</div>
-							<span id="spanListadoResumen">
-							<div>
-								<?php require 'php/listarProdctosSoloNombresResumen.php' ?>
-							</div>
+								</div>
+							<span class="spanSurtidores" id="spanSurtidorGas" style="font-size: 15px;">
 								
 							</span>
-							<div class="row">
-								<span class="pull-right" style="padding-right: 150px"><strong >Suma Total: S/. <span id="spanSumaTotal"></span></strong></span>
 							</div>
+
+						</div>
+						<span id="spanListadoNuevosCuadres" style="font-size: 15px;">
+							<!-- <div class="row">
+								<div class="col-sm-2"><strong>1.</strong> Grupo 1</div>
+								<div class="col-sm-3 mayuscula">Producto</div>
+								<div class="col-sm-2 mayuscula">S/. 14.50</div>
+								<div class="col-sm-2">1456930</div>
+								<div class="col-sm-3"><input type="numeric" class="form-control"></div>
+							</div> -->
+						</span>
+						
+						<div class="panel panel-morado">
+							<div class="panel-heading">
+								<h3 class="panel-title"><i class="icofont icofont-growth"></i> <strong>Ingresos vs Egresos</strong> <button class="btn btn-default btn-outline hidden-print pull-right" id="btnRefreshIngVsEgr" style="margin-top: -7px;"><i class="icofont icofont-refresh"></i> Generar resumen</button></h3> 
 							</div>
+							<div class="container"  style="padding-bottom: 10px;">
+								<div style="padding-top: 5px; padding-left: 5px">
+									<div class="row">
+										<strong>
+										<div class="col-xs-1">N° Tipo</div>
+										<div class="col-xs-6">Descripción</div>
+										<div class="col-xs-1"><span class="hidden-print">Monto</span> S/.</div>
+										<div class="col-xs-3">Dia Hora</div>
+									</strong>
+									</div>
+									<span id="contenidoACuadrarIngresVsEgres" >
+										<div class="row">
+											<div class="col-xs-12"><p class="text-muted">Aún no hay datos, pulse el boton de actualizar</p></div>
+										</div>
+										<!-- <div class="row">
+											<div class="col-xs-2">1. Crédito</div>
+											<div class="col-xs-7">Se le dió al cliente Flores Ramos Roxana, 40 galones de gasolina</div>
+											<div class="col-xs-1">85.00</div>
+											<div class="col-xs-2">8:00 am</div>
+										</div>
+										<div class="row">
+											<div class="col-xs-2">2. Gasto</div>
+											<div class="col-xs-7">Se le entergó un adelanto de dinero a Porras Soto Miguel</div>
+											<div class="col-xs-1">28.00</div>
+											<div class="col-xs-2">6:30 am</div>
+										</div> -->
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12 col-sm-4">
+								<div class="panel panel-negro">
+									<div class="panel-heading">
+										<h3 class="panel-title">Resumen de Caja chica</h3>
+									</div>
+									<div class="panel-body">
+										<div class="col-xs-7">
+											<p>Ingresos</p>
+											<p>Gastos</p>
+											<p>Créditos</p>
+											<p><strong>Suma:</strong></p>
+										</div>
+										<div class="col-xs-5">
+											<p>S/. <span id="spanPanelResumenIngresos">0.00</span></p>
+											<p>S/. <span id="spanPanelResumenGastos">0.00</span></p>
+											<p>S/. <span id="spanPanelResumenCreditos">0.00</span></p>
+											<p><strong>S/. <span id="spanPanelSumaTotalChica">0.00</span></strong></p>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8">
+								<div class="panel panel-negro ">
+								<div class="panel-heading">
+									<h3 class="panel-title">Resumen de ventas</h3>
+								</div>
+								<div class="panel-body">
+								<div class="row">
+									<strong>
+										<div class="col-xs-4">Producto</div>
+										<div class="col-xs-4">Suma consumo</div>
+										<div class="col-xs-4">Suma ventas</div>
+									</strong>
+								</div>
+								<span id="spanListadoResumen">
+								<div>
+									<?php require 'php/listarProdctosSoloNombresResumen.php' ?>
+								</div>
+									
+								</span>
+								<div class="row"><strong>
+									<div class="col-xs-4">Sumas</div>
+									<div class="col-xs-4"><span id="spanSumaCantidades">0</span> gl.</div>
+									<div class="col-xs-4"><span id="spanSumaTotal">0.00</span></div></strong>
+								</div>
+								</div>
+								</div>
+								
+								
 							</div>
 							<div class="row text-center">
 								<button class="btn btn-morado btn-outline hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
 							</div>
-							
 						</div>
+						
 						</div>
 						<!--Fin de pestaña 03--></div>
 
@@ -337,7 +406,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<h4>Turno <small><?php echo $_SESSION['Atiende']; ?></small></h4>
 									<h4>Fecha <small><?php require 'php/getFecha.php'; ?></small></h4>
 								</div>
-								<div class="col-xs-6"> <button class="btn btn-morado btn-outline hidden-print" id="btnRefreshIngVsEgr"><i class="icofont icofont-refresh"></i> Actualizar tabla</button></div>
+								<div class="col-xs-6"> <button class="btn btn-morado btn-outline hidden-print" id="btnRefreshIngVsEgr2"><i class="icofont icofont-refresh"></i> Actualizar tabla</button></div>
 							</div>
 							<div class="row">
 								<strong>
@@ -347,7 +416,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<div class="col-xs-3">Dia Hora</div>
 							</strong>
 							</div>
-							<span id="contenidoACuadrarIngresVsEgres" >
+							<span id="contenidoACuadrarIngresVsEgres2" >
 								<div class="row">
 									<div class="col-xs-12"><p class="text-muted">Aún no hay datos, pulse el boton de actualizar</p></div>
 								</div>
@@ -453,13 +522,13 @@ $(document).ready(function(){
 				<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 				<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
 			</div>`);*/
-			switch(dato.grupoDescripcion){
+			switch(dato.grupoDescripcion){ /*${Math.round(Math.random() * (900000 - 100000) + 100000)}*/
 				case 'Premier B': 
 					$('#spanPremierB').append(`<div class="row ${dato.prodColorMaterialize}">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierB .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
-						<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
+						<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">0</div>
 						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
@@ -469,8 +538,8 @@ $(document).ready(function(){
 					$('#spanPremierC').append(`<div class="row ${dato.prodColorMaterialize}">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierC .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
-						<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
+						<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">0</div>
 						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
@@ -479,13 +548,13 @@ $(document).ready(function(){
 				case 'Surtidor de Gas':
 					$('#spanSurtidorGas').append(`<div class="row ${dato.prodColorMaterialize}">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
-						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
-						<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
-						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
-						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
-						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
-						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
+						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
+						<div class="col-md-1 col-xs-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+						<div class="col-md-2 col-xs-2 divContadorPrevio text-center">0</div>
+						<div class="col-md-2 col-xs-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+						<div class="col-md-2 col-xs-2 visible-print divCuentaNueva">S/. -</div>
+						<div class="col-md-1 col-xs-1 divConsumoProd">-</div>
+						<div class="col-md-2 col-xs-2 divVentaConsumo">S/. -</div>
 					</div>`); break;
 			}
 
@@ -526,7 +595,7 @@ $(document).ready(function(){
 	}
 	
 });*/
-$('#spanListadoNuevosCuadres').on('change', '.txtValorNumericoConsumo', function () {
+$('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('cambio')
 	var idCambiante=$(this).attr('id');
 	//console.log(idCambiante)
 	var contenedorRow=$(this).parent().parent();//.find('.idProdConsumo').text();
@@ -551,27 +620,29 @@ $('#spanListadoNuevosCuadres').on('change', '.txtValorNumericoConsumo', function
 
 });
 function sumarTotales(){
-var sumaTotales=0;
-var cuantoConsumo=0, cuantoVendo=0;
-$('#spanListadoResumen .row').each( function (i, elem) {
-	var produdctoABuscar=$(elem).find('.divProducResumen').text()
+	var sumaTotales=0, sumaConsumo=0;
+	var cuantoConsumo=0, cuantoVendo=0;
+	$('#spanListadoResumen .row').each( function (i, elem) { 
+		var produdctoABuscar=$(elem).find('.divProducResumen').text();
 
-	var sumaParcialConsumo=0, sumaParcialVenta=0;
-	$(`#spanListadoNuevosCuadres .spanProducto:contains("${produdctoABuscar}")`).parent().parent().parent().each(function (i, arg) {
-		cuantoConsumo=parseFloat($(arg).find('.divConsumoProd').text());
-		cuantoVendo=parseFloat( $(arg).find('.divVentaConsumo').text());
+		var sumaParcialConsumo=0, sumaParcialVenta=0;
+		$(`.spanSurtidores .spanProducto:contains("${produdctoABuscar}")`).parent().parent().parent().parent().each(function (i, arg) {
+			cuantoConsumo=parseFloat($(arg).find('.divConsumoProd').text());
+			cuantoVendo=parseFloat( $(arg).find('.divVentaConsumo').text());
 
-		if( ! isNaN(cuantoConsumo)){ sumaParcialConsumo+=cuantoConsumo; }else{cuantoConsumo=0;}
-		if( ! isNaN(cuantoVendo)){ sumaParcialVenta+=cuantoVendo; }else{cuantoConsumo=0;}
-		
-		
+			if( ! isNaN(cuantoConsumo)){ sumaParcialConsumo+=cuantoConsumo; sumaConsumo+=sumaParcialConsumo }else{cuantoConsumo=0;}
+			if( ! isNaN(cuantoVendo)){ sumaParcialVenta+=cuantoVendo; }else{cuantoConsumo=0;}
+			
+			
+		});
+		//console.log( produdctoABuscar+' = ' + parseFloat(sumaParcialVenta).toFixed(2) )
+		sumaTotales+=sumaParcialVenta;
+		$(elem).find('#spanSumaFinalConsumo').text(sumaParcialConsumo);
+		$(elem).find('#spanSumaFinalMontos').text(parseFloat(sumaParcialVenta).toFixed(2));
 	});
-	//console.log( produdctoABuscar+' = ' + parseFloat(sumaParcialVenta).toFixed(2) )
-	sumaTotales+=sumaParcialVenta;
-	$(elem).find('#spanSumaFinalConsumo').text(sumaParcialConsumo);
-	$(elem).find('#spanSumaFinalMontos').text(parseFloat(sumaParcialVenta).toFixed(2));
-});
-$('#spanSumaTotal').text(parseFloat(sumaTotales).toFixed(2));
+	$('#spanSumaTotal').text(parseFloat(sumaTotales).toFixed(2));
+	$('#spanSumaCantidades').text(parseFloat(sumaConsumo).toFixed(2));
+
 }
 
 $('#divSelectGrupoListado').on('click','.optProducto',function () {
@@ -634,21 +705,23 @@ $('#btnRefreshIngVsEgr').click(function () {
 			}
 			$('#contenidoACuadrarIngresVsEgres').append(`<div class="row">
 					<div class="idCaja sr-only">${dato.idcaja}</div>
-					<div class="col-xs-2">${i+1}. ${dato.tipoDescripcion}</div>
+					<div class="col-xs-1">${i+1}. ${dato.tipoDescripcion}</div>
 					<div class="col-xs-6 mayuscula">${dato.cajaDescripcion}</div>
 					<div class="col-xs-1">${parseFloat(dato.cajaMonto).toFixed(2)}</div>
 					<div class="col-xs-3">${moment(dato.cajaFecha).format('dddd h:mm a')}</div>`);
 		});
-		$('#contenidoACuadrarIngresVsEgres').append(`
-			<div class="col-xs-4"><strong>Ingresos ${parseFloat(sumaIngreso).toFixed(2)}</strong></div>
-			<div class="col-xs-4"><strong>Gastos ${parseFloat(sumaEgreso).toFixed(2)}</strong></div>
-			<div class="col-xs-4"><strong>Créditos ${parseFloat(sumaCredito).toFixed(2)}</strong></div>`);
-		$('#btnGuardarReporteIngresoVsEgreso').removeClass('sr-only');
+		$('#spanPanelResumenIngresos').text(parseFloat(sumaIngreso).toFixed(2));
+		$('#spanPanelResumenGastos').text(parseFloat(sumaEgreso).toFixed(2));
+		$('#spanPanelResumenCreditos').text(parseFloat(sumaCredito).toFixed(2));
+		$('#spanPanelSumaTotalChica').text(parseFloat(sumaIngreso-sumaEgreso+sumaCredito).toFixed(2));
+	/*	$('#contenidoACuadrarIngresVsEgres').append(`
+			<div class="col-xs-4"><strong>Ingresos S/. ${parseFloat(sumaIngreso).toFixed(2)}</strong></div>
+			<div class="col-xs-4"><strong>Gastos S/. ${parseFloat(sumaEgreso).toFixed(2)}</strong></div>
+			<div class="col-xs-4"><strong>Créditos S/. ${parseFloat(sumaCredito).toFixed(2)}</strong></div>`);
+		$('#btnGuardarReporteIngresoVsEgreso').removeClass('sr-only');*/
 	});
 });
 </script>
 
 </body>
-
 </html>
-

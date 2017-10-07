@@ -72,7 +72,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
 				</li>
 				<li>
-						<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+						<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
 				</li>
 				<li>
 						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>

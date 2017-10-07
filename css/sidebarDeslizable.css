@@ -62,7 +62,7 @@
 .sidebar-nav {
 	position: absolute;
 	top: 0;
-	width: 252px;
+	width: 262px;
 	margin: 0;
 	padding: 0;
 	list-style: none; 
@@ -156,6 +156,7 @@ li a i {font-size:24px; padding-right:10px}
 {
 	width: 8px;
 	background-color: #393f56;
+	position: absolute;
 }
 
 #sidebar-wrapper::-webkit-scrollbar-thumb

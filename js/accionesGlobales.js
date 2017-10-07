@@ -31,23 +31,27 @@ $('.modal-ingresarMontoExtra').on('shown.bs.modal', function() {
 
 /************ JS para Modals ***********/
 
-$('#txtModCreditoCantidad').change(function () {
-	cambioModalCmbPrecio();
-});
+// $('#txtModCreditoCantidad').change(function () { cambioModalCmbPrecio(); });
+// $('#txtModCreditoCantidadLitro').change(function () { cambioModalCmbPrecio(); });
 
 $('.modal-ingresarCredito').on('click','.optProducto',function () {
-	 cambioModalCmbPrecio();
+	cambioModalCmbPrecio();
 });
 function cambioModalCmbPrecio() {
-var idProd=$('#divSelectModCreditoProducto').find('.selected a').attr('data-tokens');
+var idProd=$('#divSelectModCreditoProducto').find('.selected a').attr('data-tokens');  //console.log($.JsonListaPreciosActualizada)
+var precio, cant;
+if(idProd==2){ $('#txtModCreditoCantidadLitro').parent().removeClass('hidden');}
+else{$('#txtModCreditoCantidadLitro').parent().addClass('hidden');}
+
 for (var i = 0; i < $.JsonListaPreciosActualizada.length; i++) {
-	//console.log($.JsonListaPreciosActualizada[i])
-	if($.JsonListaPreciosActualizada[i].idcontenedorProductos==idProd){
-		var precio=$.JsonListaPreciosActualizada[i].contPrecio;
-		var cant=$('#txtModCreditoCantidad').val();
+	console.log($.JsonListaPreciosActualizada[i].idcontenedorProductos===idProd); //console.log('id '+);
+	if($.JsonListaPreciosActualizada[i].idcontenedorProductos===idProd){// console.log('entro')
+		precio=parseFloat($.JsonListaPreciosActualizada[i].contPrecio);
+		cant=parseFloat($('#txtModCreditoCantidad').val());
 		$('#spanModCreditoPrecioProd').text(parseFloat(precio).toFixed(2));
 		$('#spanModCreditoTotal').text(parseFloat(precio*cant).toFixed(2));
-		break;
+		$('#txtModCreditoCantidadSoles').val(parseFloat(precio*cant).toFixed(2));
+		//break;
 	}
 }
 }
@@ -76,6 +80,41 @@ $('#txtModCreditoDnioRUC').focusout(function () { //console.log('aca')
 		}
 	});
 });
+$('#txtModCreditoCantidad').keyup(function (e) {
+	var cantGalones;
+	if( $('#txtModCreditoCantidad').val()==''){cantGalones=0;}
+	else{cantGalones=parseFloat($(this).val());}
+	//transoformar a litros
+	var cantLitros=cantGalones*3.785;
+	$('#txtModCreditoCantidadLitro').val( cantLitros.toFixed(2));
+	cambioModalCmbPrecio();
+});
+$('#txtModCreditoCantidadLitro').keyup(function (e) {
+	var cantLitros;
+	if( $('#txtModCreditoCantidadLitro').val()==''){cantLitros=0;}
+	else{cantLitros=parseFloat($(this).val());}
+	//transoformar a litros
+	var cantGalones=cantLitros/3.785;
+	$('#txtModCreditoCantidad').val( cantGalones.toFixed(2));
+	cambioModalCmbPrecio();
+});
+$('#txtModCreditoCantidadSoles').keyup(function (e) {
+	if( $('#txtModCreditoCantidadSoles').val()==''){cantSoles=0;}
+	else{cantSoles=parseFloat($(this).val());}
+	var idProd=$('#divSelectModCreditoProducto').find('.selected a').attr('data-tokens');// console.log(idProd)
+	for (var i = 0; i < $.JsonListaPreciosActualizada.length; i++) {
+		//console.log($.JsonListaPreciosActualizada[i])
+		if($.JsonListaPreciosActualizada[i].idcontenedorProductos==idProd){
+			var precio=parseFloat($.JsonListaPreciosActualizada[i].contPrecio);
+			var cantGalones=cantSoles/precio;
+			var cantLitros=cantGalones*3.785;
+			$('#txtModCreditoCantidadLitro').val( cantLitros.toFixed(2));
+			$('#txtModCreditoCantidad').val( cantGalones.toFixed(2));
+			$('#spanModCreditoTotal').text(parseFloat(precio*cantGalones).toFixed(2));
+			break;
+		}
+	}
+});
 $('.modal-ingresarCredito').on('shown.bs.modal', function() {
 	$('#divSelectModCreditoProducto .selectpicker').selectpicker('val',''); //Para borrar el select
 	$('#txtModCreditoDnioRUC').val('').focus();
@@ -85,6 +124,7 @@ $('.modal-ingresarCredito').on('shown.bs.modal', function() {
 	$('#txtModCreditoDireccion').val('').prop('disabled', false);
 	$('#txtModCreditoComprobante').val('');
 	$('#txtModCreditoCantidad').val(0);
+	$('#txtModCreditoCantidadLitro').val(0);
 	$('#spanModCreditoPrecioProd').text('0.00');
 	$('#spanModCreditoTotal').text('0.00');
 });
@@ -106,8 +146,10 @@ $('#btnIngresarCreditoModal').click(function () {
 			if($('#spanIdCredClienteExiste').text()!=''){idClie=$('#spanIdCredClienteExiste').text()}
 
 
-			$.ajax({url: 'php/insertarCreditoNuevo.php', type: 'POST', data: {idCli: idClie, dni:$('#txtModCreditoDnioRUC').val() , social: $('#txtModCreditoRazonSocial').val() , direccion: $('#txtModCreditoDireccion').val() , celular: $('#txtModCreditoCelular').val(),
-				idProductoCont: idContenedor , cantidad: $('#txtModCreditoCantidad').val() , comprobante: $('#txtModCreditoComprobante').val(), idUser: $.JsonUsuario.idUsuario
+			$.ajax({url: 'php/insertarCreditoNuevo.php', type: 'POST', data: {idCli: idClie, dni:$('#txtModCreditoDnioRUC').val() , social: $('#txtModCreditoRazonSocial').val() ,
+				direccion: $('#txtModCreditoDireccion').val() , celular: $('#txtModCreditoCelular').val(),
+				idProductoCont: idContenedor , cantidad: $('#txtModCreditoCantidad').val() , comprobante: $('#txtModCreditoComprobante').val(), idUser: $.JsonUsuario.idUsuario,
+				cantLitr: $('#txtModCreditoCantidadLitro').val(), prodNom: $('#divSelectModCreditoProducto').find('.filter-option').text()
 			 } }).done(function (resp) {
 				console.log(resp)
 				$('.modal-ingresarCredito').modal('hide');

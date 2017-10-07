@@ -10,7 +10,7 @@
 			<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-4">
-						<label for="txtModCreditoDnioRUC">D.N.I.</label>  <span class="red-text text-darken-2">*</span> <span id="spanIdCredClienteExiste"></span>
+						<label for="txtModCreditoDnioRUC">D.N.I.</label>  <span class="red-text text-darken-2">*</span> <span class="sr-only" id="spanIdCredClienteExiste"></span>
 						<input type="number" class="form-control mayuscula" id="txtModCreditoDnioRUC">
 				</div>
 				<div class="col-xs-8">
@@ -29,19 +29,11 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-xs-4">
 					<label for="txtModCreditoComprobante">N° de Comprobante:</label>
 					<input type="text" class="form-control mayuscula" id="txtModCreditoComprobante">
 				</div>
-				<div class="col-xs-6">
-					<label for="txtModCreditoCantidad">Cantidad de galones:</label>  <span class="red-text text-darken-2">*</span>
-					<input type="number" class="form-control mayuscula text-center" id="txtModCreditoCantidad" value="0" step="1" min="1">
-				</div>
-			</div>
-			
-
-			<div class="row">
-				<div class="col-xs-6">
+				<div class="col-xs-8">
 					<label for="">Producto concedido a crédito:</label> <span class="red-text text-darken-2">*</span>
 					<div  id="divSelectModCreditoProducto">
 						<select class="selectpicker mayuscula slpProductos" title="Producto..."  data-width="100%" data-live-search="true">
@@ -49,8 +41,25 @@
 						</select>
 					</div>
 				</div>
+				
 			</div>
-			
+
+
+			<div class="row">
+				<div class="col-xs-6">
+					<label for="txtModCreditoCantidad">Cantidad de galones:</label>  <span class="red-text text-darken-2">*</span>
+					<input type="number" class="form-control mayuscula text-center" id="txtModCreditoCantidad" value="0" step="1" min="1">
+				</div>
+				<div class="col-xs-6 hidden">
+					<label for="txtModCreditoCantidadLitro">Cantidad de litros:</label>  <span class="red-text text-darken-2">*</span>
+					<input type="number" class="form-control mayuscula text-center" id="txtModCreditoCantidadLitro" value="0" step="1" min="1">
+				</div>
+				<div class="col-xs-6">
+					<label for="txtModCreditoCantidadSoles">Cantidad de soles:</label>  <span class="red-text text-darken-2">*</span>
+					<input type="number" class="form-control mayuscula text-center" id="txtModCreditoCantidadSoles" value="0" step="1" min="1">
+				</div>
+			</div>
+
 			<div class="row">
 				<div class="col-xs-12 text-center">
 					<div class="row blue-text text-accent-3" style="padding-top: 0;">

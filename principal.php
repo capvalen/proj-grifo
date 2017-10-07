@@ -22,7 +22,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 		<!-- Custom CSS -->
 		<link href="css/estilosElementosv2.css?version=1.0.5" rel="stylesheet">
-		<link href="css/sidebarDeslizable.css?version=1.0.2" rel="stylesheet">
+		<link href="css/sidebarDeslizable.css?version=1.0.5" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.2">
 		<link rel="stylesheet" href="css/animate.css">
 		<link rel="stylesheet" href="css/pacifico.css">
@@ -48,7 +48,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 					</a>
 			</div>
 			<div class="logoEmpresa ocultar-mostrar-menu">
-				<img class="img-responsive" src="images/empresa.png" alt="">
+				<img class="img-responsive" src="images/empresa.png?version=1.1" alt="">
 			</div>
 			<li class="active">
 					<a href="principal.php"><i class="icofont icofont-space-shuttle"></i> Inicio</a>
@@ -72,7 +72,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 					<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
 			</li>
 			<li>
-					<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+					<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
 			</li>
 			<li>
 					<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
@@ -255,7 +255,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js?version=1.0.1"></script>
-<script src="js/accionesGlobales.js?version=1.0.7"></script>
+<script src="js/accionesGlobales.js?version=1.0.9"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>
