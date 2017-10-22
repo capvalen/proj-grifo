@@ -75,7 +75,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
 				</li>
 				<li>
-						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
+						<a href="usuarios.php"><i class="icofont icofont-users"></i> Usuarios</a>
 				</li>
 				<li>
 						<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
@@ -198,6 +198,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<th>Lado</th> -->
 								<th>Producto</th>
 								<th>Precio S/.</th>
+								<th>Stock gls.</th>
 								<th>Responsable</th>
 								<th>Última actualización</th>
 								<th>Acciones</th>
@@ -361,6 +362,7 @@ $(document).ready(function(){
 				<td>${dato.ladoDescripcion}</td>-->
 				<td><strong>${dato.contDescripcion}</strong></td>
 				<td>${parseFloat(dato.contPrecio).toFixed(2)}</td>
+				<td>${dato.contStock}</td>
 				<td>${dato.responsable}</td>-->
 				<td>${moment(dato.contUltimaFecha).format('dddd DD, MMMM YYYY hh:mm a')}</td>
 				<td>

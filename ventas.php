@@ -170,6 +170,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<th>Lado</th> -->
 									<th>Producto</th>
 									<th>Precio S/.</th>
+									<th>Stock gls.</th>
 									<th>Última actualización</th>
 								</tr>
 							</thead>
@@ -506,6 +507,7 @@ $(document).ready(function(){
 		
 		$.JsonProductosCliente=JSON.parse(resp);
 		$('#spanPremierB').children().remove();$('#spanPremierC').children().remove();$('#spanSurtidorGas').children().remove();
+		var considerar='';
 		$.each(JSON.parse(resp), function (i, dato) { // console.log(dato)
 				/*<div class="col-xs-5 col-sm-3">Producto</div>
 					<div class="col-xs-2 col-sm-1">Precio</div>
@@ -522,36 +524,40 @@ $(document).ready(function(){
 				<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 				<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
 			</div>`);*/
+			if( parseInt($('#tbodyProductosListado #'+dato.idContenedor).find('.tdStock').text())>0 ){considerar='';}else{considerar='disabled';}
 			switch(dato.grupoDescripcion){ /*${Math.round(Math.random() * (900000 - 100000) + 100000)}*/
 				case 'Premier B': 
-					$('#spanPremierB').append(`<div class="row ${dato.prodColorMaterialize}">
+					$('#spanPremierB').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
+						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierB .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
 						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">0</div>
-						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
 					</div>`); break;
 				case 'Premier C': 
-					$('#spanPremierC').append(`<div class="row ${dato.prodColorMaterialize}">
+					$('#spanPremierC').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
+						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierC .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
 						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">0</div>
-						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
 					</div>`); break;
 				case 'Surtidor de Gas':
-					$('#spanSurtidorGas').append(`<div class="row ${dato.prodColorMaterialize}">
+					$('#spanSurtidorGas').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
+						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-md-1 col-xs-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
 						<div class="col-md-2 col-xs-2 divContadorPrevio text-center">0</div>
-						<div class="col-md-2 col-xs-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
+						<div class="col-md-2 col-xs-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-md-2 col-xs-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-md-1 col-xs-1 divConsumoProd">-</div>
 						<div class="col-md-2 col-xs-2 divVentaConsumo">S/. -</div>
@@ -607,6 +613,7 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 	var consumoRealHoy=nuevoValor-contadorPrevio;
 	//console.log(precioFijo)
 	if(consumoRealHoy<=0){
+		contenedorRow.find('.txtValorNumericoConsumo').val(0);
 		contenedorRow.find('.divConsumoProd').text('Inválido!').removeClass('text-success').addClass('text-danger');
 		contenedorRow.find('.divVentaConsumo').text('Inválido!').removeClass('text-success').addClass('text-danger');
 	}else{
@@ -674,6 +681,16 @@ function cmbProductoListadoLlenar(){
 	}
 }
 $('#btnGuardarReporte').click(function () {
+	if(!$('#btnGuardarReporte').hasClass('disabled')){
+		$('#btnGuardarReporte').addClass('disabled');
+		$.each($('.rowProductosMalla'), function (i, dato) {
+			if($(dato).find('.txtValorNumericoConsumo').val()!=0 && $(dato).find('.txtValorNumericoConsumo').val()!='' ){
+				console.log($(dato).find('.idProdConsumo').text());
+			}
+		});
+	}
+	
+	
 	window.print();
 });
 $('#btnGuardarReporteIngresoVsEgreso').click(function () {

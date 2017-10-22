@@ -11,9 +11,10 @@ $i=0;
 while($row = mysqli_fetch_array($sql, MYSQLI_ASSOC))
 {
 	$i++;
-	echo '<tr  class="'.$row['contColorMaterialize'].'">
+	echo '<tr class="'.$row['contColorMaterialize'].'" id="'.$row['idcontenedorProductos'].'">
 				<td><strong>'.$row['contDescripcion'].'</strong></td>
-				<td>'.number_format($row['contPrecio'], 2).'</td>
+				<td><strong>'.number_format($row['contPrecio'], 2).'</strong></td>
+				<td><strong  class="tdStock">'.$row['contStock'].'</strong></td>
 				<td class="fecha">'.$row['contUltimaFecha'].'</td>
 			</tr>';
 }
