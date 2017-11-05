@@ -243,7 +243,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						</div> -->
 						<div class="col-sm-3">
 						<div  id="divSelectProductoListado">
-							<select class="selectpicker mayuscula" title="Producto..."  data-width="100%" data-live-search="true"">
+							<select class="selectpicker mayuscula" title="Producto..."  data-width="100%" data-live-search="true">
 								<?php require 'php/listarProductosNombresOption.php'; ?>
 							</select>
 						</div>

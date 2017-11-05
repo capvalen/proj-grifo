@@ -37,8 +37,10 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 <body>
 <style>
-#divResultadoDetalleCreditos>.row{padding-top: 10px; padding-bottom: 10px}
-#divResultadoDetalleCreditos>.row:hover{background-color: #eee;}
+#divResVentaMes .row, #divResultadoDetalleCreditos>.row{padding-top: 10px; padding-bottom: 10px}
+#divResVentaMes .row:hover, #divResultadoDetalleCreditos>.row:hover{background-color: #eee;}
+hr{    margin-top: 10px;
+	margin-bottom: 10px;}
 </style>
 
 <div id="wrapper">
@@ -134,6 +136,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 					<ul class="nav nav-tabs">
 					<li class="active"><a href="#tabCreditosPendientes" data-toggle="tab">Créditos pendientes</a></li>
+					<li ><a href="#tabCreditosFinalizados" data-toggle="tab">Créditos finalizados</a></li>
 					<li><a href="#tabResumenVentas" data-toggle="tab">Ventas resumen</a></li>
 					
 					</ul>
@@ -152,7 +155,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							</p>
 							<div class="container">
 								 <div class="row"><strong>
-								 	<div class="col-xs-4">Detalle</div>
+									<div class="col-xs-4">Detalle</div>
 									<div class="col-xs-2"># Comprobante</div>
 									<div class="col-xs-2">Fecha</div>
 									<div class="col-xs-2">Monto</div>
@@ -160,7 +163,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								 </strong>
 								 </div>
 								 <div id="divResultadoDetalleCreditos">
-								 	<p>Aún no se solicitó ninguna fecha</p>
+									<p>Aún no se solicitó ninguna fecha</p>
 								 </div>
 							</div>
 
@@ -170,15 +173,74 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						
 
 						<!--Panel para nueva compra-->
-						<div class="tab-pane fade container-fluid" id="tabResumenVentas">
+						<div class="tab-pane fade container-fluid" id="tabCreditosFinalizados">
 						<!--Inicio de pestaña 02-->
-						<p>Seleccione una fecha para ver reporte de ventas: <div id="idFechasCreditos">
+						<p>Seleccione una fecha para ver reporte de créditos finalizados: <div id="idFechasCreditosFin">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
-									<?php require 'php/listarCreditosNumFecha.php' ?>
+									<?php require 'php/listarCreditosFinNumFecha.php' ?>
 								</select>
 							</div>
 							</p>
+							<div class="container">
+								 <div class="row"><strong>
+									<div class="col-xs-4">Detalle</div>
+									<div class="col-xs-2"># Comprobante</div>
+									<div class="col-xs-2">Fecha</div>
+									<div class="col-xs-2">Monto</div>
+									<div class="col-xs-2">Estado</div>
+								 </strong>
+								 </div>
+								 <div id="divResultadoDetallCreditosFin">
+									<p>Aún no se solicitó ninguna fecha</p>
+								 </div>
+							</div>
 						<!--Fin de pestaña 02-->
+						</div>
+
+						<div class="tab-pane fade container-fluid" id="tabResumenVentas">
+						<!--Inicio de pestaña 03-->
+						<p>Seleccione una fecha para ver reporte de ventas: <div id="">
+							<div class="form-group col-xs-4">
+							<div class='input-group date' id='dtpFechaVentas'>
+								<input type='text' class="form-control text-center" />
+								<span class="input-group-addon">
+									<i class="icofont icofont-calendar"></i>
+								</span>
+							</div>
+							</div>
+						</div>
+						</p>
+
+						<ul class="nav nav-tabs" id="ulResumen">
+							<li><a href="#tabVentaMes" data-toggle="tab">Mensual</a></li>
+							<li class="hidden"><a href="#tabVentaDiariaGlobal" data-toggle="tab">Diaria conjunto</a></li>
+							<li class="hidden"><a href="#tabVentaDiaraiaDetalla" data-toggle="tab">Diaria detallado</a></li>
+						</ul>
+						<div class="tab-pane fade container-fluid" id="tabVentaMes">
+							<div class="row"><strong>
+									<div class="col-xs-4">N° Fecha</div>
+									<div class="col-xs-4">Monto S/.</div>
+									<div class="col-xs-4">Usuario</div></strong>
+								</div>
+							<div id="divResVentaMes">
+								
+							</div>
+							<div class="row divTotalMes"> <label for="">Total:</label> S/. <span id="divVMTotalSuma"></span></div>
+						</div>
+						<div class="tab-pane fade container-fluid" id="tabVentaDiariaGlobal">
+							<div id="divResVentaMe2s">
+								<div class="row"><strong>
+									<div class="col-xs-4">N° Fecha</div>
+									<div class="col-xs-4">Monto S/.</div>
+									<div class="col-xs-4">Usuario</div></strong>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade container-fluid" id="tabVentaDiaraiaDetalla">
+							
+						</div>
+						
+						<!--Fin de pestaña 03-->
 						</div>
 						
 					</div>
@@ -191,21 +253,56 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <!-- /#page-content-wrapper -->
 </div><!-- /#wrapper -->
 
+<!-- Modal para Detallar credito  -->
+<div class="modal fade modal-detallarCredito" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm" role="document">
+	<div class="modal-content">
+		<div class="modal-header-warning">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel"><i class="icofont icofont-help-robot"></i> Detalle de crédito</h4>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid"><span class="hidden" id="spIdCred"></span>
+			<div class="row"> <label for="">Razón social:</label> <span class="mayuscula" id="detCreRazon"></span></div>
+			<div class="row"> <label for="">RUC/DNI:</label> <span class="mayuscula" id="detCreDni"></span></div>
+			<div class="row"> <label for="">Dirección:</label> <span class="mayuscula" id="detCreDirec"></span></div>
+			<div class="row"> <label for="">Teléfono:</label> <span class="mayuscula" id="detCreTlf"></span></div>
+			<hr>
+			<div class="row"> <label for="">Registro:</label> <span class="mayuscula" id="detCreFecha"></span></div>
+			<div class="row"> <label for="">Comprobante:</label> <span class="mayuscula" id="detCreComprob"></span></div>
+			<div class="row"> <label for="">Producto:</label> <span class="mayuscula" id="detCreProd"></span></div>
+			<div class="row"> <label for="">Cantidad:</label> <span class="mayuscula" id="detCreQuant"></span></div>
+			<div class="row"> <label for="">Total de crédito:</label> <span class="mayuscula" id="detCreTotalCosto"></span></div>
+			<div class="row"> <label for="">Responsable:</label> <span class="mayuscula" id="detCreRespons"></span></div>
+		
+			</div>			
+		</div>
+			
+		<div class="modal-footer">
+			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cerrar</button>
+			<button class="btn btn-warning btn-outline" id="btnFinCreditoDeuda"><i class="icofont icofont-social-meetme"></i> Finalizar crédito</button></div>
+	</div>
+	</div>
+</div>
+
+
+<?php include 'php/llamandoModals.php'; ?>
+
 <!-- jQuery -->
 <script src="js/jquery-2.2.4.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js"></script>
+<script src="js/inicializacion.js?version=1.0.1"></script>
+<script src="js/accionesGlobales.js?version=1.0.7"></script>
 <script src="js/bootstrap-select.js"></script>
-<script src="js/bootstrap-datepicker.min.js"></script>
-<script src="js/bootstrap-datepicker.es.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
 
 <!-- Menu Toggle Script -->
 <script>
 $(document).ready(function(){
-	
+datosUsuario();
 	$('.selectpicker').selectpicker('refresh');
 
 		$('.mitooltip').tooltip();
@@ -216,9 +313,7 @@ $(document).ready(function(){
 				//$(this).parent().next().children().removeAttr('disabled'); //agregar atributo desabilitado
 			} 
 		});
-
-
-
+	$('#dtpFechaVentas').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es'});
 });
 
 
@@ -234,7 +329,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 		$.jsonAdeuda=JSON.parse(resp);
 		$.each(JSON.parse(resp), function (i, jsonResp) { console.log(jsonResp);
 			var adeuda='';
-			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { aduda='<span class="light-green-text">Cancelado</span>'}
+			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
 			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
 					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
 					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
@@ -245,8 +340,112 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 	})
 });
 $('#divResultadoDetalleCreditos').on('click', '.btnAdeudaDetalle', function () {
-	console.log($(this).parent().parent().attr('id'));
+	//console.log($(this).parent().parent().attr('id'));
+	var idCredito=$(this).parent().parent().attr('id');
+	
+	$.ajax({url: 'php/listarCreditoDetalle.php', type: 'POST', data: {idCred: idCredito}}).done(function (resp) {
+		console.log(resp);
+		var creditoResultado=JSON.parse(resp)[0];
+		$('#spIdCred').text(idCredito);
+		$('#detCreRazon').text(creditoResultado.cliRazonSocial);
+		$('#detCreDni').text(creditoResultado.cliRUC);
+		$('#detCreDirec').text(creditoResultado.cliDireccion);
+		$('#detCreTlf').text(creditoResultado.cliTelefono);
+		$('#detCreFecha').text(creditoResultado.credFecha);
+		$('#detCreFecha').text(creditoResultado.credFecha);
+		
+		$('#detCreComprob').text(creditoResultado.credComprobante);
+		$('#detCreProd').text(creditoResultado.contDescripcion);
+		$('#detCreRespons').text(creditoResultado.usuNombres +', '+ creditoResultado.usuApellido );
+		$('#detCreQuant').text(creditoResultado.credCantidad+ ' gls.');
+		$('#detCreTotalCosto').text(parseFloat(creditoResultado.credCosto).toFixed(2));
+		$('#btnFinCreditoDeuda').removeClass('hidden');
+		$('.modal-detallarCredito').modal('show');
+	});
 });
+$('#btnFinCreditoDeuda').click(function () {
+	$.ajax({url: 'php/finalizarCreditoPorId.php', type: 'POST', data: {idCred: $('#spIdCred').text() }}).done(function (resp) {
+		console.log(resp);
+		if(resp>0){
+			location.reload();
+		}
+	});
+});
+$('#divResultadoDetallCreditosFin').on('click', '.btnCreditoFinalDetalle', function () {
+	//console.log($(this).parent().parent().attr('id'));
+	var idCredito=$(this).parent().parent().attr('id');
+	
+	$.ajax({url: 'php/listarCreditoDetalle.php', type: 'POST', data: {idCred: idCredito}}).done(function (resp) {
+		console.log(resp);
+		var creditoResultado=JSON.parse(resp)[0];
+		$('#spIdCred').text(idCredito);
+		$('#detCreRazon').text(creditoResultado.cliRazonSocial);
+		$('#detCreDni').text(creditoResultado.cliRUC);
+		$('#detCreDirec').text(creditoResultado.cliDireccion);
+		$('#detCreTlf').text(creditoResultado.cliTelefono);
+		$('#detCreFecha').text(creditoResultado.credFecha);
+		$('#detCreFecha').text(creditoResultado.credFecha);
+		
+		$('#detCreComprob').text(creditoResultado.credComprobante);
+		$('#detCreProd').text(creditoResultado.contDescripcion);
+		$('#detCreRespons').text(creditoResultado.usuNombres +', '+ creditoResultado.usuApellido );
+		$('#detCreQuant').text(creditoResultado.credCantidad+ ' gls.');
+		$('#detCreTotalCosto').text(parseFloat(creditoResultado.credCosto).toFixed(2));
+		$('#btnFinCreditoDeuda').addClass('hidden');
+		$('.modal-detallarCredito').modal('show');
+	});
+});
+$('#idFechasCreditosFin').on('click', '.optCreditoFin', function () {
+	var texto= moment($(this).attr('data-tokens'), 'YYYY/M');
+	//console.log(texto)
+	var año= texto.year();
+	var mess=texto.month()+1;
+
+	//console.log($(this).attr('data-tokens'));
+	//console.log(texto.month()+1)
+	$.ajax({url: 'php/listarCreditoFinPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) { console.log(resp)
+		$('#divResultadoDetallCreditosFin').children().remove();
+		$.jsonAdeuda=JSON.parse(resp);
+		$.each(JSON.parse(resp), function (i, jsonResp) { console.log(jsonResp);
+			var adeuda='';
+			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
+			$('#divResultadoDetallCreditosFin').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetallCreditosFin .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
+					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
+					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
+					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
+					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnCreditoFinalDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
+		});
+		
+	})
+});
+
+$('#ulResumen li').click(function () {
+	var fecha=$('#dtpFechaVentas').find('input').val();
+	if( fecha !=''){
+		var sumaCantidades=0;
+		fechMoment=moment(fecha, 'DD/MM/YYYY');
+		var tabactivo=$(this).find('a').text()
+		if(tabactivo=='Mensual'){
+			$('#divResVentaMes').children().remove();
+			$.ajax({url: 'php/listarVentasMes.php', type: 'POST', data: { anio: fechMoment.year() , mes: fechMoment.month()}}).done(function (resp) {
+
+				$.each(JSON.parse(resp), function (i, dato) {
+					sumaCantidades+=parseFloat(dato.ventMontoTotal);
+					$('#divResVentaMes').append(`<div class="row">
+							<div class="col-xs-4">${i+1}. ${moment(dato.ventFecha).format('DD/MM/YYYY h:mm a')}</div>
+							<div class="col-xs-4">${parseFloat(dato.ventMontoTotal).toFixed(2)}</div>
+							<div class="col-xs-4">${dato.usuNombres} ${dato.usuApellido}</div>
+						</div>`);
+					$('#divVMTotalSuma').text(parseFloat(sumaCantidades).toFixed(2));
+				});
+			})
+		}
+		if(tabactivo=='Diaria conjunto'){
+
+		}
+		if(tabactivo=='Diaria detallado'){}
+	}
+})
 </script>
 
 </body>

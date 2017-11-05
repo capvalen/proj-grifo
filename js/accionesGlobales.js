@@ -44,7 +44,7 @@ if(idProd==2){ $('#txtModCreditoCantidadLitro').parent().removeClass('hidden');}
 else{$('#txtModCreditoCantidadLitro').parent().addClass('hidden');}
 
 for (var i = 0; i < $.JsonListaPreciosActualizada.length; i++) {
-	console.log($.JsonListaPreciosActualizada[i].idcontenedorProductos===idProd); //console.log('id '+);
+	//console.log($.JsonListaPreciosActualizada[i].idcontenedorProductos===idProd); //console.log('id '+);
 	if($.JsonListaPreciosActualizada[i].idcontenedorProductos===idProd){// console.log('entro')
 		precio=parseFloat($.JsonListaPreciosActualizada[i].contPrecio);
 		cant=parseFloat($('#txtModCreditoCantidad').val());

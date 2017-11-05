@@ -319,7 +319,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									</strong>
 									</div>
 									<span id="contenidoACuadrarIngresVsEgres" >
-										<div class="row">
+										<div class="">
 											<div class="col-xs-12"><p class="text-muted">Aún no hay datos, pulse el boton de actualizar</p></div>
 										</div>
 										<!-- <div class="row">
@@ -385,6 +385,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<div class="col-xs-4">Sumas</div>
 									<div class="col-xs-4"><span id="spanSumaCantidades">0</span> gl.</div>
 									<div class="col-xs-4"><span id="spanSumaTotal">0.00</span></div></strong>
+									<div class="sr-only"><span id="spanSumaTotasr">0.00</span></div></strong>
 								</div>
 								</div>
 								</div>
@@ -532,7 +533,7 @@ $(document).ready(function(){
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierB .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">0</div>
+						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">${dato.prodCtaAnterior}</div>
 						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
@@ -544,7 +545,7 @@ $(document).ready(function(){
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierC .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">0</div>
+						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">${dato.prodCtaAnterior}</div>
 						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
@@ -556,7 +557,7 @@ $(document).ready(function(){
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-md-1 col-xs-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-md-2 col-xs-2 divContadorPrevio text-center">0</div>
+						<div class="col-md-2 col-xs-2 divContadorPrevio text-center">${dato.prodCtaAnterior}</div>
 						<div class="col-md-2 col-xs-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-md-2 col-xs-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-md-1 col-xs-1 divConsumoProd">-</div>
@@ -608,6 +609,8 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 	var nuevoValor= parseFloat($(this).val());
 	var precioFijo=$.JsonProductosCliente[idCambiante].prodPrecioActual;//parseFloat(contenedorRow.find('.divPrecioFijo').text());
 	var contadorPrevio=parseFloat(contenedorRow.find('.divContadorPrevio').text()); //$.JsonProductosCliente[idCambiante].prodUltimoContador;
+	var stockFict=contenedorRow.find('.idContenedorCons').text();
+	console.log($('#tbodyProductosListado #'+stockFict).find('.tdStock').text())
 	//var productoRow=contenedorRow.find('.spanProducto').text();
 
 	var consumoRealHoy=nuevoValor-contadorPrevio;
@@ -648,6 +651,8 @@ function sumarTotales(){
 		$(elem).find('#spanSumaFinalMontos').text(parseFloat(sumaParcialVenta).toFixed(2));
 	});
 	$('#spanSumaTotal').text(parseFloat(sumaTotales).toFixed(2));
+	$('#spanSumaTotasr').text(parseFloat(sumaTotales).toFixed(2));
+
 	$('#spanSumaCantidades').text(parseFloat(sumaConsumo).toFixed(2));
 
 }
@@ -681,16 +686,48 @@ function cmbProductoListadoLlenar(){
 	}
 }
 $('#btnGuardarReporte').click(function () {
+	var idsCaja=''; contadorRow=0;
+	//$('#btnRefreshIngVsEgr').click();
+	totalRowsCaja=$('#contenidoACuadrarIngresVsEgres .row').length;
+
+	console.log(totalRowsCaja);
 	if(!$('#btnGuardarReporte').hasClass('disabled')){
 		$('#btnGuardarReporte').addClass('disabled');
-		$.each($('.rowProductosMalla'), function (i, dato) {
-			if($(dato).find('.txtValorNumericoConsumo').val()!=0 && $(dato).find('.txtValorNumericoConsumo').val()!='' ){
-				console.log($(dato).find('.idProdConsumo').text());
+
+		
+
+		$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
+			if(resp!=0){
+				var idVenta=resp;
+				$.each($('.rowProductosMalla'), function (i, dato) {
+					if($(dato).find('.txtValorNumericoConsumo').val()!=0 && $(dato).find('.txtValorNumericoConsumo').val()!='' ){
+						//console.log($(dato).find('.idProdConsumo').text());
+						var idProd=$(dato).find('.idProdConsumo').text();
+						var consum=$(dato).find('.divConsumoProd').text();
+						var idConten=$(dato).find('.idContenedorCons').text();
+						var contadorTotal=$(dato).find('.txtValorNumericoConsumo').val();
+						$.ajax({url: 'php/insertarCuadreCajaDetalle.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal }}).done(function (respu) {
+							console.log(respu)
+						});
+					}
+				});
+			}
+
+			if(totalRowsCaja>0){
+				$.each( $('#contenidoACuadrarIngresVsEgres .row'), function (i, caja) {
+					contadorRow++;
+					idsCaja+=','+$(caja).find('.idCaja').text();
+					//console.log(contadorRow);
+					if(contadorRow==totalRowsCaja){
+						idsCaja=idsCaja.substring(1,idsCaja.length);
+						 $.ajax({url:'php/actualizarCajaImpresion.php', type: 'POST', data: {Losids:idsCaja }}).done(function (resp) {
+						 });
+					}
+				});
 			}
 		});
+
 	}
-	
-	
 	window.print();
 });
 $('#btnGuardarReporteIngresoVsEgreso').click(function () {
