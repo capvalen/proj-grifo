@@ -269,7 +269,7 @@ $.ajax({url:'php/listarUsuarios.php', data: 'POST'}).done(function (resp) { cons
 	$.each(JSON.parse(resp), function (i, dato) {
 		$('#divUsuariosListado').append(`<div class="row">
 				<div class="col-xs-2 mayuscula"><button class="btn btn-danger btn-circle btn-NoLine btn-outline btnRemoverUsuario" id="${dato.idUsuario}"><i class="icofont icofont-close"></i></button>${i+1}. <span class="userFuncion">${dato.Descripcion}</span></div>
-				<div class="col-xs-3"><span class="apellidos mayuscula">${dato.usuApellidos}</span> <span class="nombres mayuscula">${dato.usuNombres}</span></div>
+				<div class="col-xs-3"><span class="apellidos mayuscula">${dato.usuApellido}</span> <span class="nombres mayuscula">${dato.usuNombres}</span></div>
 				<div class="col-xs-2">${dato.usuNick}</div>
 				<div class="col-xs-1"><button class="btn btn-success btn-outline btn-NoLine btnConfigUser" id="${dato.idUsuario}"><i class="icofont icofont-options"></i></button></div></div>`);
 	});
@@ -286,7 +286,7 @@ $('#txtModalNombUser').focusout(function () {
 	
 	$('#txtModalNickUser').val(nombres.substring(0,1) +apellidos.substring(0,primEspac))
 });
-$('#btnGuardarAddUser').click(function () {
+$('#btnGuardarAddUser').click(function () { 
 	var idNivel=$('#divSelectNivelListNew').find('li.selected a').attr('data-tokens');// console.log(idNivel)
 	if($('#txtModalApellidUser').val()==''){$('.modal-addUserBD .labelError').removeClass('hidden').find('.mensaje').text('Debe ingresar los apellidos.');}
 	else if($('#txtModalNombUser').val()==''){$('.modal-addUserBD .labelError').removeClass('hidden').find('.mensaje').text('Debe ingresar los nombres.');}
@@ -296,7 +296,8 @@ $('#btnGuardarAddUser').click(function () {
 	else if(idNivel === null || idNivel === undefined  ){ $('.modal-addUserBD .labelError').removeClass('hidden').find('.mensaje').text('Debe selecionar un nivel.');}
 	else{
 		$('.modal-addUserBD .labelError').addClass('hidden');
-		$.ajax({url:'php/insertarUsuario.php', type:'POST', data:{nombres:$('#txtModalNombUser').val(), apellidos:$('#txtModalApellidUser').val(), nick: $('#txtModalNickUser').val(), pass: $('#txtModalPassUser').val(), dni: $('#txtModalDniUser').val(), poder: idNivel }}).done(function (resp) {
+		$.ajax({url:'php/insertarUsuario.php', type:'POST', data:{nombres:$('#txtModalNombUser').val(), apellidos:$('#txtModalApellidUser').val(), nick: $('#txtModalNickUser').val(), pass: $('#txtModalPassUser').val(), poder: idNivel }}).done(function (resp) {
+			console.log(resp)
 			if(resp>0){window.location.href = 'usuarios.php';}
 		});
 	}
