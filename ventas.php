@@ -88,7 +88,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
 				</li>
 				<li>
-						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
+						<a href="usuarios.php"><i class="icofont icofont-users"></i> Usuarios</a>
 				</li>
 				<li>
 						<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
@@ -613,14 +613,14 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 	console.log($('#tbodyProductosListado #'+stockFict).find('.tdStock').text())
 	//var productoRow=contenedorRow.find('.spanProducto').text();
 
-	var consumoRealHoy=nuevoValor-contadorPrevio;
+	var consumoRealHoy=(nuevoValor-contadorPrevio);
 	//console.log(precioFijo)
 	if(consumoRealHoy<=0){
 		contenedorRow.find('.txtValorNumericoConsumo').val(0);
 		contenedorRow.find('.divConsumoProd').text('Inválido!').removeClass('text-success').addClass('text-danger');
 		contenedorRow.find('.divVentaConsumo').text('Inválido!').removeClass('text-success').addClass('text-danger');
 	}else{
-		var precFinventa=parseFloat(consumoRealHoy*precioFijo).toFixed(2);
+		var precFinventa=parseFloat(consumoRealHoy*precioFijo/100).toFixed(2);
 		contenedorRow.find('.divConsumoProd').text(consumoRealHoy).removeClass('text-danger').addClass('text-success');
 		contenedorRow.find('.divVentaConsumo').text(precFinventa).removeClass('text-danger').addClass('text-success');
 	}
@@ -693,8 +693,11 @@ $('#btnGuardarReporte').click(function () {
 	console.log(totalRowsCaja);
 	if(!$('#btnGuardarReporte').hasClass('disabled')){
 		$('#btnGuardarReporte').addClass('disabled');
-
-		
+		$.each($('.rowProductosMalla'), function (i, rowD) { console.log(rowD)
+			if($(rowD).find('.txtValorNumericoConsumo').val()==''){
+				$(rowD).addClass('hidden-print');
+			}
+		});
 
 		$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
 			if(resp!=0){
@@ -727,8 +730,8 @@ $('#btnGuardarReporte').click(function () {
 			}
 		});
 
-	}
-	window.print();
+		}
+		window.print();
 });
 $('#btnGuardarReporteIngresoVsEgreso').click(function () {
 	var ids=''; cadena='';
