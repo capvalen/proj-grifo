@@ -93,7 +93,7 @@ if (isset($_SESSION['Atiende'])){
 				type:'POST',
 				url: 'php/validarSesion.php',
 				data: {user: $('#txtUser_grifo').val(), pws: $('#txtPassw').val()},
-				success: function(iduser) {
+				success: function(iduser) { //console.log(iduser);
 					if (iduser!=0){//console.log('el id es '+data)
 						//console.log(iduser)
 						window.location="principal.php";
@@ -106,7 +106,7 @@ if (isset($_SESSION['Atiende'])){
 						});
 						$('#txtUser_grifo').select();
 						$('.fa-spin').addClass('sr-only');$('.icofont-key').removeClass('sr-only');
-						//console.log(iduser);
+						
 						console.log('error en los datos')}
 				}
 			});

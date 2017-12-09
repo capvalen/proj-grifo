@@ -271,7 +271,6 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								
 							</span>
 							</div>
-
 						</div>
 						<div class="panel panel-morado">
 							<div class="panel-heading">

@@ -5,7 +5,7 @@ session_start();
 header('Content-Type: text/html; charset=utf8');
 include 'conectkarl.php';
 
-
+// echo "select * from  usuario u inner join sucursal s on u.idSucursal=s.idSucursal where usuNick = '".$_POST['user']."' and usuPass='".md5($_POST['pws'])."' and usuActivo=1;";
 $log = mysqli_query($conection,"select * from  usuario u inner join sucursal s on u.idSucursal=s.idSucursal where usuNick = '".$_POST['user']."' and usuPass='".md5($_POST['pws'])."' and usuActivo=1;");
 
 $row = mysqli_fetch_array($log, MYSQLI_ASSOC);
