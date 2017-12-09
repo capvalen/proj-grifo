@@ -155,7 +155,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							</div>
 							<div class="col-sm-2" id="spGrupoProducto">
 								<label for="spGrupoProducto">¿Pertenece a un grupo?</label>
-								<select class="selectpicker mayuscula"  title="Grupo..."  data-width="100%" data-live-search="true"">
+								<select class="selectpicker mayuscula"  title="Grupo..."  data-width="100%" data-live-search="true">
 								<option class="optGrupoProd mayuscula" data-tokens="0">Ninguno</option>
 								<option class="optGrupoProd mayuscula" data-tokens="1">Grupo 1</option>
 								<option class="optGrupoProd mayuscula" data-tokens="2">Grupo 2</option>
@@ -272,7 +272,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<td>14.10</td>
 								<td>Carlos Alex</td>
 							</tr> -->
-							</tr>
+							
 						</tbody>
 						</table>
 						</div>

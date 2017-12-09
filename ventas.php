@@ -21,7 +21,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.7" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.8" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.4" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.3">
 		<link rel="stylesheet" href="css/icofont.css">
@@ -231,27 +231,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 							</div> -->
-						<div class="panel panel-morado">
-							<div class="panel-heading">
-								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier B</strong></h3>
-							</div>
-							<div class="container" style="padding-bottom: 10px;">
-								<div class="row" style="padding-top: 5px;">
-								<strong>
-									<div class="col-xs-3 col-sm-2">Producto</div>
-									<div class="col-xs-1 col-sm-1">Precio</div>
-									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
-									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-									<div class="col-xs-1 col-sm-1">Consumo</div>
-									<div class="col-xs-2 col-sm-2">Venta</div>
-								</strong>
-								</div>
-							<span class="spanSurtidores" id="spanPremierB" style="font-size: 15px;">
-								
-							</span>
-							</div>
-
-						</div>
+						
 						<div class="panel panel-morado">
 							<div class="panel-heading">
 								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier C</strong></h3>
@@ -267,10 +247,31 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 							</div>
-							<span class="spanSurtidores" id="spanPremierC" style="font-size: 15px;">
+							<div class="spanSurtidores" id="spanPremierC" style="font-size: 15px;">
 								
-							</span>
 							</div>
+							</div>
+						</div>
+						<div class="panel panel-morado">
+							<div class="panel-heading">
+								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier B</strong></h3>
+							</div>
+							<div class="container" style="padding-bottom: 10px;">
+								<div class="row" style="padding-top: 5px;">
+								<strong>
+									<div class="col-xs-3 col-sm-2">Producto</div>
+									<div class="col-xs-1 col-sm-1">Precio</div>
+									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-2 col-sm-2">Venta</div>
+								</strong>
+								</div>
+							<div class="spanSurtidores" id="spanPremierB" style="font-size: 15px;">
+								
+							</div>
+							</div>
+
 						</div>
 						<div class="panel panel-morado">
 							<div class="panel-heading">
@@ -287,9 +288,9 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 								</div>
-							<span class="spanSurtidores" id="spanSurtidorGas" style="font-size: 15px;">
+							<div class="spanSurtidores" id="spanSurtidorGas" style="font-size: 15px;">
 								
-							</span>
+							</div>
 							</div>
 
 						</div>
@@ -339,7 +340,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						</div>
 
 						<div class="row">
-							<div class="col-xs-12 col-sm-4">
+							<div class="col-xs-4 col-sm-4">
 								<div class="panel panel-negro">
 									<div class="panel-heading">
 										<h3 class="panel-title">Resumen de Caja chica</h3>
@@ -349,7 +350,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 											<p>Ingresos</p>
 											<p>Gastos</p>
 											<p>Créditos</p>
-											<p><strong>Suma:</strong></p>
+											<p><strong></strong></p>
 										</div>
 										<div class="col-xs-5">
 											<p>S/. <span id="spanPanelResumenIngresos">0.00</span></p>
@@ -361,7 +362,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 								</div>
 							</div>
-							<div class="col-xs-12 col-sm-8">
+							<div class="col-xs-8 col-sm-8">
 								<div class="panel panel-negro ">
 								<div class="panel-heading">
 									<h3 class="panel-title">Resumen de ventas</h3>
@@ -381,7 +382,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									
 								</span>
 								<div class="row"><strong>
-									<div class="col-xs-4">Sumas</div>
+									<div class="col-xs-4"></div>
 									<div class="col-xs-4"><span id="spanSumaCantidades">0</span> gl.</div>
 									<div class="col-xs-4"><span id="spanSumaTotal">0.00</span></div></strong>
 									<div class="sr-only"><span id="spanSumaTotasr">0.00</span></div></strong>
@@ -392,7 +393,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								
 							</div>
 							<div class="row text-center">
-								<button class="btn btn-morado btn-outline hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
+								<button class="btn btn-morado btn-outline hidden hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
 							</div>
 						</div>
 						
@@ -419,7 +420,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							</div>
 							<span id="contenidoACuadrarIngresVsEgres2" >
 								<div class="row">
-									<div class="col-xs-12"><p class="text-muted">Aún no hay datos, pulse el boton de actualizar</p></div>
+									<div class="col-xs-12"><strong>Aún no hay datos, pulse el boton de actualizar</strong></div>
 								</div>
 								<!-- <div class="row">
 									<div class="col-xs-2">1. Crédito</div>
@@ -605,22 +606,37 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 	var idCambiante=$(this).attr('id');
 	//console.log(idCambiante)
 	var contenedorRow=$(this).parent().parent();//.find('.idProdConsumo').text();
+	var queContenedorEs=contenedorRow.parent().attr('id');
 	var nuevoValor= parseFloat($(this).val());
 	var precioFijo=$.JsonProductosCliente[idCambiante].prodPrecioActual;//parseFloat(contenedorRow.find('.divPrecioFijo').text());
 	var contadorPrevio=parseFloat(contenedorRow.find('.divContadorPrevio').text()); //$.JsonProductosCliente[idCambiante].prodUltimoContador;
 	var stockFict=contenedorRow.find('.idContenedorCons').text();
+	var precFinventa=0;
 	console.log($('#tbodyProductosListado #'+stockFict).find('.tdStock').text())
 	//var productoRow=contenedorRow.find('.spanProducto').text();
 
 	var consumoRealHoy=(nuevoValor-contadorPrevio);
 	//console.log(precioFijo)
-	if(consumoRealHoy<=0){
+	if(consumoRealHoy==0){
 		contenedorRow.find('.txtValorNumericoConsumo').val(0);
+		contenedorRow.find('.divConsumoProd').text(0).removeClass('text-success').addClass('text-danger');
+		contenedorRow.find('.divVentaConsumo').text(0.00).removeClass('text-success').addClass('text-danger');
+	}
+	else if(consumoRealHoy<0){
+		contenedorRow.find('.txtValorNumericoConsumo').val('');
 		contenedorRow.find('.divConsumoProd').text('Inválido!').removeClass('text-success').addClass('text-danger');
 		contenedorRow.find('.divVentaConsumo').text('Inválido!').removeClass('text-success').addClass('text-danger');
-	}else{
-		var precFinventa=parseFloat(consumoRealHoy*precioFijo/100).toFixed(2);
-		contenedorRow.find('.divConsumoProd').text(consumoRealHoy).removeClass('text-danger').addClass('text-success');
+	}
+	else{
+
+		if(queContenedorEs=='spanSurtidorGas'){
+			precFinventa=parseFloat(consumoRealHoy*precioFijo).toFixed(2);
+			contenedorRow.find('.divConsumoProd').text(consumoRealHoy.toFixed(2)).removeClass('text-danger').addClass('text-success');
+		}else{
+			precFinventa=parseFloat(consumoRealHoy*precioFijo/100).toFixed(2);
+			contenedorRow.find('.divConsumoProd').text(consumoRealHoy).removeClass('text-danger').addClass('text-success');
+		}
+		
 		contenedorRow.find('.divVentaConsumo').text(precFinventa).removeClass('text-danger').addClass('text-success');
 	}
 
@@ -685,16 +701,31 @@ function cmbProductoListadoLlenar(){
 	}
 }
 $('#btnGuardarReporte').click(function () {
-	var idsCaja=''; contadorRow=0;
-	//$('#btnRefreshIngVsEgr').click();
+	var idsCaja=''; contadorRow=0;	
 	totalRowsCaja=$('#contenidoACuadrarIngresVsEgres .row').length;
+	var totalMalla=$('.rowProductosMalla').length-1;
+	/*$.each($('.rowProductosMalla'), function (i, datoD) {
+		if($(datoD).find('.txtValorNumericoConsumo').val()=='' || $(datoD).find('.txtValorNumericoConsumo').val()=='0' ){
+			$(datoD).addClass('hidden-print');
+		}
 
-	console.log(totalRowsCaja);
+	});*/
 	if(!$('#btnGuardarReporte').hasClass('disabled')){
 		$('#btnGuardarReporte').addClass('disabled');
-		$.each($('.rowProductosMalla'), function (i, rowD) { console.log(rowD)
+		$.each($('.rowProductosMalla'), function (i, rowD) { //console.log(rowD)
 			if($(rowD).find('.txtValorNumericoConsumo').val()==''){
 				$(rowD).addClass('hidden-print');
+			}
+			if(totalMalla==i){
+				if($('#spanPremierC .rowProductosMalla.hidden-print').length==$('#spanPremierC .rowProductosMalla').length){
+					$('#spanPremierC').parent().parent().addClass('hidden-print');
+				}
+				if($('#spanPremierB .rowProductosMalla.hidden-print').length==$('#spanPremierB .rowProductosMalla').length){
+					$('#spanPremierB').parent().parent().addClass('hidden-print');
+				}
+				if($('#spanSurtidorGas .rowProductosMalla.hidden-print').length==$('#spanSurtidorGas .rowProductosMalla').length){
+					$('#spanSurtidorGas').parent().parent().addClass('hidden-print');
+				}
 			}
 		});
 
@@ -705,12 +736,19 @@ $('#btnGuardarReporte').click(function () {
 					if($(dato).find('.txtValorNumericoConsumo').val()!=0 && $(dato).find('.txtValorNumericoConsumo').val()!='' ){
 						//console.log($(dato).find('.idProdConsumo').text());
 						var idProd=$(dato).find('.idProdConsumo').text();
-						var consum=$(dato).find('.divConsumoProd').text();
+						var consum=$(dato).find('.divConsumoProd').text();;
 						var idConten=$(dato).find('.idContenedorCons').text();
 						var contadorTotal=$(dato).find('.txtValorNumericoConsumo').val();
-						$.ajax({url: 'php/insertarCuadreCajaDetalle.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal }}).done(function (respu) {
-							console.log(respu)
-						});
+						if( $(dato).parent().attr('id')=='spanSurtidorGas'){
+							$.ajax({url: 'php/insertarCuadreCajaDetalleGas.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal }}).done(function (respu) {
+								console.log(respu)
+							});
+						}else{
+							$.ajax({url: 'php/insertarCuadreCajaDetalle.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal }}).done(function (respu) {
+								console.log(respu)
+							});
+						}
+						
 					}
 				});
 			}
@@ -751,31 +789,33 @@ $('#btnRefreshIngVsEgr').click(function () {
 
 	var sumaIngreso=0, sumaEgreso=0, sumaCredito=0;
 	$.ajax({url: 'php/listarCajaPorUsuario.php', type: 'POST', data:{ idUser: $.JsonUsuario.idUsuario}}).done(function (resp) {
-		elemento=JSON.parse(resp); //console.log(elemento);
-		$.each(elemento, function (i, dato) {
-
-			switch(dato.idTipoProceso){
-				case "3": sumaCredito+=parseFloat(dato.cajaMonto) ;break; //es credito
-				case "5": sumaEgreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
-				case "6": sumaIngreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
-			}
+		elemento=JSON.parse(resp); //console.log(elemento.length);
+		if(elemento.length==0){
+			$('#btnGuardarReporte').removeClass('hidden');
 			$('#contenidoACuadrarIngresVsEgres').append(`<div class="row">
+					<p>No hay créditos en éste turno.</p></div>`);
+		}else{
+			$('#btnGuardarReporte').removeClass('hidden');
+			$.each(elemento, function (i, dato) {
+				switch(dato.idTipoProceso){
+					case "3": sumaCredito+=parseFloat(dato.cajaMonto) ;break; //es credito
+					case "5": sumaEgreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
+					case "6": sumaIngreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
+				}
+				$('#contenidoACuadrarIngresVsEgres').append(`<div class="row">
 					<div class="idCaja sr-only">${dato.idcaja}</div>
 					<div class="col-xs-1">${i+1}. ${dato.tipoDescripcion}</div>
 					<div class="col-xs-6 mayuscula">${dato.cajaDescripcion}</div>
 					<div class="col-xs-1">${parseFloat(dato.cajaMonto).toFixed(2)}</div>
-					<div class="col-xs-3">${moment(dato.cajaFecha).format('dddd h:mm a')}</div>`);
-		});
-		$('#spanPanelResumenIngresos').text(parseFloat(sumaIngreso).toFixed(2));
-		$('#spanPanelResumenGastos').text(parseFloat(sumaEgreso).toFixed(2));
-		$('#spanPanelResumenCreditos').text(parseFloat(sumaCredito).toFixed(2));
-		$('#spanPanelSumaTotalChica').text(parseFloat(sumaIngreso-sumaEgreso+sumaCredito).toFixed(2));
-	/*	$('#contenidoACuadrarIngresVsEgres').append(`
-			<div class="col-xs-4"><strong>Ingresos S/. ${parseFloat(sumaIngreso).toFixed(2)}</strong></div>
-			<div class="col-xs-4"><strong>Gastos S/. ${parseFloat(sumaEgreso).toFixed(2)}</strong></div>
-			<div class="col-xs-4"><strong>Créditos S/. ${parseFloat(sumaCredito).toFixed(2)}</strong></div>`);
-		$('#btnGuardarReporteIngresoVsEgreso').removeClass('sr-only');*/
+					<div class="col-xs-3">${moment(dato.cajaFecha).format('DD/MM/YYYY h:mm a')}</div>`);
+			});
+			$('#spanPanelResumenIngresos').text(parseFloat(sumaIngreso).toFixed(2));
+			$('#spanPanelResumenGastos').text(parseFloat(sumaEgreso).toFixed(2));
+			$('#spanPanelResumenCreditos').text(parseFloat(sumaCredito).toFixed(2));
+			$('#spanPanelSumaTotalChica').text(parseFloat(sumaIngreso-sumaEgreso+sumaCredito).toFixed(2));
+		}
 	});
+	
 });
 </script>
 

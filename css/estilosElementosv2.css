@@ -152,9 +152,10 @@ h2{margin-top: 0px; } .breadcrumb{margin-bottom: 10px; }
 
 .btnEliminarCode{margin-right: 8px; margin-bottom: 3px}
 .form-control[disabled]{cursor: default;}
-#spanPremierB>.row, #spanPremierC>.row, #spanSurtidorGas>.row {padding-top: 5px;}
+#spanPremierB>.row, #spanPremierC>.row, #spanSurtidorGas>.row {padding-top: 5px;padding-bottom: 5px;}
 .modal-ingresarCredito .row{padding-top: 10px;}
-
+.rowProductosMalla{transition: all 0.6s;}
+.rowProductosMalla:hover{background-color: #f3f3f3; transition: all 0.6s;}
 
 
 
