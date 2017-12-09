@@ -15,7 +15,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Ventas: Infocat-Grifo</title>
+		<title>Usuarios: Infocat-Grifo</title>
 
 		<!-- Bootstrap Core CSS -->
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -41,47 +41,40 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
-				<div class="sidebar-brand ocultar-mostrar-menu" >
-						<a href="#">
-								Control Panel
-						</a>
-				</div>
+				
 				<div class="logoEmpresa ocultar-mostrar-menu">
-					<img class="img-responsive" src="images/empresa.png" alt="">
-				</div>
-				<li>
-						<a href="principal.php"><i class="icofont icofont-space-shuttle"></i> Inicio</a>
-				</li>
-				<li>
-						<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
-				</li>
-				<li>
-						<a href="pedidos.php"><i class="icofont icofont-fork-and-knife"></i> Pedidos</a>
-				</li>
-				<li>
-						<a href="caja.php"><i class="icofont icofont-cart"></i> Cobrar</a>
-				</li>
-				<li>
-						<a href="ventas.php"><i class="icofont icofont-cart"></i> Cuadrar caja</a>
-				</li>
-				<li>
-						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
-				</li>
-				<li>
-						<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
-				</li>
-				<li >
-						<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
-				</li>
-				<li class="active">
-						<a href="#"><i class="icofont icofont-users"></i> Usuarios</a>
-				</li>
-				<li>
-						<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
-				</li>
-				<li>
-						<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
-				</li>
+				<img class="img-responsive" src="images/empresa.png?version=1.1" alt="">
+			</div>
+			<li>
+					<a href="principal.php"><i class="icofont icofont-home"></i> Inicio</a>
+			</li>
+			<li>
+					<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
+			</li>
+			<li>
+					<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
+			</li>
+			<li>
+					<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-ui-love-add"></i> Crédito nuevo</a>
+			</li>
+			<li>
+					<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
+			</li>
+			<li>
+					<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
+			</li>
+			<li>
+					<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
+			</li>
+			<li>
+					<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+			</li>
+			<li class="active">
+					<a href="usuarios.php"><i class="icofont icofont-users"></i> Usuarios</a>
+			</li>
+			<li>
+					<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
+			</li>
 		</ul>
 	</div>
 			<!-- /#sidebar-wrapper -->
@@ -117,7 +110,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								 </li>
 								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span class="mayuscula" id="menuNombreUsuario"><?php echo $_SESSION["Atiende"]; ?></span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"><?php require('php/gethora.php') ?></span> </small></a></li>
 									
-				<li class="text-center"><a href="php/desconectar.php"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-sign-out"></i></a></li>
+				<li class="text-center"><a href="php/desconectar.php"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-ui-power"></i></a></li>
 							</ul>
 							
 					</div>

@@ -15,14 +15,14 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<meta name="description" content="">
 		<meta name="author" content="">
 
-		<title>Inicio: Infocat-Grifo</title>
+		<title>Reportes: Infocat-Grifo</title>
 
 		<!-- Bootstrap Core CSS -->
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
 		<link href="css/estilosElementosv2.css?version=1.0.1" rel="stylesheet">
-		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
+		<link href="css/sidebarDeslizable.css?version=1.0.2" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.4">
 		<link rel="stylesheet" href="css/icofont.css">
 		<link rel="stylesheet" href="css/animate.css">
@@ -48,16 +48,12 @@ hr{    margin-top: 10px;
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
-				<div class="sidebar-brand ocultar-mostrar-menu" >
-						<a href="#">
-								Control Panel
-						</a>
-				</div>
+				
 				<div class="logoEmpresa ocultar-mostrar-menu">
 					<img class="img-responsive" src="images/empresa.png" alt="">
 				</div>
 				<li>
-						<a href="principal.php"><i class="icofont icofont-space-shuttle"></i> Inicio</a>
+						<a href="principal.php"><i class="icofont icofont-home"></i> Inicio</a>
 				</li>
 				<li>
 						<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>

@@ -42,16 +42,12 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 	<!-- Sidebar -->
 	<div id="sidebar-wrapper">
 		<ul class="sidebar-nav">
-				<div class="sidebar-brand ocultar-mostrar-menu" >
-						<a href="#">
-								Control Panel
-						</a>
-				</div>
+				
 				<div class="logoEmpresa ocultar-mostrar-menu">
 					<img class="img-responsive" src="images/empresa.png" alt="">
 				</div>
 				<li>
-						<a href="principal.php"><i class="icofont icofont-space-shuttle"></i> Inicio</a>
+						<a href="principal.php"><i class="icofont icofont-home"></i> Inicio</a>
 				</li>
 				<li class="active">
 						<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
@@ -115,7 +111,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								 </li>
 								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span class="mayuscula" id="menuNombreUsuario"><?php echo $_SESSION["Atiende"]; ?></span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"><?php require('php/gethora.php') ?></span> </small></a></li>
 									
-				<li class="text-center"><a href="php/desconectar.php"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-sign-out"></i></a></li>
+				<li class="text-center"><a href="php/desconectar.php"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-ui-power"></i></a></li>
 							</ul>
 							
 					</div>
