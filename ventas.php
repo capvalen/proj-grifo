@@ -48,6 +48,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 	padding-left: 15px; padding-right: 0px;
 	width: 30%;
 }
+.txtGasInput{margin-bottom: 10px}
 </style>
 
 <div id="wrapper">
@@ -143,8 +144,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 					<ul class="nav nav-tabs hidden-print">
 					<li class="active"><a href="#tabListaPreciosActual" data-toggle="tab">Lista de precios de productos</a></li>
 					<li><a href="#tabCuadrarCajaEmpleado" data-toggle="tab">Cuadrar caja ventas</a></li>
-					<li><a href="#tabCuadrarCajaEgreso" data-toggle="tab">Cuadrar Ingresos y Egresos</a></li>
-					<li><a href="#tabExtra" data-toggle="tab">Pestaña extra</a></li>
+					<li class="hidden"><a href="#tabCuadrarCajaEgreso" data-toggle="tab">Cuadrar Ingresos y Egresos</a></li>
+					<li class="hidden"><a href="#tabExtra" data-toggle="tab">Pestaña extra</a></li>
 					
 					</ul>
 					
@@ -312,7 +313,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 										<div class="col-xs-6">Descripción</div>
 										<div class="col-xs-1"><span class="hidden-print">Monto</span> S/.</div>
 										<div class="col-xs-3">Dia Hora</div>
-									</strong>
+										</strong>
 									</div>
 									<span id="contenidoACuadrarIngresVsEgres" >
 										<div class="">
@@ -336,28 +337,6 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						</div>
 
 						<div class="row">
-							<div class="col-xs-4 col-sm-4">
-								<div class="panel panel-negro">
-									<div class="panel-heading">
-										<h3 class="panel-title">Resumen de Caja chica</h3>
-									</div>
-									<div class="panel-body">
-										<div class="col-xs-7">
-											<p>Ingresos</p>
-											<p>Gastos</p>
-											<p>Créditos</p>
-											<p><strong></strong></p>
-										</div>
-										<div class="col-xs-5">
-											<p>S/. <span id="spanPanelResumenIngresos">0.00</span></p>
-											<p>S/. <span id="spanPanelResumenGastos">0.00</span></p>
-											<p>S/. <span id="spanPanelResumenCreditos">0.00</span></p>
-											<p><strong>S/. <span id="spanPanelSumaTotalChica">0.00</span></strong></p>
-										</div>
-									</div>
-
-								</div>
-							</div>
 							<div class="col-xs-8 col-sm-8">
 								<div class="panel panel-negro ">
 								<div class="panel-heading">
@@ -380,13 +359,37 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<div class="row"><strong>
 									<div class="col-xs-4"></div>
 									<div class="col-xs-4"><span id="spanSumaCantidades">0</span> gl.</div>
-									<div class="col-xs-4"><span id="spanSumaTotal">0.00</span></div></strong>
+									<div class="col-xs-4">S/. <span id="spanSumaTotal">0.00</span></div></strong>
 									<div class="sr-only"><span id="spanSumaTotasr">0.00</span></div></strong>
 								</div>
 								</div>
 								</div>
 								
 								
+							</div>
+							<div class="col-xs-4 col-sm-4">
+								<div class="panel panel-negro">
+									<div class="panel-heading">
+										<h3 class="panel-title">Resumen de Caja chica</h3>
+									</div>
+									<div class="panel-body">
+										<div class="col-xs-7">
+											<p>Venta</p>
+											<p>Ingresos</p>
+											<p>Gastos</p>
+											<p>Créditos</p>
+											<p><strong></strong></p>
+										</div>
+										<div class="col-xs-5">
+											<p>S/. <span id="spanPanelResumenVentav2">0.00</span></p>
+											<p>S/. <span id="spanPanelResumenIngresos">0.00</span></p>
+											<p>S/. <span id="spanPanelResumenGastos">0.00</span></p>
+											<p>S/. <span id="spanPanelResumenCreditos">0.00</span></p>
+											<p><strong>S/. <span id="spanPanelSumaTotalChica">0.00</span></strong></p>
+										</div>
+									</div>
+
+								</div>
 							</div>
 							<div class="row text-center">
 								<button class="btn btn-morado btn-outline hidden hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
@@ -454,7 +457,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		</div>
 </div>
 <!-- /#page-content-wrapper -->
-</div><!-- /#wrapper -->
+<!-- /#wrapper -->
 <?php include ('php/llamandoModals.php'); ?>
 
 	
@@ -533,7 +536,7 @@ $(document).ready(function(){
 						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
-						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
+						<div class="col-xs-2 col-sm-2">S/. <span class="divVentaConsumo"></span></div>
 					</div>`); break;
 				case 'Premier C': 
 					$('#spanPremierC').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
@@ -545,7 +548,7 @@ $(document).ready(function(){
 						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
-						<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
+						<div class="col-xs-2 col-sm-2">S/. <span class="divVentaConsumo"></span></div>
 					</div>`); break;
 				case 'Surtidor de Gas':
 					$('#spanSurtidorGas').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
@@ -554,10 +557,13 @@ $(document).ready(function(){
 						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-md-1 col-xs-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
 						<div class="col-md-2 col-xs-2 divContadorPrevio text-center">${dato.prodCtaAnterior}</div>
-						<div class="col-md-2 col-xs-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
+						<div class="col-md-2 col-xs-2 hidden-print">
+							<input type="numeric" class="form-control txtGasInput txtValorNumericoConsumo text-center" id="${i}" ${considerar} placeholder="Cuenta mecánica">
+							<input type="numeric" class="form-control txtGasInput txtValorSolesConsumo text-center" ${considerar} placeholder="Cuenta en Soles">
+							<input type="numeric" class="form-control txtGasInput txtValorLitrosConsumo text-center" ${considerar} placeholder="Cuenta litros"></div>
 						<div class="col-md-2 col-xs-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-md-1 col-xs-1 divConsumoProd">-</div>
-						<div class="col-md-2 col-xs-2 divVentaConsumo">S/. -</div>
+						<div class="col-md-2 col-xs-2">S/. <span class="divVentaConsumo"></span></div>
 					</div>`); break;
 			}
 
@@ -608,10 +614,10 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 	var contadorPrevio=parseFloat(contenedorRow.find('.divContadorPrevio').text()); //$.JsonProductosCliente[idCambiante].prodUltimoContador;
 	var stockFict=contenedorRow.find('.idContenedorCons').text();
 	var precFinventa=0;
-	console.log($('#tbodyProductosListado #'+stockFict).find('.tdStock').text())
+	//console.log($('#tbodyProductosListado #'+stockFict).find('.tdStock').text())
 	//var productoRow=contenedorRow.find('.spanProducto').text();
 
-	var consumoRealHoy=(nuevoValor-contadorPrevio);
+	var consumoRealHoy=(nuevoValor-contadorPrevio)/100;
 	//console.log(precioFijo)
 	if(consumoRealHoy==0){
 		contenedorRow.find('.txtValorNumericoConsumo').val(0);
@@ -629,7 +635,7 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 			precFinventa=parseFloat(consumoRealHoy*precioFijo).toFixed(2);
 			contenedorRow.find('.divConsumoProd').text(consumoRealHoy.toFixed(2)).removeClass('text-danger').addClass('text-success');
 		}else{
-			precFinventa=parseFloat(consumoRealHoy*precioFijo/100).toFixed(2);
+			precFinventa=parseFloat(consumoRealHoy*precioFijo).toFixed(2);
 			contenedorRow.find('.divConsumoProd').text(consumoRealHoy).removeClass('text-danger').addClass('text-success');
 		}
 		
@@ -650,6 +656,7 @@ function sumarTotales(){
 		$(`.spanSurtidores .spanProducto:contains("${produdctoABuscar}")`).parent().parent().parent().parent().each(function (i, arg) {
 			cuantoConsumo=parseFloat($(arg).find('.divConsumoProd').text());
 			cuantoVendo=parseFloat( $(arg).find('.divVentaConsumo').text());
+			console.log(arg)
 
 			if( ! isNaN(cuantoConsumo)){ sumaParcialConsumo+=cuantoConsumo; sumaConsumo+=sumaParcialConsumo }else{cuantoConsumo=0;}
 			if( ! isNaN(cuantoVendo)){ sumaParcialVenta+=cuantoVendo; }else{cuantoConsumo=0;}
@@ -661,6 +668,7 @@ function sumarTotales(){
 		$(elem).find('#spanSumaFinalConsumo').text(sumaParcialConsumo);
 		$(elem).find('#spanSumaFinalMontos').text(parseFloat(sumaParcialVenta).toFixed(2));
 	});
+	$('#spanPanelResumenVentav2').text(parseFloat(sumaTotales).toFixed(2));
 	$('#spanSumaTotal').text(parseFloat(sumaTotales).toFixed(2));
 	$('#spanSumaTotasr').text(parseFloat(sumaTotales).toFixed(2));
 
@@ -735,8 +743,10 @@ $('#btnGuardarReporte').click(function () {
 						var consum=$(dato).find('.divConsumoProd').text();;
 						var idConten=$(dato).find('.idContenedorCons').text();
 						var contadorTotal=$(dato).find('.txtValorNumericoConsumo').val();
+						var contaSoles=$(dato).find('.txtValorSolesConsumo').val();
+						var contaLitros=$(dato).find('.txtValorLitrosConsumo').val();
 						if( $(dato).parent().attr('id')=='spanSurtidorGas'){
-							$.ajax({url: 'php/insertarCuadreCajaDetalleGas.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal }}).done(function (respu) {
+							$.ajax({url: 'php/insertarCuadreCajaDetalleGas.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contSoles: contaSoles, contLitros: contaLitros }}).done(function (respu) {
 								console.log(respu)
 							});
 						}else{
@@ -784,6 +794,7 @@ $('#btnRefreshIngVsEgr').click(function () {
 	$('#contenidoACuadrarIngresVsEgres').children().remove();
 
 	var sumaIngreso=0, sumaEgreso=0, sumaCredito=0;
+	var sumaVenta=parseFloat($('#spanSumaTotasr').text());
 	$.ajax({url: 'php/listarCajaPorUsuario.php', type: 'POST', data:{ idUser: $.JsonUsuario.idUsuario}}).done(function (resp) {
 		elemento=JSON.parse(resp); //console.log(elemento.length);
 		if(elemento.length==0){
@@ -808,7 +819,7 @@ $('#btnRefreshIngVsEgr').click(function () {
 			$('#spanPanelResumenIngresos').text(parseFloat(sumaIngreso).toFixed(2));
 			$('#spanPanelResumenGastos').text(parseFloat(sumaEgreso).toFixed(2));
 			$('#spanPanelResumenCreditos').text(parseFloat(sumaCredito).toFixed(2));
-			$('#spanPanelSumaTotalChica').text(parseFloat(sumaIngreso-sumaEgreso+sumaCredito).toFixed(2));
+			$('#spanPanelSumaTotalChica').text(parseFloat(sumaVenta+sumaIngreso-sumaEgreso-sumaCredito).toFixed(2));
 		}
 	});
 	
