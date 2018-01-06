@@ -143,11 +143,11 @@ hr{    margin-top: 10px;
 						<div class="tab-pane fade in active container-fluid" id="tabCreditosPendientes">
 						<!--Inicio de pestaña 01-->
 							<p>Tiene Ud. <strong><?php require 'php/returnCreditosCount.php' ?></strong> créditos pendientes por cobrar: </p>
-							<p>Seleccione una fecha para ver los créditos: <div id="idFechasCreditos">
+							<p>Seleccione una fecha para ver los créditos: <span id="idFechasCreditos">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosNumFecha.php' ?>
 								</select>
-							</div>
+							</span>
 							</p>
 							<div class="container">
 								 <div class="row"><strong>
@@ -171,11 +171,11 @@ hr{    margin-top: 10px;
 						<!--Panel para nueva compra-->
 						<div class="tab-pane fade container-fluid" id="tabCreditosFinalizados">
 						<!--Inicio de pestaña 02-->
-						<p>Seleccione una fecha para ver reporte de créditos finalizados: <div id="idFechasCreditosFin">
+						<p>Seleccione una fecha para ver reporte de créditos finalizados: <span id="idFechasCreditosFin">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFinNumFecha.php' ?>
 								</select>
-							</div>
+							</span>
 							</p>
 							<div class="container">
 								 <div class="row"><strong>
@@ -195,7 +195,7 @@ hr{    margin-top: 10px;
 
 						<div class="tab-pane fade container-fluid" id="tabResumenVentas">
 						<!--Inicio de pestaña 03-->
-						<p>Seleccione una fecha para ver reporte de ventas: <div id="">
+						<p>Seleccione una fecha para ver reporte de ventas: <span id="">
 							<div class="form-group col-xs-4">
 							<div class='input-group date' id='dtpFechaVentas'>
 								<input type='text' class="form-control text-center" />
@@ -204,36 +204,44 @@ hr{    margin-top: 10px;
 								</span>
 							</div>
 							</div>
-						</div>
+						</span>
 						</p>
 
 						<ul class="nav nav-tabs" id="ulResumen">
 							<li><a href="#tabVentaMes" data-toggle="tab">Mensual</a></li>
-							<li class="hidden"><a href="#tabVentaDiariaGlobal" data-toggle="tab">Diaria conjunto</a></li>
+							<li><a href="#tabVentaDiariaGlobal" data-toggle="tab">Diaria</a></li>
 							<li class="hidden"><a href="#tabVentaDiaraiaDetalla" data-toggle="tab">Diaria detallado</a></li>
 						</ul>
-						<div class="tab-pane fade container-fluid" id="tabVentaMes">
+						<div class="tab-content">
+							<div class="tab-pane fade container-fluid" id="tabVentaMes">
 							<div class="row"><strong>
-									<div class="col-xs-4">N° Fecha</div>
-									<div class="col-xs-4">Monto S/.</div>
-									<div class="col-xs-4">Usuario</div></strong>
-								</div>
+								<div class="col-xs-4">N° Fecha</div>
+								<div class="col-xs-4">Monto S/.</div>
+								<div class="col-xs-4">Usuario</div></strong>
+							</div>
 							<div id="divResVentaMes">
 								
 							</div>
 							<div class="row divTotalMes"> <label for="">Total:</label> S/. <span id="divVMTotalSuma"></span></div>
 						</div>
-						<div class="tab-pane fade container-fluid" id="tabVentaDiariaGlobal">
+						<div class="tab-pane fade  container-fluid" id="tabVentaDiariaGlobal">
 							<div id="divResVentaMe2s">
 								<div class="row"><strong>
 									<div class="col-xs-4">N° Fecha</div>
 									<div class="col-xs-4">Monto S/.</div>
 									<div class="col-xs-4">Usuario</div></strong>
 								</div>
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 							</div>
 						</div>
 						<div class="tab-pane fade container-fluid" id="tabVentaDiaraiaDetalla">
 							
+						</div>
 						</div>
 						
 						<!--Fin de pestaña 03-->
