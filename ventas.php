@@ -233,14 +233,14 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="panel-heading">
 								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier C</strong></h3>
 							</div>
-							<div class="container" style="padding-bottom: 10px;">
+							<div class="container-fluid" style="padding-bottom: 10px;">
 							<div class="row" style="padding-top: 5px;">
 								<strong>
 									<div class="col-xs-3 col-sm-2">Producto</div>
 									<div class="col-xs-1 col-sm-1">Precio</div>
 									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
 									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-1 col-sm-1">Consumo (gl.)</div>
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 							</div>
@@ -253,14 +253,14 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="panel-heading">
 								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier B</strong></h3>
 							</div>
-							<div class="container" style="padding-bottom: 10px;">
+							<div class="container-fluid" style="padding-bottom: 10px;">
 								<div class="row" style="padding-top: 5px;">
 								<strong>
 									<div class="col-xs-3 col-sm-2">Producto</div>
 									<div class="col-xs-1 col-sm-1">Precio</div>
 									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
 									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-1 col-sm-1">Consumo (gl.)</div>
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 								</div>
@@ -274,14 +274,14 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="panel-heading">
 								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Surtidor de Gas</strong></h3>
 							</div>
-							<div class="container" style="padding-bottom: 10px;">
+							<div class="container-fluid" style="padding-bottom: 10px;">
 								<div class="row" style="padding-top: 5px;">
 								<strong>
 									<div class="col-xs-3 col-sm-2">Producto</div>
 									<div class="col-xs-1 col-sm-1">Precio</div>
 									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
 									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-									<div class="col-xs-1 col-sm-1">Consumo</div>
+									<div class="col-xs-1 col-sm-1">Consumo (L.)</div>
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 								</div>
@@ -305,7 +305,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="panel-heading">
 								<h3 class="panel-title"><i class="icofont icofont-growth"></i> <strong>Ingresos vs Egresos</strong> <button class="btn btn-default btn-outline hidden-print pull-right" id="btnRefreshIngVsEgr" style="margin-top: -7px;"><i class="icofont icofont-refresh"></i> Generar resumen</button></h3> 
 							</div>
-							<div class="container"  style="padding-bottom: 10px;">
+							<div class="container-fluid"  style="padding-bottom: 10px;">
 								<div style="padding-top: 5px; padding-left: 5px">
 									<div class="row">
 										<strong>
@@ -337,7 +337,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						</div>
 
 						<div class="row">
-							<div class="col-xs-8 col-sm-8">
+							<div class="col-xs-7 col-sm-8">
 								<div class="panel panel-negro ">
 								<div class="panel-heading">
 									<h3 class="panel-title">Resumen de ventas</h3>
@@ -346,8 +346,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								<div class="row">
 									<strong>
 										<div class="col-xs-4">Producto</div>
-										<div class="col-xs-4">Suma consumo</div>
-										<div class="col-xs-4">Suma ventas</div>
+										<div class="col-xs-3 col-sm-4">Consumo</div>
+										<div class="col-xs-3 col-sm-4">SubTotal</div>
 									</strong>
 								</div>
 								<span id="spanListadoResumen">
@@ -358,8 +358,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								</span>
 								<div class="row"><strong>
 									<div class="col-xs-4"></div>
-									<div class="col-xs-4"><span id="spanSumaCantidades">0</span> gl.</div>
-									<div class="col-xs-4">S/. <span id="spanSumaTotal">0.00</span></div></strong>
+									<div class="col-xs-3 col-sm-4"><span id="spanSumaCantidades">0</span> gl.</div>
+									<div class="col-xs-3 col-sm-4">S/. <span id="spanSumaTotal">0.00</span></div></strong>
 									<div class="sr-only"><span id="spanSumaTotasr">0.00</span></div></strong>
 								</div>
 								</div>
@@ -367,7 +367,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								
 								
 							</div>
-							<div class="col-xs-4 col-sm-4">
+							<div class="col-xs-5 col-sm-4">
 								<div class="panel panel-negro">
 									<div class="panel-heading">
 										<h3 class="panel-title">Resumen de Caja chica</h3>
@@ -632,6 +632,7 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 	else{
 
 		if(queContenedorEs=='spanSurtidorGas'){
+			consumoRealHoy*=100;
 			precFinventa=parseFloat(consumoRealHoy*precioFijo).toFixed(2);
 			contenedorRow.find('.divConsumoProd').text(consumoRealHoy.toFixed(2)).removeClass('text-danger').addClass('text-success');
 		}else{
@@ -656,7 +657,7 @@ function sumarTotales(){
 		$(`.spanSurtidores .spanProducto:contains("${produdctoABuscar}")`).parent().parent().parent().parent().each(function (i, arg) {
 			cuantoConsumo=parseFloat($(arg).find('.divConsumoProd').text());
 			cuantoVendo=parseFloat( $(arg).find('.divVentaConsumo').text());
-			console.log(arg)
+			//console.log(arg)
 
 			if( ! isNaN(cuantoConsumo)){ sumaParcialConsumo+=cuantoConsumo; sumaConsumo+=sumaParcialConsumo }else{cuantoConsumo=0;}
 			if( ! isNaN(cuantoVendo)){ sumaParcialVenta+=cuantoVendo; }else{cuantoConsumo=0;}
@@ -712,7 +713,6 @@ $('#btnGuardarReporte').click(function () {
 		if($(datoD).find('.txtValorNumericoConsumo').val()=='' || $(datoD).find('.txtValorNumericoConsumo').val()=='0' ){
 			$(datoD).addClass('hidden-print');
 		}
-
 	});*/
 	if(!$('#btnGuardarReporte').hasClass('disabled')){
 		$('#btnGuardarReporte').addClass('disabled');
@@ -744,13 +744,17 @@ $('#btnGuardarReporte').click(function () {
 						var idConten=$(dato).find('.idContenedorCons').text();
 						var contadorTotal=$(dato).find('.txtValorNumericoConsumo').val();
 						var contaSoles=$(dato).find('.txtValorSolesConsumo').val();
-						var contaLitros=$(dato).find('.txtValorLitrosConsumo').val();
+						var contaLitros=$(dato).find('.txtValorLitrosConsumo').val(); 
+						var contaAntes=$(dato).find('.divContadorPrevio').text();
+						var contaLitroAntes=$(dato).find('.divContadorPrevio').text();
+						var contaSolesAntes=$(dato).find('.divContadorPrevio').text();
+						var ventaSubTotal =$(dato).find('.divVentaConsumo').text();
 						if( $(dato).parent().attr('id')=='spanSurtidorGas'){
-							$.ajax({url: 'php/insertarCuadreCajaDetalleGas.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contSoles: contaSoles, contLitros: contaLitros }}).done(function (respu) {
+							$.ajax({url: 'php/insertarCuadreCajaDetalleGas.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contSoles: contaSoles, contLitros: contaLitros, contAntes:contaAntes, ventaSubTotal:ventaSubTotal, contaLitroAntes: contaLitroAntes, contaSolesAntes: contaSolesAntes }}).done(function (respu) {
 								console.log(respu)
 							});
 						}else{
-							$.ajax({url: 'php/insertarCuadreCajaDetalle.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal }}).done(function (respu) {
+							$.ajax({url: 'php/insertarCuadreCajaDetalle.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contAntes:contaAntes, ventaSubTotal:ventaSubTotal }}).done(function (respu) {
 								console.log(respu)
 							});
 						}

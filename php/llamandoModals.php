@@ -157,7 +157,7 @@
 			<div class="container-fluid">
 			
 			<div class="row">
-				<label for="">Producto concedido a crédito:</label> <span class="red-text text-darken-2">*</span>
+				<label for="">Seleccione un producto para agregar stock:</label> <span class="red-text text-darken-2">*</span>
 				<div  id="divSelectModTanqueProducto">
 					<select class="selectpicker mayuscula slpProductos" title="Producto..."  data-width="100%" data-live-search="true">
 						<?php require 'listarProductosNombresOption.php'; ?>

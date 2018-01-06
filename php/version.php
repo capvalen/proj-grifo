@@ -1,7 +1,27 @@
 <?php 
-echo "Ver. 1.9 Compilación 2017.12.16";
+echo "Ver. 1.10 Compilación 2018.01.06";
 
 /*
+
+Ver 1.10
+ALTER TABLE `ventadetalle` ADD `detveContAnterior` REAL NOT NULL AFTER `idProducto`;
+ALTER TABLE `ventadetalle` CHANGE `detveCantidad` `detveCantidad` DOUBLE NULL DEFAULT NULL COMMENT 'galones';
+ALTER TABLE `ventadetalle` CHANGE `detveCantidadLitros` `detveCantidadLitros` DOUBLE NULL DEFAULT NULL;
+ALTER TABLE `ventadetalle` ADD `detveSubTotal` FLOAT NOT NULL ;
+ALTER TABLE `ventadetalle` ADD `detvenContMecan` REAL NOT NULL DEFAULT '0' , ADD `detvenContLitros` REAL NOT NULL DEFAULT '0' ;
+ALTER TABLE `ventadetalle` ADD `detvenContSoles` REAL NOT NULL DEFAULT '0' ;
+ALTER TABLE `ventadetalle` ADD `detvenContLitroAnt` REAL NOT NULL AFTER `detveContAnterior`, ADD `detvenContSolesAnt` REAL NOT NULL AFTER `detvenContLitroAnt`;
+ALTER TABLE `ventadetalle` CHANGE `detveCantidadLitros` `detveCantidadLitros` DOUBLE NULL DEFAULT '0';
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentasDetalle`()
+    NO SQL
+select p.prodNombre ,v.idVenta, ventFecha, ventMontoTotal,vt.idventaDetalle, vt.*, u.usuNombres, vt.detveCantidad,detveCantidadLitros, detvePrecio
+from venta v
+inner join ventadetalle vt on v.idVenta=vt.idVenta
+inner join productos p on vt.idProducto= p.idProductos
+inner join usuario u on u.idUsuario = v.idUsuario
+order by ventFecha asc;
+
 
 ver 1.9
 modificar tabla productos
