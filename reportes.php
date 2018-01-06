@@ -231,12 +231,6 @@ hr{    margin-top: 10px;
 									<div class="col-xs-4">Monto S/.</div>
 									<div class="col-xs-4">Usuario</div></strong>
 								</div>
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-							proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 							</div>
 						</div>
 						<div class="tab-pane fade container-fluid" id="tabVentaDiaraiaDetalla">
@@ -455,3 +449,11 @@ $('#ulResumen li').click(function () {
 </body>
 
 </html>
+<!-- CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentasDetalle`()
+    NO SQL
+select p.prodNombre ,v.idVenta, ventFecha, ventMontoTotal,vt.idventaDetalle, vt.*, u.usuNombres, vt.detveCantidad,detveCantidadLitros, detvePrecio
+from venta v
+inner join ventadetalle vt on v.idVenta=vt.idVenta
+inner join productos p on vt.idProducto= p.idProductos
+inner join usuario u on u.idUsuario = v.idUsuario
+order by ventFecha asc -->
