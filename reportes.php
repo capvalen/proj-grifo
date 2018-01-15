@@ -37,8 +37,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 <body>
 <style>
-#divResVentaMes .row, #divResultadoDetalleCreditos>.row{padding-top: 10px; padding-bottom: 10px}
-#divResVentaMes .row:hover, #divResultadoDetalleCreditos>.row:hover{background-color: #eee;}
+#divResVentaMes .row, #divResultadoDetalleCreditos>.row, #divResVentaDiaria .row{padding-top: 10px; padding-bottom: 10px}
+#divResVentaMes .row:hover, #divResultadoDetalleCreditos>.row:hover,#divResVentaDiaria .row:hover{background-color: #eee;}
 hr{    margin-top: 10px;
 	margin-bottom: 10px;}
 </style>
@@ -210,7 +210,7 @@ hr{    margin-top: 10px;
 						<ul class="nav nav-tabs" id="ulResumen">
 							<li><a href="#tabVentaMes" data-toggle="tab">Mensual</a></li>
 							<li><a href="#tabVentaDiariaGlobal" data-toggle="tab">Diaria</a></li>
-							<li class="hidden"><a href="#tabVentaDiaraiaDetalla" data-toggle="tab">Diaria detallado</a></li>
+							<li class="hidden"><a href="#tabVentaDiariaDetalla" data-toggle="tab">Diaria detallado</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade container-fluid" id="tabVentaMes">
@@ -220,18 +220,21 @@ hr{    margin-top: 10px;
 								<div class="col-xs-4">Usuario</div></strong>
 							</div>
 							<div id="divResVentaMes">
-								
 							</div>
 							<div class="row divTotalMes"> <label for="">Total:</label> S/. <span id="divVMTotalSuma"></span></div>
 						</div>
 						<div class="tab-pane fade  container-fluid" id="tabVentaDiariaGlobal">
-							<div id="divResVentaMe2s">
-								<div class="row"><strong>
-									<div class="col-xs-4">N° Fecha</div>
-									<div class="col-xs-4">Monto S/.</div>
-									<div class="col-xs-4">Usuario</div></strong>
-								</div>
+							<div class="row"><strong>
+								<div class="col-xs-3">Producto / Lado / Responsable</div>
+								<div class="col-xs-2">Fecha / Hora</div>
+								<div class="col-xs-2">Cont. Inicial - Salida</div>
+								<div class="col-xs-1">Consumo</div>
+								<div class="col-xs-1">Precio</div>
+								<div class="col-xs-2">Total</div>
+							</strong>
 							</div>
+							<div id="divResVentaDiaria"></div>
+							
 						</div>
 						<div class="tab-pane fade container-fluid" id="tabVentaDiaraiaDetalla">
 							
@@ -438,10 +441,20 @@ $('#ulResumen li').click(function () {
 				});
 			})
 		}
-		if(tabactivo=='Diaria conjunto'){
-
+		if(tabactivo=='Diaria'){ 
+			$('#divResVentaDiaria').children().remove();
+			$.ajax({url:'php/listarVentasDetalle.php', type: 'POST', data:{fechaIni:fecha}}).done(function (resp) {
+				$.each(JSON.parse(resp), function (i, dato) { console.log(dato)
+					$('#divResVentaDiaria').append(`<div class="row ${dato.contColorMaterialize}"><div class="col-xs-3"><strong>${i+1}. ${dato. prodNombre} / ${dato.ladoDescripcion}</strong>. <span class='mayuscula'>${dato.usuNombres}</span></div>
+							<div class="col-xs-2">${moment(dato.ventFecha).format('DD/MM/YYYY h:mm a')}</div>
+							<div class="col-xs-2">${dato.detveContAnterior} - ${dato.detvenContMecan}</div>
+							<div class="col-xs-1">${parseFloat(dato.detveCantidad).toFixed(2)} gls.</div>
+							<div class="col-xs-1">S/. ${parseFloat(dato.detvePrecio).toFixed(2)}</div>
+							<div class="col-xs-2">S/. ${parseFloat(dato.detveSubTotal).toFixed(2)}</div></div>`);
+				});
+				
+			});
 		}
-		if(tabactivo=='Diaria detallado'){}
 	}
 })
 </script>
@@ -449,11 +462,4 @@ $('#ulResumen li').click(function () {
 </body>
 
 </html>
-<!-- CREATE DEFINER=`root`@`localhost` PROCEDURE `listarVentasDetalle`()
-    NO SQL
-select p.prodNombre ,v.idVenta, ventFecha, ventMontoTotal,vt.idventaDetalle, vt.*, u.usuNombres, vt.detveCantidad,detveCantidadLitros, detvePrecio
-from venta v
-inner join ventadetalle vt on v.idVenta=vt.idVenta
-inner join productos p on vt.idProducto= p.idProductos
-inner join usuario u on u.idUsuario = v.idUsuario
-order by ventFecha asc -->
+<!--  -->

@@ -1,9 +1,10 @@
 <?php 
-echo "Ver. 1.10 Compilación 2018.01.06";
+echo "Ver. 1.10 Compilación 2018.01.15";
 
 /*
 
 Ver 1.10
+
 ALTER TABLE `ventadetalle` ADD `detveContAnterior` REAL NOT NULL AFTER `idProducto`;
 ALTER TABLE `ventadetalle` CHANGE `detveCantidad` `detveCantidad` DOUBLE NULL DEFAULT NULL COMMENT 'galones';
 ALTER TABLE `ventadetalle` CHANGE `detveCantidadLitros` `detveCantidadLitros` DOUBLE NULL DEFAULT NULL;

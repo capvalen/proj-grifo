@@ -637,7 +637,7 @@ $('body').on('change', '.txtValorNumericoConsumo', function () {// console.log('
 			contenedorRow.find('.divConsumoProd').text(consumoRealHoy.toFixed(2)).removeClass('text-danger').addClass('text-success');
 		}else{
 			precFinventa=parseFloat(consumoRealHoy*precioFijo).toFixed(2);
-			contenedorRow.find('.divConsumoProd').text(consumoRealHoy).removeClass('text-danger').addClass('text-success');
+			contenedorRow.find('.divConsumoProd').text(consumoRealHoy.toFixed(2)).removeClass('text-danger').addClass('text-success');
 		}
 		
 		contenedorRow.find('.divVentaConsumo').text(precFinventa).removeClass('text-danger').addClass('text-success');
@@ -659,14 +659,15 @@ function sumarTotales(){
 			cuantoVendo=parseFloat( $(arg).find('.divVentaConsumo').text());
 			//console.log(arg)
 
-			if( ! isNaN(cuantoConsumo)){ sumaParcialConsumo+=cuantoConsumo; sumaConsumo+=sumaParcialConsumo }else{cuantoConsumo=0;}
+			if( ! isNaN(cuantoConsumo)){ sumaParcialConsumo+=cuantoConsumo;  }else{cuantoConsumo=0;}
 			if( ! isNaN(cuantoVendo)){ sumaParcialVenta+=cuantoVendo; }else{cuantoConsumo=0;}
 			
 			
 		});
+		sumaConsumo+=sumaParcialConsumo
 		//console.log( produdctoABuscar+' = ' + parseFloat(sumaParcialVenta).toFixed(2) )
 		sumaTotales+=sumaParcialVenta;
-		$(elem).find('#spanSumaFinalConsumo').text(sumaParcialConsumo);
+		$(elem).find('#spanSumaFinalConsumo').text(parseFloat(sumaParcialConsumo).toFixed(2));
 		$(elem).find('#spanSumaFinalMontos').text(parseFloat(sumaParcialVenta).toFixed(2));
 	});
 	$('#spanPanelResumenVentav2').text(parseFloat(sumaTotales).toFixed(2));

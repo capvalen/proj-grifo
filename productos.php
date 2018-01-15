@@ -24,13 +24,12 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/estilosElementosv2.css?version=1.0.5" rel="stylesheet">
 		<link href="css/sidebarDeslizable.css?version=1.0.2" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.2">
-		<link rel="stylesheet" href="css/icofont.css">
 		<link rel="stylesheet" href="css/animate.css">
 
 		<link href="css/bootstrap-select.min.css" rel="stylesheet"> <!-- extraido de: https://silviomoreto.github.io/bootstrap-select/-->
 		<link rel="stylesheet" href="css/icofont.css"> <!-- iconos extraidos de: http://icofont.com/-->
 		<link rel="shortcut icon" href="images/peto.png" />
-		<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css"> <!-- extraido de: http://flatlogic.github.io/awesome-bootstrap-checkbox/demo/-->
+		<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css?version=1.0.2"> <!-- extraido de: http://flatlogic.github.io/awesome-bootstrap-checkbox/demo/-->
 		<link rel="stylesheet" href="css/bootstrap-datepicker3.css"> <!-- extraído de: https://uxsolutions.github.io/bootstrap-datepicker/-->
 
 </head>
