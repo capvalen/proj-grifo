@@ -1,7 +1,10 @@
 <?php 
-echo "Ver. 1.10 Compilación 2018.01.15";
+echo "Ver. 1.11 Compilación 2018.01.16";
 
 /*
+
+Ver 1.11
+Agregado alerta de stock en la principal
 
 Ver 1.10
 

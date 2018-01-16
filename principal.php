@@ -124,118 +124,15 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 			<div class="row">
 				<div class="col-lg-12 contenedorDeslizable fondoGeo">
 				<!-- Empieza a meter contenido principal dentro de estas etiquetas -->
-				 <h2 class="purple-text text-lighten-1"><i class="icofont icofont-animal-cat-alt-4"></i> Bienvenido: <small style="font-size: 60%;">Software Info-Combustion <span class="yellow-text text-darken-2"><?php include 'php/version.php' ?></span></small></h2>
-	
-	
+				 <h2 class="purple-text text-lighten-1"><i class="icofont icofont-animal-cat-alt-4"></i> Bienvenido: <small>Resumen de Stock</small></h2>
+
 				<div class="row">
-				<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-					 <!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="ventas.php" class="btn btn-warning btn-outline btn-circle-grande" role="button"><i class="icofont icofont-cart-alt"></i></a> </p>
-							<h4 class="text-center">Realizar una nueva venta</h4 >
-							
-							
-						</div>
+					<div class="container-fluid">
+						<?php require 'php/listarProductosContenedorH3.php'; ?>
 					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-					 <!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="productos.php#tabCrearProducto" class="btn btn-success btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-herbal"></i></a> </p>
-							<h4 class="text-center">Crear un producto nuevo</h4 >
-							
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">	
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="ventas.php" class="btn btn-negro btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-money-bag"></i></a> </p>
-							<h4 class="text-center">Cerrar caja</h4 class="text-center">
-							
-							
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="compras.php" class="btn btn-info btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-meeting-add"></i></a> </p>
-							<h4 class="text-center">Ingresar nueva compra</h4 >
-							
-							
-						</div>
-					</div>
-				</div>
-					<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="#" class="btn btn-morado btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-businessman"></i></a> </p>
-							<h4 class="text-center">Ingresar un proveedor</h4>
-							
-							
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="#" class="btn btn-morita btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-industries-alt-5"></i></a> </p>
-							<h4 class="text-center">Ingresar un Laboratorio</h4>
-							
-							
-						</div>
-					</div>
-				</div>
-					<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="#" class="btn btn-primary btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-growth"></i></a> </p>
-							<h4 class="text-center">Ver todas las compras</h4>        
-							
-						</div>
-					</div>
-				</div>
-					<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="inventario.php#nuevoInventario" class="btn btn-indigo btn-outline btn-circle-grande" role="button"><i class="icofont icofont-list"></i></a> </p>
-							<h4 class="text-center">Ingresar inventario</h4>
-											
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="reportes.php" class="btn btn-success btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-files"></i></a> </p>
-							<h4 class="text-center">Solicitar reportes</h4>
-											
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-3">
-					<div class="thumbnail">
-						<!-- <img src="images/cara.jpg" alt="...">-->
-						<div class="caption">
-							<p class="text-center"><a href="#" class="btn btn-danger btn-outline btn-circle-grande	" role="button"><i class="icofont icofont-paw"></i></a> </p>
-							<h4 class="text-center">Otras configuraciones</h4>
-											
-						</div>
-					</div>
-				</div>
-					<!-- Fin de meter contenido principal -->
-					</div>
-					
+				<!-- Fin de meter contenido principal -->
+				</div><br>
+				<p class="purple-text text-lighten-1"><span ">Aplicativo:<strong> Infocat-Grifo </strong><span class=""><?php include 'php/version.php' ?></span></span></p>
 				</div>
 		</div>
 </div>
