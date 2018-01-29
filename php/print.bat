@@ -1,0 +1,1 @@
+copy impresion.txt \\PCCARLOS\Epson

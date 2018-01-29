@@ -717,9 +717,43 @@ $('#btnGuardarReporte').click(function () {
 	});*/
 	if(!$('#btnGuardarReporte').hasClass('disabled')){
 		$('#btnGuardarReporte').addClass('disabled');
+		$.ptexto ='';
 		$.each($('.rowProductosMalla'), function (i, rowD) { //console.log(rowD)
 			if($(rowD).find('.txtValorNumericoConsumo').val()==''){
 				$(rowD).addClass('hidden-print');
+			}
+			else{/* Prueba de jalar cantidades y contadores y enviarlos a demoPrint.php*/
+				var pnombre='', pprecio='', pcontAntes='', pcontAct='', pconsumo='', psubTotal='';
+				pnombre=' '+$(rowD).find('.spanProducto').text() + ' '+ $(rowD).find('.spanLado').text();
+				for (var i = pnombre.length; i <= 25; i++) {
+					pnombre+=' ';
+				}
+				pprecio= $(rowD).find('.divPrecioFijo').parent().text()+' ';
+				for (var i = pprecio.length; i <= 11; i++) {
+					pprecio+=' ';
+				}
+				
+				pcontAntes= ''+$(rowD).find('.divContadorPrevio').text();
+				for (var i = pcontAntes.length; i <= 11; i++) {
+					pcontAntes+=' ';
+				}
+				pcontAct= '  '+$(rowD).find('.txtValorNumericoConsumo').val()+' ';
+				for (var i = pcontAct.length; i <= 12; i++) {
+					pcontAct+=' ';
+				}
+				pconsumo= '  '+$(rowD).find('.divConsumoProd').text();
+				for (var i = pconsumo.length; i <= 7; i++) {
+					pconsumo+=' ';
+				}
+				psubTotal=' '+$(rowD).find('.divVentaConsumo').parent().text();
+				for (var i = 0; i <1; i++) {//18
+					psubTotal+=' ';
+				}
+				
+				$.ptexto+=pnombre+pprecio+pcontAntes+pcontAct+pconsumo+psubTotal+"\r\n";
+				
+
+
 			}
 			if(totalMalla==i){
 				if($('#spanPremierC .rowProductosMalla.hidden-print').length==$('#spanPremierC .rowProductosMalla').length){
@@ -731,10 +765,12 @@ $('#btnGuardarReporte').click(function () {
 				if($('#spanSurtidorGas .rowProductosMalla.hidden-print').length==$('#spanSurtidorGas .rowProductosMalla').length){
 					$('#spanSurtidorGas').parent().parent().addClass('hidden-print');
 				}
+
+				
 			}
 		});
 
-		$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
+	/*	$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
 			if(resp!=0){
 				var idVenta=resp;
 				$.each($('.rowProductosMalla'), function (i, dato) {
@@ -776,10 +812,15 @@ $('#btnGuardarReporte').click(function () {
 					}
 				});
 			}
-		});
+		})*/;
 
 		}
-		window.print();
+		//console.log($.ptexto)
+		$.ajax({url:'php/demoPrint.php', type: 'POST', data: {campo:$.ptexto}}).done(function (resp) {
+			console.log(resp);
+		});
+		$('#btnGuardarReporte').removeClass('disabled');
+		//window.print();
 });
 $('#btnGuardarReporteIngresoVsEgreso').click(function () {
 	var ids=''; cadena='';

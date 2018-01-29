@@ -3,6 +3,9 @@ echo "Ver. 1.11 Compilación 2018.01.16";
 
 /*
 
+Ver 1.12
+Agregado impresión silenciosa.
+
 Ver 1.11
 Agregado alerta de stock en la principal
 
