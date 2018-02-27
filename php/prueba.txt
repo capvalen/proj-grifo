@@ -1,4 +1,4 @@
- ---------------------------------------------------------------------
+﻿ ---------------------------------------------------------------------
 N. Producto             |  Precio  | Cta. Ant  | Cta. Nueva  |  Gls.  | SubTotal 
 1. Diesel DB-5 Lado 1    S/. 17.50   2060871081   2060878450   196.90  S/. 1560.04
                       2. Gas Lado 1
@@ -18,3 +18,11 @@ Propiedades de impresora
       -> WinPrint, de RAW a TEXT, probar 
 
 // No usar tildes, no las reconoce.	  
+
+
+/*Archivos que hacen la magia
+- demoPrint.php
+- impresion.txt
+- print.bat
+- ventas.php
+*/

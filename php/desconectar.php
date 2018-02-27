@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['Sucursal']) {
+if ($_SESSION['idUsuario']) {
 	session_destroy();
 	
 }

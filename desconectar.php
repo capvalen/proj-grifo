@@ -1,9 +1,10 @@
 <?php
 session_start();
-if ($_SESSION['usuNombre']) {
-	session_destroy();
-	header("location:login.php");
+session_destroy();
+if ($_SESSION['idUsuario']) {
+	
+	header("location:index.php");
 }else{
-	header("location:login.php");
+	header("location:index.php");
 }
 ?>

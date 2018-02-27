@@ -1,1 +1,1 @@
-copy impresion.txt \\PCCARLOS\Epson
+copy impresion.txt \\pcCarlos\Epson

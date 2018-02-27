@@ -146,7 +146,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js?version=1.0.1"></script>
+<script src="js/inicializacion.js?version=1.0.4"></script>
 <script src="js/accionesGlobales.js?version=1.0.9"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>

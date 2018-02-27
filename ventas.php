@@ -244,7 +244,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 							</div>
-							<div class="spanSurtidores" id="spanPremierC" style="font-size: 15px;">
+							<div class="spanSurtidores" id="spanPremierC" data='Pre. C' style="font-size: 15px;">
 								
 							</div>
 							</div>
@@ -264,7 +264,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 								</div>
-							<div class="spanSurtidores" id="spanPremierB" style="font-size: 15px;">
+							<div class="spanSurtidores" id="spanPremierB" data='Pre. B' style="font-size: 15px;">
 								
 							</div>
 							</div>
@@ -285,7 +285,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 								</div>
-							<div class="spanSurtidores" id="spanSurtidorGas" style="font-size: 15px;">
+							<div class="spanSurtidores" id="spanSurtidorGas" data='Surtidor' style="font-size: 15px;">
 								
 							</div>
 							</div>
@@ -378,7 +378,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 											<p>Ingresos</p>
 											<p>Gastos</p>
 											<p>Créditos</p>
-											<p><strong></strong></p>
+											<p><strong>Total:</strong></p>
 										</div>
 										<div class="col-xs-5">
 											<p>S/. <span id="spanPanelResumenVentav2">0.00</span></p>
@@ -556,7 +556,7 @@ $(document).ready(function(){
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-md-1 col-xs-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-md-2 col-xs-2 divContadorPrevio text-center">${dato.prodCtaAnterior}</div>
+						<div class="col-md-2 col-xs-2 text-center"><pre><p class="divContadorPrevio">${dato.prodCtaAnterior}</p><p class="divContadorSoles">${dato.ctaSolesAnterior}</p><p class="divContadorGalones">${dato.ctaGalones}</p></pre></div>
 						<div class="col-md-2 col-xs-2 hidden-print">
 							<input type="numeric" class="form-control txtGasInput txtValorNumericoConsumo text-center" id="${i}" ${considerar} placeholder="Cuenta mecánica">
 							<input type="numeric" class="form-control txtGasInput txtValorSolesConsumo text-center" ${considerar} placeholder="Cuenta en Soles">
@@ -724,8 +724,8 @@ $('#btnGuardarReporte').click(function () {
 			}
 			else{/* Prueba de jalar cantidades y contadores y enviarlos a demoPrint.php*/
 				var pnombre='', pprecio='', pcontAntes='', pcontAct='', pconsumo='', psubTotal='';
-				pnombre=' '+$(rowD).find('.spanProducto').text() + ' '+ $(rowD).find('.spanLado').text();
-				for (var i = pnombre.length; i <= 25; i++) {
+				pnombre=' '+$(rowD).parent().attr('data')+' '+$(rowD).find('.spanProducto').text() + ' '+ $(rowD).find('.spanLado').text();
+				for (var i = pnombre.length; i <= 27; i++) {
 					pnombre+=' ';
 				}
 				pprecio= $(rowD).find('.divPrecioFijo').parent().text()+' ';
@@ -733,11 +733,11 @@ $('#btnGuardarReporte').click(function () {
 					pprecio+=' ';
 				}
 				
-				pcontAntes= ''+$(rowD).find('.divContadorPrevio').text();
+				pcontAntes= ''+parseFloat($(rowD).find('.divContadorPrevio').text()).toFixed(2);
 				for (var i = pcontAntes.length; i <= 11; i++) {
 					pcontAntes+=' ';
 				}
-				pcontAct= '  '+$(rowD).find('.txtValorNumericoConsumo').val()+' ';
+				pcontAct= '  '+parseFloat($(rowD).find('.txtValorNumericoConsumo').val()).toFixed(2)+' ';
 				for (var i = pcontAct.length; i <= 12; i++) {
 					pcontAct+=' ';
 				}
@@ -751,9 +751,11 @@ $('#btnGuardarReporte').click(function () {
 				}
 				
 				$.ptexto+=pnombre+pprecio+pcontAntes+pcontAct+pconsumo+psubTotal+"\r\n";
+				if( $(rowD).parent().attr('id')=='spanSurtidorGas'){
+					$.ptexto+="                                        "+parseFloat($(rowD).find('.divContadorSoles').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorSolesConsumo').val()).toFixed(2);
+					$.ptexto+="\r\n                                        "+parseFloat($(rowD).find('.divContadorGalones').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorLitrosConsumo').val()).toFixed(2);
+				}
 				
-
-
 			}
 			if(totalMalla==i){
 				if($('#spanPremierC .rowProductosMalla.hidden-print').length==$('#spanPremierC .rowProductosMalla').length){
@@ -770,7 +772,7 @@ $('#btnGuardarReporte').click(function () {
 			}
 		});
 
-	/*	$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
+		$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
 			if(resp!=0){
 				var idVenta=resp;
 				$.each($('.rowProductosMalla'), function (i, dato) {
@@ -795,7 +797,6 @@ $('#btnGuardarReporte').click(function () {
 								console.log(respu)
 							});
 						}
-						
 					}
 				});
 			}
@@ -812,14 +813,33 @@ $('#btnGuardarReporte').click(function () {
 					}
 				});
 			}
-		})*/;
+		});
 
 		}
+		$.creditos='';
+		if($('#contenidoACuadrarIngresVsEgres .row').length>0){
+			$.creditos+=" ---------------------------------------------------------------------\r\n";
+			$.creditos+=" |   Creditos otorgados en el turno                                  |\r\n";
+			$.each($('#contenidoACuadrarIngresVsEgres .row'), function (i, credito) {
+				$.creditos+=$(credito).find('.creTipo').text() + ' '+$(credito).find('.creDescr').text() + '. Debe S/. '+ $(credito).find('.creMonto').text()  + ' Grabado: '+ $(credito).find('.creFecha').text()+"\r\n" ;
+			});
+		}
 		//console.log($.ptexto)
-		$.ajax({url:'php/demoPrint.php', type: 'POST', data: {campo:$.ptexto}}).done(function (resp) {
+		moment.locale('es');
+		$.ajax({url:'php/demoPrint.php', type: 'POST', data: {
+			campo:$.ptexto,
+			responsable: '<?php echo $_SESSION['Atiende']; ?>',
+			pcreditos: $.creditos,
+			fecha: moment().format('LLLL'),
+			ingreso: $('#spanPanelResumenIngresos').text(),
+			egreso: $('#spanPanelResumenGastos').text(),
+			venta: $('#spanPanelResumenVentav2').text(),
+			creditos: $('#spanPanelResumenCreditos').text(),
+			total: $('#spanPanelSumaTotalChica').text()
+		}}).done(function (resp) {
 			console.log(resp);
 		});
-		$('#btnGuardarReporte').removeClass('disabled');
+		//$('#btnGuardarReporte').removeClass('disabled');
 		//window.print();
 });
 $('#btnGuardarReporteIngresoVsEgreso').click(function () {
@@ -849,7 +869,7 @@ $('#btnRefreshIngVsEgr').click(function () {
 					<p>No hay créditos en éste turno.</p></div>`);
 		}else{
 			$('#btnGuardarReporte').removeClass('hidden');
-			$.each(elemento, function (i, dato) {
+			$.each(elemento, function (i, dato) {// console.log(dato)
 				switch(dato.idTipoProceso){
 					case "3": sumaCredito+=parseFloat(dato.cajaMonto) ;break; //es credito
 					case "5": sumaEgreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
@@ -857,16 +877,17 @@ $('#btnRefreshIngVsEgr').click(function () {
 				}
 				$('#contenidoACuadrarIngresVsEgres').append(`<div class="row">
 					<div class="idCaja sr-only">${dato.idcaja}</div>
-					<div class="col-xs-1">${i+1}. ${dato.tipoDescripcion}</div>
-					<div class="col-xs-6 mayuscula">${dato.cajaDescripcion}</div>
-					<div class="col-xs-1">${parseFloat(dato.cajaMonto).toFixed(2)}</div>
-					<div class="col-xs-3">${moment(dato.cajaFecha).format('DD/MM/YYYY h:mm a')}</div>`);
+					<div class="col-xs-1 creTipo">${i+1}. ${dato.tipoDescripcion}</div>
+					<div class="col-xs-6 mayuscula creDescr">${dato.cajaDescripcion}</div>
+					<div class="col-xs-1 creMonto">${parseFloat(dato.cajaMonto).toFixed(2)}</div>
+					<div class="col-xs-3 creFecha">${moment(dato.cajaFecha).format('DD/MM/YYYY h:mm a')}</div>`);
 			});
-			$('#spanPanelResumenIngresos').text(parseFloat(sumaIngreso).toFixed(2));
-			$('#spanPanelResumenGastos').text(parseFloat(sumaEgreso).toFixed(2));
-			$('#spanPanelResumenCreditos').text(parseFloat(sumaCredito).toFixed(2));
-			$('#spanPanelSumaTotalChica').text(parseFloat(sumaVenta+sumaIngreso-sumaEgreso-sumaCredito).toFixed(2));
 		}
+		$('#spanPanelResumenIngresos').text(parseFloat(sumaIngreso).toFixed(2));
+		$('#spanPanelResumenGastos').text('('+parseFloat(sumaEgreso).toFixed(2)+')');
+		$('#spanPanelResumenCreditos').text('('+parseFloat(sumaCredito).toFixed(2)+')');
+		$('#spanPanelSumaTotalChica').text(parseFloat(sumaVenta+sumaIngreso-sumaEgreso-sumaCredito).toFixed(2));
+		
 	});
 	
 });

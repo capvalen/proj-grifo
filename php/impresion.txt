@@ -1,7 +1,16 @@
+ -> Cuadre de: Carlos Alex, Pariona Valencia  Martes, 27 de Febrero de 2018 a las 3:43 p.m. 
  ---------------------------------------------------------------------
- Producto                |  Precio  | Cta. Ant  | Cta. Nueva  |  Gls.  | SubTotal 
- Diesel DB-5 Lado 2       S/. 15.00   50            950          9.00   S/. 135.00 
- Gasohol 84 Lado 1        S/. 25.00   0             190          1.90   S/. 47.50 
- Gasohol 84 Lado 2        S/. 25.00   0             19           0.19   S/. 4.75 
- Gasohol 90 Lado 1        S/. 16.00   78            947          8.69   S/. 139.04 
- Gasohol 90 Lado 2        S/. 16.00   320           358          0.38   S/. 6.08 
+ Producto                  |  Precio  | Cta. Ant   | Cta. Nueva  |  Gls.  | SubTotal 
+ Pre. B Gasohol 84 Lado 1   S/. 11.57   0.00          80.00        0.80   S/. 9.26 
+ Surtidor Gas. Lado 1       S/. 1.76    478350.00     478590.90    240.90 S/. 423.98 
+                                        800659.80     NaN
+                                        478490.00     NaN
+ ---------------------------------------------------------------------
+ |   Creditos Otorgados En El Turno                                  |
+1. Crédito Carlos Pariona, Comprobante: 001-121 Por: 41gls. A S/. 1.76 De Gas.. Debe S/. 72.16 Grabado: 27/02/2018 3:43 P.m.
+
+ ---------------------------------------------------------------------
+ |   Resumen de Caja:                                                |
+   Ingresos: S/.  0.00                Egresos S/.  (0.00)
+   Venta: S/.   433.24               Creditos S/.  (72.16)
+                     Total: S/. 361.08

@@ -1,7 +1,13 @@
 <?php 
-echo "Ver. 1.11 Compilación 2018.01.16";
+echo "Versión 1.13 Compilación 2018.02.27";
 
 /*
+
+Ver 1.13
+Agregado contadores a las impresiones
+Reportes con stock, historial de tanqueo y con nombres de cliente
+Se anulo reporte mensual
+fix desconectar
 
 Ver 1.12
 Agregado impresión silenciosa.

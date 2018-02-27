@@ -31,14 +31,14 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link rel="stylesheet" href="css/icofont.css"> <!-- iconos extraidos de: http://icofont.com/-->
 		<link rel="shortcut icon" href="images/peto.png" />
 		<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css"> <!-- extraido de: http://flatlogic.github.io/awesome-bootstrap-checkbox/demo/-->
-		<link rel="stylesheet" href="css/bootstrap-datepicker3.css"> <!-- extraído de: https://uxsolutions.github.io/bootstrap-datepicker/-->
+		<link rel="stylesheet" href="css/bootstrap-datepicker3.css"> <!-- extraído de: https://eonasdan.github.io/bootstrap-datetimepicker/	-->
 
 </head>
 
 <body>
 <style>
-#divResVentaMes .row, #divResultadoDetalleCreditos>.row, #divResVentaDiaria .row{padding-top: 10px; padding-bottom: 10px}
-#divResVentaMes .row:hover, #divResultadoDetalleCreditos>.row:hover,#divResVentaDiaria .row:hover{background-color: #eee;}
+#divResVentaMes .row, #divResultadoDetalleCreditos>.row, #divResVentaDiaria .row, #divResCajaDiaria .row, #divResultadoDetallTanqueoFin .row{padding-top: 10px; padding-bottom: 10px}
+#divResVentaMes .row:hover, #divResultadoDetalleCreditos>.row:hover,#divResVentaDiaria .row:hover, #divResCajaDiaria .row:hover, #divResultadoDetallTanqueoFin .row:hover{background-color: #eee;}
 hr{    margin-top: 10px;
 	margin-bottom: 10px;}
 </style>
@@ -56,29 +56,32 @@ hr{    margin-top: 10px;
 						<a href="principal.php"><i class="icofont icofont-home"></i> Inicio</a>
 				</li>
 				<li>
-						<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
-				</li>
-				<li>
-						<a href="ventas.php"><i class="icofont icofont-cart"></i> Cuadrar caja</a>
-				</li>
-				<li>
-						<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-truck-alt"></i> Crédito nuevo</a>
-				</li>
-				<li>
-						<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
-				</li>
-				<li >
-						<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
-				</li>
-				<li>
-						<a href="usuarios.php"><i class="icofont icofont-users"></i> Usuarios</a>
-				</li>
-				<li class="active">
-						<a href="#"><i class="icofont icofont-ui-copy"></i> Reportes</a>
-				</li>
-				<li>
-						<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
-				</li>
+					<a href="productos.php"><i class="icofont icofont-washing-machine"></i> Productos</a>
+			</li>
+			<li>
+					<a href="ventas.php"><i class="icofont icofont-shopping-cart"></i> Cuadrar caja</a>
+			</li>
+			<li>
+					<a href="#!" id="aCreditoNuevo"><i class="icofont icofont-ui-love-add"></i> Crédito nuevo</a>
+			</li>
+			<li>
+					<a href="#!" id="aGastoExtra"><i class="icofont icofont-ui-rate-remove"></i> Gasto extra</a>
+			</li>
+			<li>
+					<a href="#!" id="aIngresoExtra"><i class="icofont icofont-ui-rate-add"></i> Ingreso extra</a>
+			</li>
+			<li>
+					<a href="#!" id="aIngresoTanque"><i class="icofont icofont-truck-loaded"></i> Tanquear</a>
+			</li>
+			<li class="active">
+					<a href="reportes.php"><i class="icofont icofont-ui-copy"></i> Reportes</a>
+			</li>
+			<li>
+					<a href="usuarios.php"><i class="icofont icofont-users"></i> Usuarios</a>
+			</li>
+			<li>
+					<a href="#!" class="ocultar-mostrar-menu"><i class="icofont icofont-swoosh-left"></i> Ocultar menú</a>
+			</li>
 		</ul>
 	</div>
 			<!-- /#sidebar-wrapper -->
@@ -134,6 +137,7 @@ hr{    margin-top: 10px;
 					<li class="active"><a href="#tabCreditosPendientes" data-toggle="tab">Créditos pendientes</a></li>
 					<li ><a href="#tabCreditosFinalizados" data-toggle="tab">Créditos finalizados</a></li>
 					<li><a href="#tabResumenVentas" data-toggle="tab">Ventas resumen</a></li>
+					<li><a href="#tabHistorialTanqueo" data-toggle="tab">Historial tanqueo</a></li>
 					
 					</ul>
 					
@@ -143,12 +147,15 @@ hr{    margin-top: 10px;
 						<div class="tab-pane fade in active container-fluid" id="tabCreditosPendientes">
 						<!--Inicio de pestaña 01-->
 							<p>Tiene Ud. <strong><?php require 'php/returnCreditosCount.php' ?></strong> créditos pendientes por cobrar: </p>
-							<p>Seleccione una fecha para ver los créditos: <span id="idFechasCreditos">
+							<p>Fechas con créditos pendientes: <span id="idFechasCreditos">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosNumFecha.php' ?>
 								</select>
 							</span>
 							</p>
+							<p>Clientes con créditos pendientes: <span id="idClientesCreditos"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
+									<?php require 'php/listarCreditosFaltaACliente.php' ?>
+								</select></span></p>
 							<div class="container">
 								 <div class="row"><strong>
 									<div class="col-xs-4">Detalle</div>
@@ -171,12 +178,15 @@ hr{    margin-top: 10px;
 						<!--Panel para nueva compra-->
 						<div class="tab-pane fade container-fluid" id="tabCreditosFinalizados">
 						<!--Inicio de pestaña 02-->
-						<p>Seleccione una fecha para ver reporte de créditos finalizados: <span id="idFechasCreditosFin">
+							<p>Fechas con créditos finalizados: <span id="idFechasCreditosFin">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFinNumFecha.php' ?>
 								</select>
 							</span>
 							</p>
+							<p>Clientes con créditos finalizados: <span id="idClientesCreditosFin"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
+									<?php require 'php/listarCreditosNoFaltaACliente.php' ?>
+								</select></span></p>
 							<div class="container">
 								 <div class="row"><strong>
 									<div class="col-xs-4">Detalle</div>
@@ -198,7 +208,7 @@ hr{    margin-top: 10px;
 						<p>Seleccione una fecha para ver reporte de ventas: <span id="">
 							<div class="form-group col-xs-4">
 							<div class='input-group date' id='dtpFechaVentas'>
-								<input type='text' class="form-control text-center" />
+								<input type='text' class="form-control text-center" id="txtFechaVentas">
 								<span class="input-group-addon">
 									<i class="icofont icofont-calendar"></i>
 								</span>
@@ -208,7 +218,7 @@ hr{    margin-top: 10px;
 						</p>
 
 						<ul class="nav nav-tabs" id="ulResumen">
-							<li><a href="#tabVentaMes" data-toggle="tab">Mensual</a></li>
+							<li class="hidden"><a href="#tabVentaMes" data-toggle="tab">Mensual</a></li>
 							<li><a href="#tabVentaDiariaGlobal" data-toggle="tab">Diaria</a></li>
 							<li class="hidden"><a href="#tabVentaDiariaDetalla" data-toggle="tab">Diaria detallado</a></li>
 						</ul>
@@ -233,7 +243,17 @@ hr{    margin-top: 10px;
 								<div class="col-xs-2">Total</div>
 							</strong>
 							</div>
-							<div id="divResVentaDiaria"></div>
+							<div id="divResVentaDiaria"></div><br><br>
+							<div class="row"><strong>
+								<div class="col-xs-1">N° Tipo</div>
+								<div class="col-xs-6">Descripción</div>
+								<div class="col-xs-1"><span class="hidden-print">Monto</span> S/.</div>
+								<div class="col-xs-3">Dia y Hora</div>
+							</strong>
+							</div>
+							<div id="divResCajaDiaria">
+								<div class="col-xs-12"><p class="text-muted">No hay datos en ésta fecha.</p></div>
+							</div>
 							
 						</div>
 						<div class="tab-pane fade container-fluid" id="tabVentaDiaraiaDetalla">
@@ -242,6 +262,25 @@ hr{    margin-top: 10px;
 						</div>
 						
 						<!--Fin de pestaña 03-->
+						</div>
+						<div class="tab-pane fade container-fluid" id="tabHistorialTanqueo">
+							<p>Fechas con tanqueos: <span id="idFechasTanqueo">
+								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
+									<?php require 'php/listarTanqueoFechas.php' ?>
+								</select>
+							</span>
+							</p>
+							<div class="container">
+								 <div class="row"><strong>
+									<div class="col-xs-4">Detalle</div>
+									<div class="col-xs-4">Fecha</div>
+									<div class="col-xs-4">Usuario</div>
+								 </strong>
+								 </div>
+								 <div id="divResultadoDetallTanqueoFin">
+									<p>Aún no se solicitó ninguna fecha</p>
+								 </div>
+							</div>
 						</div>
 						
 					</div>
@@ -328,7 +367,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 	$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) {
 		$('#divResultadoDetalleCreditos').children().remove();
 		$.jsonAdeuda=JSON.parse(resp);
-		$.each(JSON.parse(resp), function (i, jsonResp) { console.log(jsonResp);
+		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
 			var adeuda='';
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
 			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
@@ -338,7 +377,24 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
 		});
 		
-	})
+	});
+});
+$('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
+	var clienteId= $('#idClientesCreditos').find('.selected a').attr('data-tokens');
+	$.ajax({url: 'php/listarCreditoPorClienteDebe.php', type: 'POST', data: { idCli:clienteId }}).done(function (resp) {
+		$('#divResultadoDetalleCreditos').children().remove();
+		$.jsonAdeuda=JSON.parse(resp);
+		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
+			var adeuda='';
+			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
+			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
+					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
+					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
+					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
+					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
+		});
+		
+	});
 });
 $('#divResultadoDetalleCreditos').on('click', '.btnAdeudaDetalle', function () {
 	//console.log($(this).parent().parent().attr('id'));
@@ -416,16 +472,49 @@ $('#idFechasCreditosFin').on('click', '.optCreditoFin', function () {
 					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
 					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnCreditoFinalDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
 		});
-		
+	})
+});
+$('#idClientesCreditosFin').on('click', '.optCreditoCliente', function () {
+	var clienteId= $('#idClientesCreditosFin').find('.selected a').attr('data-tokens');
+
+	//console.log($(this).attr('data-tokens'));
+	//console.log(texto.month()+1)
+	$.ajax({url: 'php/listarCreditoPorClienteNoDebe.php', type: 'POST', data: { idCli: clienteId }}).done(function (resp) { //console.log(resp)
+		$('#divResultadoDetallCreditosFin').children().remove();
+		$.jsonAdeuda=JSON.parse(resp);
+		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
+			var adeuda='';
+			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
+			$('#divResultadoDetallCreditosFin').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetallCreditosFin .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
+					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
+					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
+					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
+					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnCreditoFinalDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
+		});
+	})
+});
+$('#idFechasTanqueo').on('click', '.optTanqueoFecha', function () {
+	var tanqueoFecha= $('#idFechasTanqueo').find('.selected a').attr('data-tokens');
+
+	//console.log($(this).attr('data-tokens'));
+	console.log(tanqueoFecha)
+	$.ajax({url: 'php/listarTanqueosXMes.php', type: 'POST', data: { fecha: tanqueoFecha }}).done(function (resp) { //console.log(resp)
+		$('#divResultadoDetallTanqueoFin').children().remove();
+		$.jsonAdeuda=JSON.parse(resp);
+		$.each(JSON.parse(resp), function (i, jsonResp) { console.log(jsonResp);
+			$('#divResultadoDetallTanqueoFin').append(`<div class="row" id="${jsonResp.idcompra}"><div class="col-xs-4 ">${i+1}. Tanqueo: ${jsonResp.contDescripcion}</div>
+					<div class="col-xs-4">${moment(jsonResp.compFecha).format('DD/MM/YYYY hh:mm a')}</div>
+					<div class="col-xs-4 mayuscula">${jsonResp.usuNombres} </div></div>`);
+		});
 	})
 });
 
 $('#ulResumen li').click(function () {
-	var fecha=$('#dtpFechaVentas').find('input').val();
+	var fecha=$('#txtFechaVentas').val(); console.log(fecha)
 	if( fecha !=''){
 		var sumaCantidades=0;
 		fechMoment=moment(fecha, 'DD/MM/YYYY');
-		var tabactivo=$(this).find('a').text()
+		var tabactivo=$(this).find('a').text();
 		if(tabactivo=='Mensual'){
 			$('#divResVentaMes').children().remove();
 			$.ajax({url: 'php/listarVentasMes.php', type: 'POST', data: { anio: fechMoment.year() , mes: fechMoment.month()}}).done(function (resp) {
@@ -442,9 +531,16 @@ $('#ulResumen li').click(function () {
 			})
 		}
 		if(tabactivo=='Diaria'){ 
-			$('#divResVentaDiaria').children().remove();
+			$('#txtFechaVentas').change();
+		}
+	}
+});
+$('#txtFechaVentas').change(function() {
+	var fecha=$('#txtFechaVentas').val(); //console.log(fecha)
+	$('#divResVentaDiaria').children().remove();
+			$('#divResCajaDiaria').children().remove();
 			$.ajax({url:'php/listarVentasDetalle.php', type: 'POST', data:{fechaIni:fecha}}).done(function (resp) {
-				$.each(JSON.parse(resp), function (i, dato) { console.log(dato)
+				$.each(JSON.parse(resp), function (i, dato) { //console.log(dato)
 					$('#divResVentaDiaria').append(`<div class="row ${dato.contColorMaterialize}"><div class="col-xs-3"><strong>${i+1}. ${dato. prodNombre} / ${dato.ladoDescripcion}</strong>. <span class='mayuscula'>${dato.usuNombres}</span></div>
 							<div class="col-xs-2">${moment(dato.ventFecha).format('DD/MM/YYYY h:mm a')}</div>
 							<div class="col-xs-2">${dato.detveContAnterior} - ${dato.detvenContMecan}</div>
@@ -454,9 +550,39 @@ $('#ulResumen li').click(function () {
 				});
 				
 			});
-		}
-	}
-})
+			var sumaIngreso=0, sumaEgreso=0, sumaCredito=0;
+			var sumaVenta=0;
+			$.ajax({url: 'php/listarCajaPorFecha.php', type: 'POST', data:{ fecha: $('#dtpFechaVentas').find('input').val() }}).done(function (resp) {
+				elemento=JSON.parse(resp);/* console.log(elemento);*/
+				if(elemento.length==0){
+					
+					$('#divResCajaDiaria').append(`<div class="row">
+							<p>No hay créditos en éste turno.</p></div>`);
+				}else{
+					
+					$.each(elemento, function (i, dato) {// console.log(dato)
+						switch(dato.idTipoProceso){
+							case "3": sumaCredito+=parseFloat(dato.cajaMonto) ;break; //es credito
+							case "5": sumaEgreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
+							case "6": sumaIngreso+=parseFloat(dato.cajaMonto) ;break; //es gasto
+						}
+						$('#divResCajaDiaria').append(`<div class="row">
+							<div class="idCaja sr-only">${dato.idcaja}</div>
+							<div class="col-xs-1 creTipo">${i+1}. ${dato.tipoDescripcion}</div>
+							<div class="col-xs-6 mayuscula creDescr">${dato.cajaDescripcion}</div>
+							<div class="col-xs-1 creMonto">${parseFloat(dato.cajaMonto).toFixed(2)}</div>
+							<div class="col-xs-3 creFecha">${moment(dato.cajaFecha).format('DD/MM/YYYY h:mm a')}</div>`);
+					});
+				}
+				/*$('#spanPanelResumenIngresos').text(parseFloat(sumaIngreso).toFixed(2));
+				$('#spanPanelResumenGastos').text('('+parseFloat(sumaEgreso).toFixed(2)+')');
+				$('#spanPanelResumenCreditos').text('('+parseFloat(sumaCredito).toFixed(2)+')');
+				$('#spanPanelSumaTotalChica').text(parseFloat(sumaVenta+sumaIngreso-sumaEgreso-sumaCredito).toFixed(2));*/
+			});
+});
+$('#dtpFechaVentas').on('dp.change',function () {
+	$('#txtFechaVentas').change();
+});
 </script>
 
 </body>
