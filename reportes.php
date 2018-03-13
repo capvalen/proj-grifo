@@ -156,7 +156,7 @@ hr{    margin-top: 10px;
 							<p>Clientes con créditos pendientes: <span id="idClientesCreditos"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFaltaACliente.php' ?>
 								</select></span></p>
-							<div class="container">
+							<div class="container-fluid">
 								 <div class="row"><strong>
 									<div class="col-xs-4">Detalle</div>
 									<div class="col-xs-2"># Comprobante</div>
@@ -374,7 +374,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
 					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
 					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
-					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
+					<div class="col-xs-2">${adeuda} <?php if($_SESSION['Power']=='1') echo '<button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></div></div>`);
 		});
 		
 	});
@@ -502,7 +502,7 @@ $('#idFechasTanqueo').on('click', '.optTanqueoFecha', function () {
 		$('#divResultadoDetallTanqueoFin').children().remove();
 		$.jsonAdeuda=JSON.parse(resp);
 		$.each(JSON.parse(resp), function (i, jsonResp) { console.log(jsonResp);
-			$('#divResultadoDetallTanqueoFin').append(`<div class="row" id="${jsonResp.idcompra}"><div class="col-xs-4 ">${i+1}. Tanqueo: ${jsonResp.contDescripcion}</div>
+			$('#divResultadoDetallTanqueoFin').append(`<div class="row" id="${jsonResp.idcompra}"><div class="col-xs-4 ">${i+1}. Tanqueo: ${jsonResp.contDescripcion}: ${jsonResp.detcoCantidad} gls.</div>
 					<div class="col-xs-4">${moment(jsonResp.compFecha).format('DD/MM/YYYY hh:mm a')}</div>
 					<div class="col-xs-4 mayuscula">${jsonResp.usuNombres} </div></div>`);
 		});

@@ -527,7 +527,20 @@ $(document).ready(function(){
 			if( parseInt($('#tbodyProductosListado #'+dato.idContenedor).find('.tdStock').text())>0 ){considerar='';}else{considerar='disabled';}
 			switch(dato.grupoDescripcion){ /*${Math.round(Math.random() * (900000 - 100000) + 100000)}*/
 				case 'Premier B': 
-					$('#spanPremierB').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
+					if( dato.prodNombre =='Diesel DB-5'){
+						$('#spanPremierB').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
+							<div class="idProdConsumo hidden">${dato.idproductos}</div>
+							<div class="idContenedorCons hidden">${dato.idContenedor}</div>
+							<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierB .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
+							<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+							<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">${dato.prodCtaAnterior}</div>
+							<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
+							<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
+							<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
+							<div class="col-xs-2 col-sm-2">S/. <span class="divVentaConsumo"></span></div>
+						</div>`);
+					}else{
+						$('#spanPremierB').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierB .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
@@ -537,9 +550,13 @@ $(document).ready(function(){
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 						<div class="col-xs-2 col-sm-2">S/. <span class="divVentaConsumo"></span></div>
-					</div>`); break;
+					</div>`);
+					}
+
+					 break;
 				case 'Premier C': 
-					$('#spanPremierC').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
+				if( dato.prodNombre =='Diesel DB-5'){
+					$('#spanPremierC').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierC .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
@@ -549,9 +566,23 @@ $(document).ready(function(){
 						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 						<div class="col-xs-2 col-sm-2">S/. <span class="divVentaConsumo"></span></div>
-					</div>`); break;
+					</div>`);
+				}else{
+					$('#spanPremierC').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
+						<div class="idProdConsumo hidden">${dato.idproductos}</div>
+						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
+						<div class="col-xs-3 col-sm-2 mayuscula"><strong>${$('#spanPremierC .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
+						<div class="col-xs-1 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
+						<div class="col-xs-2 col-sm-2 divContadorPrevio text-center">${dato.prodCtaAnterior}</div>
+						<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ${considerar}></div>
+						<div class="col-xs-2 col-sm-2 visible-print divCuentaNueva">S/. -</div>
+						<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
+						<div class="col-xs-2 col-sm-2">S/. <span class="divVentaConsumo"></span></div>
+					</div>`);
+				}
+					 break;
 				case 'Surtidor de Gas':
-					$('#spanSurtidorGas').append(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
+					$('#spanSurtidorGas').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
@@ -753,7 +784,7 @@ $('#btnGuardarReporte').click(function () {
 				$.ptexto+=pnombre+pprecio+pcontAntes+pcontAct+pconsumo+psubTotal+"\r\n";
 				if( $(rowD).parent().attr('id')=='spanSurtidorGas'){
 					$.ptexto+="                                        "+parseFloat($(rowD).find('.divContadorSoles').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorSolesConsumo').val()).toFixed(2);
-					$.ptexto+="\r\n                                        "+parseFloat($(rowD).find('.divContadorGalones').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorLitrosConsumo').val()).toFixed(2);
+					$.ptexto+="\r\n                                        "+parseFloat($(rowD).find('.divContadorGalones').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorLitrosConsumo').val()).toFixed(2)+"\r\n";
 				}
 				
 			}
@@ -821,7 +852,9 @@ $('#btnGuardarReporte').click(function () {
 			$.creditos+=" ---------------------------------------------------------------------\r\n";
 			$.creditos+=" |   Creditos otorgados en el turno                                  |\r\n";
 			$.each($('#contenidoACuadrarIngresVsEgres .row'), function (i, credito) {
-				$.creditos+=$(credito).find('.creTipo').text() + ' '+$(credito).find('.creDescr').text() + '. Debe S/. '+ $(credito).find('.creMonto').text()  + ' Grabado: '+ $(credito).find('.creFecha').text()+"\r\n" ;
+				var espacioCred='';
+				if( $(credito).find('.creTipo').text()=='Crédito'){espacioCred="\n\r"; }else{ espacioCred="";}
+				$.creditos+=$(credito).find('.creTipo').text() + ' '+$(credito).find('.creDescr').text() + '. Debe S/. '+ $(credito).find('.creMonto').text()  +espacioCred+ ' Grabado: '+ $(credito).find('.creFecha').text()+"\r\n" ;
 			});
 		}
 		//console.log($.ptexto)
@@ -877,7 +910,7 @@ $('#btnRefreshIngVsEgr').click(function () {
 				}
 				$('#contenidoACuadrarIngresVsEgres').append(`<div class="row">
 					<div class="idCaja sr-only">${dato.idcaja}</div>
-					<div class="col-xs-1 creTipo">${i+1}. ${dato.tipoDescripcion}</div>
+					<div class="col-xs-1 ">${i+1}. <span class="creTipo">${dato.tipoDescripcion}</span></div>
 					<div class="col-xs-6 mayuscula creDescr">${dato.cajaDescripcion}</div>
 					<div class="col-xs-1 creMonto">${parseFloat(dato.cajaMonto).toFixed(2)}</div>
 					<div class="col-xs-3 creFecha">${moment(dato.cajaFecha).format('DD/MM/YYYY h:mm a')}</div>`);
