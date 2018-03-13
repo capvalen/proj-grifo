@@ -1,11 +1,11 @@
- -> Cuadre de: silvia rosario, aranda huaynalaya  Lunes, 12 de Marzo de 2018 a las 1:18 p.m. 
+ -> Cuadre de: Carlos Alex, Pariona Valencia  Lunes, 12 de Marzo de 2018 a las 10:32 p.m. 
  ---------------------------------------------------------------------
  Producto                  |  Precio  | Cta. Ant   | Cta. Nueva  |  Gls.  | SubTotal 
- Surtidor Gas. Lado 1       S/. 1.76    483462.57     483579.60    117.03 S/. 205.97 
-                                        809884.46     810090.49
-                                        483465.00     483582.00 Surtidor Gas. Lado 2       S/. 1.76    808616.33     808808.66    192.33 S/. 338.50 
-                                        1350695.49     1351034.07
-                                        808619.00     808811.00
+ Pre. C Diesel DB-5 Lado 1  S/. 11.87   20459355.00   20459589.00   2.34   S/. 27.78 
+ Pre. C Diesel DB-5 Lado 2  S/. 11.87   37598586.00   37599844.00   12.58  S/. 149.32 
+ Pre. B Diesel DB-5 Lado 1  S/. 11.87   240076554.00  240079584.00   30.30  S/. 359.66 
+ Pre. B Diesel DB-5 Lado 2  S/. 11.87   334056751.00  334057841.00   10.90  S/. 129.38 
+
  ---------------------------------------------------------------------
  |   Creditos Otorgados En El Turno                                  |
  . Debe S/.  Grabado: 
@@ -13,5 +13,5 @@
  ---------------------------------------------------------------------
  |   Resumen de Caja:                                                |
    Ingresos: S/.  0.00                Egresos S/.  (0.00)
-   Venta: S/.   544.47               Creditos S/.  (0.00)
-                     Total: S/. 544.47
+   Venta: S/.   666.14               Creditos S/.  (0.00)
+                     Total: S/. 666.14

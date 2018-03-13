@@ -1,7 +1,9 @@
 <?php 
-echo "Versión 1.13 Compilación 2018.02.27";
+echo "Versión 1.15 Compilación 2018.03.12";
 
 /*
+Ver 1.15
+Cambios en los reportes, sumas y bloqueos de usuarios simples
 
 Ver 1.13
 Agregado contadores a las impresiones

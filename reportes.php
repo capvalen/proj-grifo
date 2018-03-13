@@ -324,6 +324,27 @@ hr{    margin-top: 10px;
 	</div>
 	</div>
 </div>
+<!-- Modal para Detallar credito  -->
+<div class="modal fade modal-cambioTanqueFecha" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm" role="document">
+	<div class="modal-content">
+		<div class="modal-header-warning">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel"><i class="icofont icofont-help-robot"></i> Cambio de fecha de tanqueo</h4>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid"><span class="hidden" id="spIdTanq"></span>
+			<p>Estás intentando editar el registro de «<span id="spanTanqueInfo"></span>» eleccione una nueva fecha. <span class="hidden" id="spanHoraInfo"></span></p>
+			<input class="form-control" id="txtFechaTanqueUpd" type="date" name="">
+			</div>
+		</div>
+			
+		<div class="modal-footer">
+			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cerrar</button>
+			<button class="btn btn-warning btn-outline" id="btnChangeFechaTanque"><i class="icofont icofont-social-meetme"></i> Cambiar fecha</button></div>
+	</div>
+	</div>
+</div>
 
 
 <?php include 'php/llamandoModals.php'; ?>
@@ -481,7 +502,7 @@ $('#idClientesCreditosFin').on('click', '.optCreditoCliente', function () {
 	//console.log(texto.month()+1)
 	$.ajax({url: 'php/listarCreditoPorClienteNoDebe.php', type: 'POST', data: { idCli: clienteId }}).done(function (resp) { //console.log(resp)
 		$('#divResultadoDetallCreditosFin').children().remove();
-		$.jsonAdeuda=JSON.parse(resp);
+		//$.jsonAdeuda=JSON.parse(resp);
 		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
 			var adeuda='';
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
@@ -497,14 +518,22 @@ $('#idFechasTanqueo').on('click', '.optTanqueoFecha', function () {
 	var tanqueoFecha= $('#idFechasTanqueo').find('.selected a').attr('data-tokens');
 
 	//console.log($(this).attr('data-tokens'));
-	console.log(tanqueoFecha)
+	//console.log(tanqueoFecha)
 	$.ajax({url: 'php/listarTanqueosXMes.php', type: 'POST', data: { fecha: tanqueoFecha }}).done(function (resp) { //console.log(resp)
 		$('#divResultadoDetallTanqueoFin').children().remove();
-		$.jsonAdeuda=JSON.parse(resp);
-		$.each(JSON.parse(resp), function (i, jsonResp) { console.log(jsonResp);
+		//$.jsonAdeuda=JSON.parse(resp);
+		var maxRows=JSON.parse(resp).length-1;
+		
+		var sumaTanque=0;
+		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
+			sumaTanque+=parseFloat(jsonResp.detcoCantidad);
 			$('#divResultadoDetallTanqueoFin').append(`<div class="row" id="${jsonResp.idcompra}"><div class="col-xs-4 ">${i+1}. Tanqueo: ${jsonResp.contDescripcion}: ${jsonResp.detcoCantidad} gls.</div>
-					<div class="col-xs-4">${moment(jsonResp.compFecha).format('DD/MM/YYYY hh:mm a')}</div>
-					<div class="col-xs-4 mayuscula">${jsonResp.usuNombres} </div></div>`);
+					<div class="col-xs-4"><span class="spanFechaTanques">${moment(jsonResp.compFecha).format('DD/MM/YYYY')}</span> <span class="spanHoraTanques">${moment(jsonResp.compFecha).format('hh:mm a')}</span></div>
+			if(i ==maxRows){
+				$('#divResultadoDetallTanqueoFin').append(`<div class="row" >
+					<div class="col-xs-4"><strong>Total: ${parseFloat(sumaTanque).toFixed(2)} gls.</strong> </div>
+					<div class="col-xs-4 mayuscula"></div> </div>`);
+			}
 		});
 	})
 });
@@ -582,6 +611,24 @@ $('#txtFechaVentas').change(function() {
 });
 $('#dtpFechaVentas').on('dp.change',function () {
 	$('#txtFechaVentas').change();
+});
+$('#divResultadoDetallTanqueoFin').on('click', '.btnCambiarFechaTanqueo', function () {
+	var fecha= moment($(this).parent().parent().find('.spanFechaTanques').text(), 'DD/MM/YYYY');
+	// console.log(fecha);
+	$('#spIdTanq').text($(this).parent().parent().attr('id'));
+	$('#spanHoraInfo').text($(this).parent().parent().find('.spanHoraTanques').text());
+	$('#spanTanqueInfo').text(($(this).parent().parent().children().first().text()));
+	$('.modal-cambioTanqueFecha').modal('show');
+	$('.modal-cambioTanqueFecha #txtFechaTanqueUpd').val(fecha.format('YYYY-MM-DD'));
+});
+$('#btnChangeFechaTanque').click(function () {
+
+	var nuevaFecha = $('.modal-cambioTanqueFecha #txtFechaTanqueUpd').val()+ ' ' + moment($('#spanHoraInfo').text(), 'h:mm a').format('HH:mm');
+	$.ajax({url: 'php/updateFechaTanqueo.php', type: 'POST', data: {
+		idTanq: $('#spIdTanq').text(), fecha: nuevaFecha
+	}}).done(function (resp) {
+		console.log(resp)
+	});
 });
 </script>
 
