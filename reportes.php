@@ -529,6 +529,7 @@ $('#idFechasTanqueo').on('click', '.optTanqueoFecha', function () {
 			sumaTanque+=parseFloat(jsonResp.detcoCantidad);
 			$('#divResultadoDetallTanqueoFin').append(`<div class="row" id="${jsonResp.idcompra}"><div class="col-xs-4 ">${i+1}. Tanqueo: ${jsonResp.contDescripcion}: ${jsonResp.detcoCantidad} gls.</div>
 					<div class="col-xs-4"><span class="spanFechaTanques">${moment(jsonResp.compFecha).format('DD/MM/YYYY')}</span> <span class="spanHoraTanques">${moment(jsonResp.compFecha).format('hh:mm a')}</span></div>
+					<div class="col-xs-4 mayuscula">${jsonResp.usuNombres} <?php if($_SESSION['Power']=='1'){echo '<button class="btn btn-morado btn-outline btnCambiarFechaTanqueo btn-sm"><i class="icofont icofont-clock-time"></i></button>';} ?></div> </div>`);
 			if(i ==maxRows){
 				$('#divResultadoDetallTanqueoFin').append(`<div class="row" >
 					<div class="col-xs-4"><strong>Total: ${parseFloat(sumaTanque).toFixed(2)} gls.</strong> </div>
