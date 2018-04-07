@@ -396,11 +396,10 @@ hr{    margin-top: 10px;
 		<div class="modal-body">
 			<div class="container-fluid"><span class="hidden" id="spIdCreditoHid"></span>
 				<label for="">R.U.C o D.N.I:</label>
-				<input type="number" class="form-control" id="modEditRuc">
+				<input type="number" class="form-control" id="modEditRuc" disabled="">
 				<label for="">Razón social:</label>
-				<input type="text" class="form-control mayuscula" id="modEditRazonSocial" disabled="">
 				<div id="selectClientesEditar">
-					<select class="selectpicker slpClientes mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
+					<select class="selectpicker slpClientes " title="Clientes..."  data-width="100%" data-live-search="true">
 					<?php require 'php/listarTodosClientes.php' ?>
 					</select>
 				</div>
@@ -409,19 +408,27 @@ hr{    margin-top: 10px;
 				<label for="">Comprobante:</label>
 				<input type="text" class="form-control mayuscula" id="modEditComprobante">
 				<label for="">Producto:</label>
-				<input type="text" class="form-control mayuscula" id="modEditProducto">
+				<div id="selectProductosEditar">
+					<select class="selectpicker slpProductos " title="Usuarios..."  data-width="100%" data-live-search="true">
+					<?php require 'php/listarProductosContenedorOPT.php' ?>
+					</select>
+				</div>
 				<label for="">Cantidad (gls.):</label>
 				<input type="number" class="form-control" id="modEditCantidad">
 				<label for="">Monto (S/.):</label>
 				<input type="number" class="form-control" id="modEditMonto">
 				<label for="">Responsable:</label>
-				<input type="text" class="form-control mayuscula" id="modEditResponsable">
+				<div id="selectUsuariosEditar">
+					<select class="selectpicker slpUsuarios " title="Usuarios..."  data-width="100%" data-live-search="true">
+					<?php require 'php/listarTodosUsuarios.php' ?>
+					</select>
+				</div>
 			</div>
 		</div>
 			
 		<div class="modal-footer">
 			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cerrar</button>
-			<button class="btn btn-success btn-outline" id="btnChangeFechaTanque"><i class="icofont icofont-social-meetme"></i> Cambiar datos</button></div>
+			<button class="btn btn-success btn-outline" id="btnUpdCaja"><i class="icofont icofont-social-meetme"></i> Cambiar datos</button></div>
 	</div>
 	</div>
 </div>
@@ -472,7 +479,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 			var adeuda='', obs='';
 			if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></div>
+			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></div>
 					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
 					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
 					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
@@ -489,11 +496,11 @@ $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
 			var adeuda='';
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
+			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre}</div>
 					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
 					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
 					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
-					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
+					<div class="col-xs-2">${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></div></div>`);
 		});
 		
 	});
@@ -770,20 +777,51 @@ $('#tabCreditosPendientes').on('click', '.btnEditarCreditoMod', function () {
 		$('#spIdCreditoHid').val($(elemento).attr('data-id'));
 		$('#modEditRuc').val(creditoResultado.cliRUC);
 		$('#modEditRazonSocial').val(creditoResultado.cliRazonSocial);
+		$('#selectClientesEditar .selectpicker').selectpicker('val', creditoResultado.cliRazonSocial).selectpicker('refresh');
 		$('#modEditFecha').val(moment(creditoResultado.credFecha).format('YYYY-MM-DD'));
 		
 		$('#modEditComprobante').val(creditoResultado.credComprobante);
-		$('#modEditProducto').val(creditoResultado.contDescripcion);
+		
+		$('#selectProductosEditar .selectpicker').selectpicker('val', creditoResultado.contDescripcion).selectpicker('refresh');
 		$('#modEditCantidad').val(parseFloat(creditoResultado.credCantidad).toFixed(2));
 		$('#modEditMonto').val(parseFloat(creditoResultado.credCosto).toFixed(2));
-		$('#modEditResponsable').val(creditoResultado.usuNombres +', '+ creditoResultado.usuApellido );
-		
+		$('#selectUsuariosEditar .selectpicker').selectpicker('val', creditoResultado.usuNombres).selectpicker('refresh');
 		$('.modal-editarCreditoPers').modal('show');
 	});
 });
-$('#modEditRuc').keypress(function () {
-	if($('#modEditRuc').length>=8){
-		//ajax
+$('#modEditRuc').keyup(function () {
+	if($('#modEditRuc').val().length>=8){
+		$.ajax({url: 'php/listarClientePorRUCoDNI.php', type: 'POST', data: {dniRuc: $('#modEditRuc').val() }}).done(function (resp) {
+			var dato = JSON.parse(resp);
+			$('#selectClientesEditar .selectpicker').selectpicker('val', dato[0].cliRazonSocial).selectpicker('refresh');
+			$('#modEditRazonSocial').val();
+		});
+	}
+});
+$('#btnUpdCaja').click(function() {
+	var idCli= $('#selectClientesEditar').find('li.selected a').attr('data-tokens');
+	var fecha= $('#modEditFecha').val();
+	var compro= $('#modEditComprobante').val();
+	var idPro= $('#selectProductosEditar').find('li.selected a').attr('data-tokens');
+	var quant= parseFloat($('#modEditCantidad').val());
+	var price= parseFloat($('#modEditMonto').val());
+	var idUser= $('#selectUsuariosEditar').find('li.selected a').attr('data-tokens');
+
+
+	if (! moment(fecha).isValid()){ /*Error*/}
+	else {
+		$.ajax({url: 'php/updateCreditoPorId.php', type: 'POST', data: {
+			idCred: $('#spIdCreditoHid').val(),
+			idUser: idUser,
+			monto: price,
+			fecha: fecha,
+			idProd: idPro,
+			comprob: compro,
+			canti: quant,
+			idCli: idCli
+		}}).done(function (resp) {
+			console.log(resp)
+		});
 	}
 });
 </script>
@@ -791,4 +829,4 @@ $('#modEditRuc').keypress(function () {
 </body>
 
 </html>
-<!--  -->
+<!-- JOS MANUEÑO calificación -->

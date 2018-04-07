@@ -35,6 +35,9 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 </head>
 
 <body>
+<style>
+#divContadoresJuntos input{margin-bottom: 10px;}
+</style>
 
 <div id="wrapper">
 
@@ -323,6 +326,29 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 	</div>
 	</div>
 </div>
+<div class="modal fade modal-editarContadoresMod" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm" role="document">
+	<div class="modal-content">
+		<div class="modal-header-wysteria">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel"><i class="icofont icofont-help-robot"></i> Editar contadores finales</h4>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid">
+			<div  id='divContadoresJuntos'>
+				<h4 id="h4ProductoEdit"></h4>
+				<div class="form-inline text-center">
+				</div>
+			</div>
+			
+		</div>
+			
+		<div class="modal-footer">
+			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cancelar</button>
+			<button class="btn btn-morita btn-outline" id="btnActualizarDataPrecioProducto"><i class="icofont icofont-social-meetme"></i> Actualizar</button></div>
+	</div>
+	</div>
+</div>
 <?php  } ?>
 
 <!-- jQuery -->
@@ -353,16 +379,21 @@ $(document).ready(function(){
 		$.JsonProductosContenedor=JSON.parse(resp);
 		$.each(JSON.parse(resp), function (i, dato) { //console.log(dato)
 			$('#tbodyProductosListado').append(`<tr  class='${dato.contColorMaterialize}'>
-				<!--<td>${dato.grupoDescripcion}</td>
-				<td>${dato.ladoDescripcion}</td>-->
+				<td class='hidden clIdContenedor'>${dato.idcontenedorProductos}</td>
+				<!--<td>${dato.ladoDescripcion}</td>-->
 				<td><strong>${dato.contDescripcion}</strong></td>
 				<td>${parseFloat(dato.contPrecio).toFixed(2)}</td>
-				<td>${dato.contStock}</td>
+				<td>${parseFloat(dato.contStock).toFixed(2)}</td>
 				<td>${dato.responsable}</td>-->
 				<td>${moment(dato.contUltimaFecha).format('dddd DD, MMMM YYYY hh:mm a')}</td>
 				<td>
-					<button class="btn btn-morita btn-outline mitooltip btnMovilProductoEditar" id="${i}" data-toggle="tooltip" title="Cambiar precio"><i class="icofont icofont-edit"></i></button>
+					<?php if($_SESSION['Power']=='1'){
+						?>
+						<button class="btn btn-success btn-outline mitooltip btnMovilEditarConteos" id="${i}" data-toggle="tooltip" title="Editar cuenta final"><i class="icofont icofont-rotation"></i></button>
+						<button class="btn btn-morita btn-outline mitooltip btnMovilProductoEditar" id="${i}" data-toggle="tooltip" title="Cambiar precio"><i class="icofont icofont-edit"></i></button>
 					<button class="btn btn-danger btn-outline mitooltip btnMovilProductoEliminar" id="${i}" data-toggle="tooltip" title="Eliminar"><i class="icofont icofont-error"></i></button>
+					<?php
+					} ?>
 				</td>
 			</tr>`);
 
@@ -493,6 +524,19 @@ $('#btnActualizarDataPrecioProducto').click(function () {
 		console.log('ya tiene disabled no hace nada')
 	}*/
 });
+$('#tbodyProductosListado').on('click', '.btnMovilEditarConteos', function () {
+	var idConte= $(this).parent().parent().find('.clIdContenedor').text();
+	$('#divContadoresJuntos .form-inline').children().remove();
+	$.ajax({url: 'php/listarProductosPorContenedor.php', type: 'POST', data:{contenedor: idConte} }).done(function (resp) {
+		$.each(JSON.parse(resp), function (i, dato) {
+			console.log(dato);
+			$('#h4ProductoEdit').text(dato.prodNombre);
+			$('#divContadoresJuntos .form-inline').append(`<div class="row"><label>${dato.grupoDescripcion} - ${dato.ladoCorto}:</label> <input type="text" data-id="${dato.idproductos}" class="form-control text-center" value="${dato.prodCtaAnterior}"></div>`);
+		});
+		$('.modal-editarContadoresMod').modal('show');
+	});
+});
+
 </script>
 
 </body>
