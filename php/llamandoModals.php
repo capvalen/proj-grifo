@@ -44,7 +44,6 @@
 				
 			</div>
 
-
 			<div class="row">
 				<div class="col-xs-6">
 					<label for="txtModCreditoCantidad">Cantidad de galones:</label>  <span class="red-text text-darken-2">*</span>
@@ -57,6 +56,12 @@
 				<div class="col-xs-6">
 					<label for="txtModCreditoCantidadSoles">Cantidad de soles:</label>  <span class="red-text text-darken-2">*</span>
 					<input type="number" class="form-control mayuscula text-center" id="txtModCreditoCantidadSoles" value="0" step="1" min="1">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<label for="">Descripción extra:</label>
+					<input type="text" class="form-control mayuscula" id="txtModCreditoObsExtra">
 				</div>
 			</div>
 
@@ -166,7 +171,11 @@
 			</div>
 			<div class="row">
 				<label for="">Cantidad de galones:</label>  <span class="red-text text-darken-2">*</span>
-				<input type="number" class="form-control mayuscula text-center" id="txtModTanqueCantidad" value="0" step="1" min="1">
+				<input type="number" class="form-control text-center" id="txtModTanqueCantidad" value="0" step="1" min="1">
+			</div>
+			<div class="row">
+				<label for="">Descripción adicional:</label>
+				<input type="text" class="form-control mayuscula text-center" id="txtModTanqueObserv" >
 			</div>
 
 			<h4 class="red-text text-darken-2 sr-only"><i class="icofont icofont-animal-cat-alt-4"></i><span class="spanError">Hubo un error interno</span></h4>

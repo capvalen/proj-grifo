@@ -3,12 +3,13 @@
  * Copyright 2013-2016 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Pacifico');
+/*@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Pacifico');*/
 
 
  body {
 	overflow-x: hidden;
-	font-family: 'Josefin Sans', sans-serif;
+	/*font-family: 'Josefin Sans', sans-serif;*/
+	font-family: 'Calibri', sans-serif !important;
  }
 
 /* Toggle Styles */

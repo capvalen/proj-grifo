@@ -37,8 +37,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 
 <body>
 <style>
-#divResVentaMes .row, #divResultadoDetalleCreditos>.row, #divResVentaDiaria .row, #divResCajaDiaria .row, #divResultadoDetallTanqueoFin .row{padding-top: 10px; padding-bottom: 10px}
-#divResVentaMes .row:hover, #divResultadoDetalleCreditos>.row:hover,#divResVentaDiaria .row:hover, #divResCajaDiaria .row:hover, #divResultadoDetallTanqueoFin .row:hover{background-color: #eee;}
+#divResVentaMes .row, #divResultadoDetalleCreditos>.row, #divResVentaDiaria .row, #divResCajaDiaria .row, #divResultadoDetallTanqueoFin .row, #divResultadoGastosMes .row, #divResultadoIngresosMes .row{padding-top: 10px; padding-bottom: 10px; border-bottom: solid 1px #e2e2e2;  }
+#divResVentaMes .row:hover, #divResultadoDetalleCreditos>.row:hover,#divResVentaDiaria .row:hover, #divResCajaDiaria .row:hover, #divResultadoDetallTanqueoFin .row:hover, #divResultadoGastosMes .row:hover, #divResultadoIngresosMes .row:hover{background-color: #eee;}
 hr{    margin-top: 10px;
 	margin-bottom: 10px;}
 </style>
@@ -138,6 +138,8 @@ hr{    margin-top: 10px;
 					<li ><a href="#tabCreditosFinalizados" data-toggle="tab">Créditos finalizados</a></li>
 					<li><a href="#tabResumenVentas" data-toggle="tab">Ventas resumen</a></li>
 					<li><a href="#tabHistorialTanqueo" data-toggle="tab">Historial tanqueo</a></li>
+					<li><a href="#tabHistorialGastos" data-toggle="tab">Historial Gastos</a></li>
+					<li><a href="#tabHistorialIngresos" data-toggle="tab">Historial Ingresos</a></li>
 					
 					</ul>
 					
@@ -147,13 +149,13 @@ hr{    margin-top: 10px;
 						<div class="tab-pane fade in active container-fluid" id="tabCreditosPendientes">
 						<!--Inicio de pestaña 01-->
 							<p>Tiene Ud. <strong><?php require 'php/returnCreditosCount.php' ?></strong> créditos pendientes por cobrar: </p>
-							<p>Fechas con créditos pendientes: <span id="idFechasCreditos">
+							<p>Fechas con <strong>Créditos pendientes</strong>: <span id="idFechasCreditos">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosNumFecha.php' ?>
 								</select>
 							</span>
 							</p>
-							<p>Clientes con créditos pendientes: <span id="idClientesCreditos"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
+							<p>Clientes con <strong>Créditos pendientes</strong>: <span id="idClientesCreditos"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFaltaACliente.php' ?>
 								</select></span></p>
 							<div class="container-fluid">
@@ -178,13 +180,13 @@ hr{    margin-top: 10px;
 						<!--Panel para nueva compra-->
 						<div class="tab-pane fade container-fluid" id="tabCreditosFinalizados">
 						<!--Inicio de pestaña 02-->
-							<p>Fechas con créditos finalizados: <span id="idFechasCreditosFin">
+							<p>Fechas con <strong>Créditos finalizados</strong>: <span id="idFechasCreditosFin">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFinNumFecha.php' ?>
 								</select>
 							</span>
 							</p>
-							<p>Clientes con créditos finalizados: <span id="idClientesCreditosFin"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
+							<p>Clientes con <strong>Créditos finalizados</strong>: <span id="idClientesCreditosFin"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosNoFaltaACliente.php' ?>
 								</select></span></p>
 							<div class="container">
@@ -264,7 +266,7 @@ hr{    margin-top: 10px;
 						<!--Fin de pestaña 03-->
 						</div>
 						<div class="tab-pane fade container-fluid" id="tabHistorialTanqueo">
-							<p>Fechas con tanqueos: <span id="idFechasTanqueo">
+							<p>Fechas con <strong>Tanqueos</strong>: <span id="idFechasTanqueo">
 								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarTanqueoFechas.php' ?>
 								</select>
@@ -278,6 +280,44 @@ hr{    margin-top: 10px;
 								 </strong>
 								 </div>
 								 <div id="divResultadoDetallTanqueoFin">
+									<p>Aún no se solicitó ninguna fecha</p>
+								 </div>
+							</div>
+						</div>
+						<div class="tab-pane fade container-fluid" id="tabHistorialGastos">
+							<p>Fechas con <strong>Gastos</strong>: <span id="idFechasGastos">
+								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
+									<?php require 'php/listarGastosFechas.php' ?>
+								</select>
+							</span>
+							</p>
+							<div class="container">
+								 <div class="row"><strong>
+									<div class="col-xs-4">Detalle</div>
+									<div class="col-xs-4">Fecha</div>
+									<div class="col-xs-4">Usuario</div>
+								 </strong>
+								 </div>
+								 <div id="divResultadoGastosMes">
+									<p>Aún no se solicitó ninguna fecha</p>
+								 </div>
+							</div>
+						</div>
+						<div class="tab-pane fade container-fluid" id="tabHistorialIngresos">
+							<p>Fechas con <strong>Ingresos</strong>: <span id="idFechasIngresos">
+								<select class="selectpicker mayuscula" title="Fechas..."  data-width="30%" data-live-search="true">
+									<?php require 'php/listarIngresosFechas.php' ?>
+								</select>
+							</span>
+							</p>
+							<div class="container">
+								 <div class="row"><strong>
+									<div class="col-xs-4">Detalle</div>
+									<div class="col-xs-4">Fecha</div>
+									<div class="col-xs-4">Usuario</div>
+								 </strong>
+								 </div>
+								 <div id="divResultadoIngresosMes">
 									<p>Aún no se solicitó ninguna fecha</p>
 								 </div>
 							</div>
@@ -324,7 +364,7 @@ hr{    margin-top: 10px;
 	</div>
 	</div>
 </div>
-<!-- Modal para Detallar credito  -->
+<!-- Modal para cambiar fecha de tanqueo  -->
 <div class="modal fade modal-cambioTanqueFecha" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
 <div class="modal-dialog modal-sm" role="document">
 	<div class="modal-content">
@@ -345,6 +385,46 @@ hr{    margin-top: 10px;
 	</div>
 	</div>
 </div>
+<!-- Modal para Editar credito  -->
+<div class="modal fade modal-editarCreditoPers" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal-dialog modal-sm" role="document">
+	<div class="modal-content">
+		<div class="modal-header-success">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel"><i class="icofont icofont-help-robot"></i> Editar crédito</h4>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid"><span class="hidden" id="spIdCreditoHid"></span>
+				<label for="">R.U.C o D.N.I:</label>
+				<input type="number" class="form-control" id="modEditRuc">
+				<label for="">Razón social:</label>
+				<input type="text" class="form-control mayuscula" id="modEditRazonSocial" disabled="">
+				<div id="selectClientesEditar">
+					<select class="selectpicker slpClientes mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
+					<?php require 'php/listarTodosClientes.php' ?>
+					</select>
+				</div>
+				<label for="">Fecha de registro:</label>
+				<input type="date" class="form-control" id="modEditFecha">
+				<label for="">Comprobante:</label>
+				<input type="text" class="form-control mayuscula" id="modEditComprobante">
+				<label for="">Producto:</label>
+				<input type="text" class="form-control mayuscula" id="modEditProducto">
+				<label for="">Cantidad (gls.):</label>
+				<input type="number" class="form-control" id="modEditCantidad">
+				<label for="">Monto (S/.):</label>
+				<input type="number" class="form-control" id="modEditMonto">
+				<label for="">Responsable:</label>
+				<input type="text" class="form-control mayuscula" id="modEditResponsable">
+			</div>
+		</div>
+			
+		<div class="modal-footer">
+			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cerrar</button>
+			<button class="btn btn-success btn-outline" id="btnChangeFechaTanque"><i class="icofont icofont-social-meetme"></i> Cambiar datos</button></div>
+	</div>
+	</div>
+</div>
 
 
 <?php include 'php/llamandoModals.php'; ?>
@@ -356,7 +436,7 @@ hr{    margin-top: 10px;
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js?version=1.0.1"></script>
-<script src="js/accionesGlobales.js?version=1.0.7"></script>
+<script src="js/accionesGlobales.js?version=1.0.9"></script>
 <script src="js/bootstrap-select.js"></script>
 <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
 
@@ -388,14 +468,15 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 	$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) {
 		$('#divResultadoDetalleCreditos').children().remove();
 		$.jsonAdeuda=JSON.parse(resp);
-		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
-			var adeuda='';
+		$.each(JSON.parse(resp), function (i, jsonResp) {// console.log(jsonResp);
+			var adeuda='', obs='';
+			if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
+			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></div>
 					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
 					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
 					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
-					<div class="col-xs-2">${adeuda} <?php if($_SESSION['Power']=='1') echo '<button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></div></div>`);
+					<div class="col-xs-2">${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></div></div>`);
 		});
 		
 	});
@@ -524,15 +605,64 @@ $('#idFechasTanqueo').on('click', '.optTanqueoFecha', function () {
 		//$.jsonAdeuda=JSON.parse(resp);
 		var maxRows=JSON.parse(resp).length-1;
 		
-		var sumaTanque=0;
+		var sumaTanque=0, obs='';
 		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
 			sumaTanque+=parseFloat(jsonResp.detcoCantidad);
-			$('#divResultadoDetallTanqueoFin').append(`<div class="row" id="${jsonResp.idcompra}"><div class="col-xs-4 ">${i+1}. Tanqueo: ${jsonResp.contDescripcion}: ${jsonResp.detcoCantidad} gls.</div>
+			if(jsonResp.compObservacion ==''){obs='';}else{obs='<strong>Obs.</strong> '+jsonResp.compObservacion;}
+			$('#divResultadoDetallTanqueoFin').append(`<div class="row" id="${jsonResp.idcompra}"><div class="col-xs-4 ">${i+1}. Tanqueo: ${jsonResp.contDescripcion}: ${jsonResp.detcoCantidad} gls. <span class="mayuscula">${obs}</span></div>
 					<div class="col-xs-4"><span class="spanFechaTanques">${moment(jsonResp.compFecha).format('DD/MM/YYYY')}</span> <span class="spanHoraTanques">${moment(jsonResp.compFecha).format('hh:mm a')}</span></div>
 					<div class="col-xs-4 mayuscula">${jsonResp.usuNombres} <?php if($_SESSION['Power']=='1'){echo '<button class="btn btn-morado btn-outline btnCambiarFechaTanqueo btn-sm"><i class="icofont icofont-clock-time"></i></button>';} ?></div> </div>`);
 			if(i ==maxRows){
 				$('#divResultadoDetallTanqueoFin').append(`<div class="row" >
 					<div class="col-xs-4"><strong>Total: ${parseFloat(sumaTanque).toFixed(2)} gls.</strong> </div>
+					<div class="col-xs-4 mayuscula"></div> </div>`);
+			}
+		});
+	})
+});
+$('#idFechasGastos').on('click', '.optGastoFecha', function () {
+	var gastoFecha= $('#idFechasGastos').find('.selected a').attr('data-tokens');
+
+	//console.log($(this).attr('data-tokens'));
+	$.ajax({url: 'php/listarGastosPorMes.php', type: 'POST', data: { fecha: gastoFecha }}).done(function (resp) { //console.log(resp)
+		$('#divResultadoGastosMes').children().remove();
+		//$.jsonAdeuda=JSON.parse(resp);
+		var maxRows=JSON.parse(resp).length-1;
+		
+		var sumaGastos=0;
+		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
+			sumaGastos+=parseFloat(jsonResp.cajaMonto);
+			
+			$('#divResultadoGastosMes').append(`<div class="row" id="${jsonResp.idcaja}"><div class="col-xs-4 mayuscula">${i+1}. ${jsonResp.cajaDescripcion}: S/. ${parseFloat(jsonResp.cajaMonto).toFixed(2)} </div>
+					<div class="col-xs-4"><span class="spanFechaTanques">${moment(jsonResp.cajaFecha).format('DD/MM/YYYY')}</span> <span class="spanHoraTanques">${moment(jsonResp.cajaFecha).format('hh:mm a')}</span></div>
+					<div class="col-xs-4 mayuscula">${jsonResp.usuNombres} </div> </div>`);
+			if(i ==maxRows){
+				$('#divResultadoGastosMes').append(`<div class="row" >
+					<div class="col-xs-4"><strong>Total: S/. ${parseFloat(sumaGastos).toFixed(2)} </strong> </div>
+					<div class="col-xs-4 mayuscula"></div> </div>`);
+			}
+		});
+	})
+});
+$('#idFechasIngresos').on('click', '.optIngresoFecha', function () {
+	var IngresoFecha= $('#idFechasIngresos').find('.selected a').attr('data-tokens');
+
+	//console.log($(this).attr('data-tokens'));
+	$.ajax({url: 'php/listarIngresosPorMes.php', type: 'POST', data: { fecha: IngresoFecha }}).done(function (resp) { //console.log(resp)
+		$('#divResultadoIngresosMes').children().remove();
+		//$.jsonAdeuda=JSON.parse(resp);
+		var maxRows=JSON.parse(resp).length-1;
+		
+		var sumaGastos=0;
+		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
+			sumaGastos+=parseFloat(jsonResp.cajaMonto);
+			
+			$('#divResultadoIngresosMes').append(`<div class="row" id="${jsonResp.idcaja}"><div class="col-xs-4 mayuscula">${i+1}. ${jsonResp.cajaDescripcion}: S/. ${parseFloat(jsonResp.cajaMonto).toFixed(2)} </div>
+					<div class="col-xs-4"><span class="spanFechaTanques">${moment(jsonResp.cajaFecha).format('DD/MM/YYYY')}</span> <span class="spanHoraTanques">${moment(jsonResp.cajaFecha).format('hh:mm a')}</span></div>
+					<div class="col-xs-4 mayuscula">${jsonResp.usuNombres} </div> </div>`);
+			if(i ==maxRows){
+				$('#divResultadoIngresosMes').append(`<div class="row" >
+					<div class="col-xs-4"><strong>Total: S/. ${parseFloat(sumaGastos).toFixed(2)} </strong> </div>
 					<div class="col-xs-4 mayuscula"></div> </div>`);
 			}
 		});
@@ -630,6 +760,31 @@ $('#btnChangeFechaTanque').click(function () {
 	}}).done(function (resp) {
 		console.log(resp)
 	});
+});
+$('#tabCreditosPendientes').on('click', '.btnEditarCreditoMod', function () {
+	var elemento =$(this);
+	
+	$.ajax({url: 'php/listarCreditoDetalle.php', type: 'POST', data: {idCred: $(elemento).attr('data-id')}}).done(function (resp) {
+		console.log(resp);
+		var creditoResultado=JSON.parse(resp)[0];
+		$('#spIdCreditoHid').val($(elemento).attr('data-id'));
+		$('#modEditRuc').val(creditoResultado.cliRUC);
+		$('#modEditRazonSocial').val(creditoResultado.cliRazonSocial);
+		$('#modEditFecha').val(moment(creditoResultado.credFecha).format('YYYY-MM-DD'));
+		
+		$('#modEditComprobante').val(creditoResultado.credComprobante);
+		$('#modEditProducto').val(creditoResultado.contDescripcion);
+		$('#modEditCantidad').val(parseFloat(creditoResultado.credCantidad).toFixed(2));
+		$('#modEditMonto').val(parseFloat(creditoResultado.credCosto).toFixed(2));
+		$('#modEditResponsable').val(creditoResultado.usuNombres +', '+ creditoResultado.usuApellido );
+		
+		$('.modal-editarCreditoPers').modal('show');
+	});
+});
+$('#modEditRuc').keypress(function () {
+	if($('#modEditRuc').length>=8){
+		//ajax
+	}
 });
 </script>
 

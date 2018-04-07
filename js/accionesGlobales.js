@@ -149,7 +149,8 @@ $('#btnIngresarCreditoModal').click(function () {
 			$.ajax({url: 'php/insertarCreditoNuevo.php', type: 'POST', data: {idCli: idClie, dni:$('#txtModCreditoDnioRUC').val() , social: $('#txtModCreditoRazonSocial').val() ,
 				direccion: $('#txtModCreditoDireccion').val() , celular: $('#txtModCreditoCelular').val(),
 				idProductoCont: idContenedor , cantidad: $('#txtModCreditoCantidad').val() , comprobante: $('#txtModCreditoComprobante').val(), idUser: $.JsonUsuario.idUsuario,
-				cantLitr: $('#txtModCreditoCantidadLitro').val(), prodNom: $('#divSelectModCreditoProducto').find('.filter-option').text()
+				cantLitr: $('#txtModCreditoCantidadLitro').val(), prodNom: $('#divSelectModCreditoProducto').find('.filter-option').text(),
+				obsCred: $('#txtModCreditoObsExtra').val()
 			 } }).done(function (resp) {
 				console.log(resp)
 				$('.modal-ingresarCredito').modal('hide');
@@ -183,7 +184,7 @@ $('#btnIngresarTanqueModal').click(function () {
 			spanError.parent().addClass('sr-only');
 			$('#btnIngresarTanqueModal').addClass('disabled'); //desabilitamos el boton
 			//guardar
-			$.ajax({url:'php/insertarTanqueo.php', type: 'POST', data: {idConten: valor, masStock: cantidad, idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
+			$.ajax({url:'php/insertarTanqueo.php', type: 'POST', data: {idConten: valor, masStock: cantidad, idUser: $.JsonUsuario.idUsuario, obs: $('#txtModTanqueObserv').val() }}).done(function (resp) {
 				$('.modal-ingresarTanque').modal('hide');
 				if(parseInt(resp)>0){
 					$('#spanExito').text('Agregado '+cantidad+' galones a: '+$('#divSelectModTanqueProducto button').attr('title'));

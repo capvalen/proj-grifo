@@ -4,7 +4,7 @@ header('Content-Type: text/html; charset=utf8');
 require("conectkarl.php");
 
 
-$sql= "call insertarTanqueo (".$_POST['idConten'].",".$_POST['masStock'].",".$_POST['idUser'].")";
+$sql= "call insertarTanqueo (".$_POST['idConten'].",".$_POST['masStock'].",".$_POST['idUser'].",'".$_POST['obs']."' )";
 
 
 if ($llamadoSQL = $conection->query($sql)) { //Ejecución mas compleja con retorno de dato de sql del procedure.

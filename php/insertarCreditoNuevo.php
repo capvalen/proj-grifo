@@ -19,7 +19,7 @@ if( $_POST['idCli']==0 ){ //Primero guardar cliente luego guardar el crédito nu
 
 	$stmt->close();
 	
-	$sql2= "call insertarCreditoNuevo (".$idCli.",".$_POST['idProductoCont'].",".$_POST['cantidad'].", '".$_POST['comprobante']."', ".$_POST['idUser'].", ".$_POST['cantLitr'].", '".$_POST['prodNom']."');";
+	$sql2= "call insertarCreditoNuevo (".$idCli.",".$_POST['idProductoCont'].",".$_POST['cantidad'].", '".$_POST['comprobante']."', ".$_POST['idUser'].", ".$_POST['cantLitr'].", '".$_POST['prodNom']."', '".$_POST['obsCred']."');";
 
 	$stmt2 = $conection->prepare($sql2);
 	$stmt2->execute();
@@ -34,7 +34,7 @@ if( $_POST['idCli']==0 ){ //Primero guardar cliente luego guardar el crédito nu
 
 }else{ // Guardar directo el crédito porque ya existe usuario
 
-	$sql3= "call insertarCreditoNuevo (".$_POST['idCli'].",".$_POST['idProductoCont'].",".$_POST['cantidad'].", '".$_POST['comprobante']."', ".$_POST['idUser'].", ".$_POST['cantLitr'].", '".$_POST['prodNom']."');";
+	$sql3= "call insertarCreditoNuevo (".$_POST['idCli'].",".$_POST['idProductoCont'].",".$_POST['cantidad'].", '".$_POST['comprobante']."', ".$_POST['idUser'].", ".$_POST['cantLitr'].", '".$_POST['prodNom']."', '".$_POST['obsCred']."');";
 
 	$stmt3 = $conection->prepare($sql3);
 	$stmt3->execute();
