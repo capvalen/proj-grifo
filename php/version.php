@@ -1,9 +1,10 @@
 <?php 
-echo "Versión 1.16 Compilación 2018.04.06";
+echo "Versión 1.18 Compilación 2018.04.09";
 
 /*
-Ver 1.16
+Ver 1.17
 ALTER TABLE `creditos` ADD `credObservacion` VARCHAR(200) NOT NULL AFTER `idUsuario`;
+Cambio reoprtes y cambios de edicion
 
 Ver 1.15
 Cambios en los reportes, sumas y bloqueos de usuarios simples

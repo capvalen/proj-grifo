@@ -335,7 +335,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		</div>
 		<div class="modal-body">
 			<div class="container-fluid">
-			<div  id='divContadoresJuntos'>
+			<div id='divContadoresJuntos'> <span class="hidden" id="spanIdContenedorRefe"></span>
 				<h4 id="h4ProductoEdit"></h4>
 				<div class="form-inline text-center">
 				</div>
@@ -345,7 +345,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 			
 		<div class="modal-footer">
 			<button class="btn btn-danger btn-outline" data-dismiss="modal" ><i class="icofont icofont-close"></i> Cancelar</button>
-			<button class="btn btn-morita btn-outline" id="btnActualizarDataPrecioProducto"><i class="icofont icofont-social-meetme"></i> Actualizar</button></div>
+			<button class="btn btn-morita btn-outline" id="btnActualizarContadores"><i class="icofont icofont-social-meetme"></i> Actualizar</button></div>
 	</div>
 	</div>
 </div>
@@ -526,17 +526,46 @@ $('#btnActualizarDataPrecioProducto').click(function () {
 });
 $('#tbodyProductosListado').on('click', '.btnMovilEditarConteos', function () {
 	var idConte= $(this).parent().parent().find('.clIdContenedor').text();
+	$('#spanIdContenedorRefe').text(idConte);
 	$('#divContadoresJuntos .form-inline').children().remove();
 	$.ajax({url: 'php/listarProductosPorContenedor.php', type: 'POST', data:{contenedor: idConte} }).done(function (resp) {
 		$.each(JSON.parse(resp), function (i, dato) {
-			console.log(dato);
+			//console.log(dato);
 			$('#h4ProductoEdit').text(dato.prodNombre);
-			$('#divContadoresJuntos .form-inline').append(`<div class="row"><label>${dato.grupoDescripcion} - ${dato.ladoCorto}:</label> <input type="text" data-id="${dato.idproductos}" class="form-control text-center" value="${dato.prodCtaAnterior}"></div>`);
+			$('#divContadoresJuntos .form-inline').append(`<div class="row"><span class="hidden spanCntDefault">${dato.prodCtaAnterior}</span><label>${dato.grupoDescripcion} - ${dato.ladoCorto}: <div class="hidden divRellenoCambio"><span class="spanPositivo"></span><span class="spanDiferencia"></span><span>gls.</span></div></label> <input type="text" data-id="${dato.idproductos}" class="form-control text-center txtChangeValorGls" value="${dato.prodCtaAnterior}"></div>`);
 		});
 		$('.modal-editarContadoresMod').modal('show');
 	});
 });
 
+$('#divContadoresJuntos').on('change', '.txtChangeValorGls', function () {
+	var elemento =$(this);
+	var elementoPadre =$(this).parent();
+	nuevoValor = parseFloat($(elemento).val());
+	anteriorValor= parseFloat($(elemento).parent().find('.spanCntDefault').text());
+	differencia= parseFloat(anteriorValor-nuevoValor)/100;
+	//console.log(differencia);
+	if(differencia>0){ elementoPadre.find('.spanPositivo').html( '&#43;' ).removeClass('hidden'); elementoPadre.find('.divRellenoCambio').addClass('text-success').removeClass('text-danger');  }
+	if(differencia<0){ elementoPadre.find('.spanPositivo').addClass('hidden'); elementoPadre.find('.divRellenoCambio').addClass('text-danger').removeClass('text-success').removeClass('hidden'); }
+	elementoPadre.find('.spanDiferencia').text( parseFloat(differencia).toFixed(2));
+	elementoPadre.find('.divRellenoCambio').removeClass('hidden');
+	if(differencia==0){ elementoPadre.find('.divRellenoCambio').addClass('hidden'); }
+});
+$('#btnActualizarContadores').click(function () {
+	var idContainer = $('#spanIdContenedorRefe').text();
+	var idProdExacto;
+	$.each( $('#divContadoresJuntos .form-inline .row'), function (i, dato) {
+			idProdExacto = $(dato).find('.txtChangeValorGls').attr('data-id');
+		if( ! $(dato).find('.divRellenoCambio').hasClass('hidden') ){
+			//console.log( $(dato).find('.txtChangeValorGls').val() );
+			$.ajax({url: 'php/updateNumeroContador.php', type: 'POST', data:{
+				idConte: idContainer, idProd: idProdExacto, numeroCambio: $(dato).find('.txtChangeValorGls').val(), diferencia: $(dato).find('.spanDiferencia').text(), numeroAnt: $(dato).find('.spanCntDefault').text(), idUser: $.JsonUsuario.idUsuario
+			}}).done(function (resp) {
+				location.reload();
+			});
+		}
+	});
+});
 </script>
 
 </body>
