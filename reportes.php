@@ -158,18 +158,34 @@ hr{    margin-top: 10px;
 							<p>Clientes con <strong>Créditos pendientes</strong>: <span id="idClientesCreditos"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFaltaACliente.php' ?>
 								</select></span></p>
+							<p><button class="btn btn-success btn-lg btn-outline" id="btnExportarExcel01"><i class="icofont icofont-file-excel"></i> Exportar a Excel</button></p>
 							<div class="container-fluid">
-								 <div class="row"><strong>
-									<div class="col-xs-4">Detalle</div>
-									<div class="col-xs-2"># Comprobante</div>
-									<div class="col-xs-2">Fecha</div>
-									<div class="col-xs-2">Monto</div>
-									<div class="col-xs-2">Estado</div>
+								 <!-- <div class="row"><strong>
+								 									<div class="col-xs-4">Detalle</div>
+								 									<div class="col-xs-2"># Comprobante</div>
+								 									<div class="col-xs-2">Fecha</div>
+								 									<div class="col-xs-2">Monto</div>
+								 									<div class="col-xs-2">Estado</div>
 								 </strong>
 								 </div>
 								 <div id="divResultadoDetalleCreditos">
-									<p>Aún no se solicitó ninguna fecha</p>
-								 </div>
+								 									<p>Aún no se solicitó ninguna fecha</p>
+								 </div> -->
+								 <table class="table table-hover" id="tableResultadoDetalleCreditos">
+									<thead>
+										<tr>
+											<th>Detalle</th>
+											<th># Comprobante</th>
+											<th>Fecha</th>
+											<th>Monto</th>
+											<th>Estado</th>
+										</tr>
+									</thead>
+									<tbody>
+										
+									</tbody>
+								</table>
+								
 							</div>
 
 						<!--Fin de pestaña 01-->
@@ -445,7 +461,11 @@ hr{    margin-top: 10px;
 <script src="js/inicializacion.js?version=1.0.1"></script>
 <script src="js/accionesGlobales.js?version=1.0.9"></script>
 <script src="js/bootstrap-select.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/xlsx.core.js"></script>
+<script src="js/FileSaver.js"></script>
+<script src="js/Blob.js"></script>
+<script src="js/tableexport.js"></script> <!-- extraido de https://tableexport.v3.travismclarke.com/ -->
 
 <!-- Menu Toggle Script -->
 <script>
@@ -473,20 +493,23 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 	//console.log($(this).attr('data-tokens'));
 	//console.log(texto.month()+1)
 	$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) {
-		$('#divResultadoDetalleCreditos').children().remove();
+		$('#tableResultadoDetalleCreditos tbody').children().remove();
 		$.jsonAdeuda=JSON.parse(resp);
 		$.each(JSON.parse(resp), function (i, jsonResp) {// console.log(jsonResp);
 			var adeuda='', obs='';
 			if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></div>
-					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
-					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
-					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
-					<div class="col-xs-2">${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></div></div>`);
+			$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
+				<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+				<td>${jsonResp.credcomprobante}</td>
+				<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+				<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
+				<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+			</tr>`);
 		});
-		
 	});
+		console.log('as')
+		$('#btnExportarExcel01').focus();
 });
 $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 	var clienteId= $('#idClientesCreditos').find('.selected a').attr('data-tokens');
@@ -820,9 +843,16 @@ $('#btnUpdCaja').click(function() {
 			canti: quant,
 			idCli: idCli
 		}}).done(function (resp) {
-			console.log(resp)
+			//console.log(resp)
+			location.reload();
 		});
 	}
+});
+$('#btnExportarExcel01').click(function () {
+	$("#tableResultadoDetalleCreditos").tableExport({
+		formats:["xlsx"],
+		filename: 'Reporte créditos pendientes'
+	});
 });
 </script>
 
