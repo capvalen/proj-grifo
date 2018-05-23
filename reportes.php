@@ -158,7 +158,7 @@ hr{    margin-top: 10px;
 							<p>Clientes con <strong>Créditos pendientes</strong>: <span id="idClientesCreditos"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFaltaACliente.php' ?>
 								</select></span></p>
-							<p><button class="btn btn-success btn-lg btn-outline" id="btnExportarExcel01"><i class="icofont icofont-file-excel"></i> Exportar a Excel</button></p>
+							<p><button class="btn btn-success btn-lg btn-outline" id="btnExportarExcel01"><i class="icofont icofont-file-excel"></i> Exportar</button></p>
 							<div class="container-fluid">
 								 <!-- <div class="row"><strong>
 								 									<div class="col-xs-4">Detalle</div>
@@ -507,9 +507,9 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 				<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 			</tr>`);
 		});
+		$('#tableResultadoDetalleCreditos').find('caption').remove();
 	});
-		console.log('as')
-		$('#btnExportarExcel01').focus();
+	$('#btnExportarExcel01').focus();
 });
 $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 	var clienteId= $('#idClientesCreditos').find('.selected a').attr('data-tokens');
@@ -851,7 +851,8 @@ $('#btnUpdCaja').click(function() {
 $('#btnExportarExcel01').click(function () {
 	$("#tableResultadoDetalleCreditos").tableExport({
 		formats:["xlsx"],
-		filename: 'Reporte créditos pendientes'
+		filename: 'Reporte créditos pendientes',
+		bootstrap: true
 	});
 });
 </script>
