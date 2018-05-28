@@ -854,7 +854,7 @@ $('#btnGuardarReporte').click(function () {
 			$.each($('#contenidoACuadrarIngresVsEgres .row'), function (i, credito) {
 				var espacioCred='';
 				if( $(credito).find('.creTipo').text()=='Crédito'){espacioCred="\n\r"; }else{ espacioCred="";}
-				$.creditos+=$(credito).find('.creTipo').text() + ' '+$(credito).find('.creDescr').text() + '. Debe S/. '+ $(credito).find('.creMonto').text()  +espacioCred+ ' Grabado: '+ $(credito).find('.creFecha').text()+"\r\n" ;
+				$.creditos+=$(credito).find('.creTipo').text().replace('é','e') + ' '+$(credito).find('.creDescr').text() + '.\n\r Debe S/. '+ $(credito).find('.creMonto').text()  +espacioCred+ ' Grabado: '+ $(credito).find('.creFecha').text()+"\r\n" ;
 			});
 		}
 		//console.log($.ptexto)

@@ -486,49 +486,109 @@ datosUsuario();
 
 
 $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
-	var texto= moment($(this).attr('data-tokens'), 'YYYY/M')
+	var texto= moment($(this).attr('data-tokens'), 'YYYY/M');
 	var año= texto.year();
-	var mess=texto.month()+1
+	var mess=texto.month()+1;
+
 
 	//console.log($(this).attr('data-tokens'));
 	//console.log(texto.month()+1)
-	$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) {
+	
+	if( $('#idClientesCreditos .selected a').attr('data-tokens')==null){ 
 		$('#tableResultadoDetalleCreditos tbody').children().remove();
-		$.jsonAdeuda=JSON.parse(resp);
-		$.each(JSON.parse(resp), function (i, jsonResp) {// console.log(jsonResp);
-			var adeuda='', obs='';
-			if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
-			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
-				<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
-				<td>${jsonResp.credcomprobante}</td>
-				<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
-				<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
-				<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
-			</tr>`);
+		$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) {
+			$.jsonAdeuda=JSON.parse(resp);
+			$.each(JSON.parse(resp), function (i, jsonResp) {// console.log(jsonResp);
+				var adeuda='', obs='';
+				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
+				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
+					<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+					<td>${jsonResp.credcomprobante}</td>
+					<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+					<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
+					<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+				</tr>`);
+			});
+			$('#tableResultadoDetalleCreditos').find('caption').remove();
 		});
-		$('#tableResultadoDetalleCreditos').find('caption').remove();
-	});
+	}else{
+		var clienteId = $('#idClientesCreditos .selected a').attr('data-tokens');
+		//console.log(clienteId);
+		$('#tableResultadoDetalleCreditos tbody').children().remove();
+		$.ajax({url: 'php/listarCreditoPorFechaVSCliente.php', type: 'POST', data: { mes:mess , anio:año, idCli:clienteId }}).done(function (resp) {
+			$.jsonAdeuda=JSON.parse(resp);
+			console.log($.jsonAdeuda.length);
+			if($.jsonAdeuda.length==0){
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td>No se encontraron datos de <strong class="mayuscula">`+$('#idClientesCreditos').find('.filter-option').text()+`</strong> en <strong>`+ mess +'/'+ año +`</strong></td></tr>`)
+			}else{
+				$.each(JSON.parse(resp), function (i, jsonResp) {// console.log(jsonResp);
+					var adeuda='', obs='';
+					if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
+					if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
+					$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
+						<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+						<td>${jsonResp.credcomprobante}</td>
+						<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+						<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
+						<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+					</tr>`);
+				});
+			}
+			$('#tableResultadoDetalleCreditos').find('caption').remove();
+		});
+	}
 	$('#btnExportarExcel01').focus();
 });
 $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 	var clienteId= $('#idClientesCreditos').find('.selected a').attr('data-tokens');
-	$.ajax({url: 'php/listarCreditoPorClienteDebe.php', type: 'POST', data: { idCli:clienteId }}).done(function (resp) {
-		$('#divResultadoDetalleCreditos').children().remove();
-		$.jsonAdeuda=JSON.parse(resp);
-		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
-			var adeuda='';
-			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#divResultadoDetalleCreditos').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetalleCreditos .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre}</div>
-					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
-					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
-					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
-					<div class="col-xs-2">${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></div></div>`);
+	if( $('#idFechasCreditos .selected a').attr('data-tokens')==null){
+		$.ajax({url: 'php/listarCreditoPorClienteDebe.php', type: 'POST', data: { idCli:clienteId }}).done(function (resp) { //console.log(resp)
+			$('#tableResultadoDetalleCreditos tbody').children().remove();
+			$.jsonAdeuda=JSON.parse(resp);
+
+			$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
+				var adeuda='', obs='';
+				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
+				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre} <span class="mayuscula">${obs}</span></td>
+		<td>${jsonResp.credcomprobante}</td>
+		<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+		<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
+		<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+	</tr>`);
+			});
+			$('#tableResultadoDetalleCreditos').find('caption').remove();
 		});
-		
-	});
+	}else{
+		var texto= moment($('#idFechasCreditos .selected a').attr('data-tokens'), 'YYYY/M');
+		var año= texto.year();
+		var mess=texto.month()+1;
+		$.ajax({url: 'php/listarCreditoPorFechaVSCliente.php', type: 'POST', data: {mes:mess , anio:año,  idCli:clienteId }}).done(function (resp) {
+			$('#tableResultadoDetalleCreditos tbody').children().remove();
+			$.jsonAdeuda=JSON.parse(resp);
+			if($.jsonAdeuda.length==0){
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td>No se encontraron datos de <strong class="mayuscula">`+$('#idClientesCreditos').find('.filter-option').text()+`</strong> en <strong>`+mess +'/'+ año +`</strong></td></tr>`);
+			}else{
+				$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
+				var adeuda='', obs='';
+				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
+				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+					<td>${jsonResp.credcomprobante}</td>
+					<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+					<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
+					<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+					</tr>`);
+				});	
+			}
+			
+			$('#tableResultadoDetalleCreditos').find('caption').remove();
+		});
+	}
+	$('#btnExportarExcel01').focus();
 });
-$('#divResultadoDetalleCreditos').on('click', '.btnAdeudaDetalle', function () {
+$('#tableResultadoDetalleCreditos').on('click', '.btnAdeudaDetalle', function () {
 	//console.log($(this).parent().parent().attr('id'));
 	var idCredito=$(this).parent().parent().attr('id');
 	

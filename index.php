@@ -18,7 +18,7 @@ if (isset($_SESSION['Atiende'])){
 	<link href="css/animate.css" rel="stylesheet">
 	<title>Bienvenido: Infocat-Grifo</title>
 	<link rel="shortcut icon" href="images/peto.png" />
-	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<!-- <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"> -->
 
 
 </head>
@@ -42,7 +42,7 @@ if (isset($_SESSION['Atiende'])){
 	<div class="row">
 		<div class="col-md-12">
 			<div class="wello login-box" style="color:#493267" >
-				<h2 class="text-center" style="font-family: 'Pacifico', cursive;">Info-Cat</h2>
+				<h2 class="text-center" style="font-family: 'Arial', cursive;">Info-Cat</h2>
 				<legend  style="color:#493267"><small style=" font-size: 80%;">Sistema para grifos</small></legend>
 				
 			<div class="form-group">
@@ -55,12 +55,11 @@ if (isset($_SESSION['Atiende'])){
 			</div>
 			
 			<div class="form-group text-center">
-				<button class="btn btn-danger btn-outline" id="btnCancelar"><i class="icofont icofont-logout"></i> Cancelar</button>
-				<button class="btn btn-morado btn-outline" id="btnAcceder"><div class="fa-spin sr-only"><i class="icofont icofont-spinner"></i> </div><i class="icofont icofont-key"></i> Iniciar</button>
+				<button class="btn btn-morado btn-outline btn-block" id="btnAcceder"><div class="fa-spin sr-only"><i class="icofont icofont-spinner"></i> </div><i class="icofont icofont-key"></i> Iniciar</button>
 			</div>
 			<div class="form-group text-center text-danger hidden" id="divError">Error en alguno de los datos, complételos todos cuidadosamente.</div>
 			
-			<div class="pull-right" ><small><?php include 'php/version.php' ?> | <?php echo date("Y"); ?> <a href="https://info-cat.com">®  Info-cat</a></small></div>
+			<div class="row pull-right" ><small><?php include 'php/version.php' ?> | <?php echo date("Y"); ?> <a href="https://www.facebook.com/pg/infocat.soluciones/photos/?tab=album&album_id=2059119974302334">®  Info-cat</a></small></div>
 			</div>
 		</div>
 	</div>
@@ -68,7 +67,7 @@ if (isset($_SESSION['Atiende'])){
 </body>
 
 	<script src="js/jquery-2.2.3.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="js/bootstrap.min.js"></script>
 	
 	<!-- <script src="./node_modules/socket.io/node_modules/socket.io-client/socket.io.js"></script> 
 	<script src="js/socketCliente.js"></script>-->
