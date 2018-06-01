@@ -9,29 +9,36 @@
 		<div class="modal-body">
 			<div class="container-fluid">
 			<div class="row">
+				<div class="col-xs-12" id="divClientesRegistrados">
+					<label for="">Clientes registrados</label>
+					<select class="selectpicker mayuscula" title="Clientes..."  data-width="100%" data-live-search="true">
+						<option class='optClienteReg mayuscula' data-tokens='0'> Nuevo cliente</option>
+						<?php require 'php/listarClientesRegistrados.php' ?>
+					</select>
+				</div>
 				<div class="col-xs-4">
 						<label for="txtModCreditoDnioRUC">D.N.I.</label>  <span class="red-text text-darken-2">*</span> <span class="sr-only" id="spanIdCredClienteExiste"></span>
-						<input type="number" class="form-control mayuscula" id="txtModCreditoDnioRUC">
+						<input type="number" class="form-control mayuscula" id="txtModCreditoDnioRUC" autocomplete="off">
 				</div>
 				<div class="col-xs-8">
 						<label id="lblNombresORazon" for="txtModCreditoRazonSocial">Nombres y Apellidos:</label> <span class="red-text text-darken-2">*</span>
-						<input type="text" class="form-control mayuscula" id="txtModCreditoRazonSocial">
+						<input type="text" class="form-control mayuscula" id="txtModCreditoRazonSocial" autocomplete="off">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4">
 						<label for="txtModCreditoCelular">Teléfono/ Celular:</label>
-						<input type="number" class="form-control mayuscula" id="txtModCreditoCelular">
+						<input type="number" class="form-control mayuscula" id="txtModCreditoCelular" autocomplete="off">
 				</div>
 				<div class="col-xs-8">
 						<label for="txtModCreditoDireccion">Dirección:</label>
-						<input type="text" class="form-control mayuscula" id="txtModCreditoDireccion">
+						<input type="text" class="form-control mayuscula" id="txtModCreditoDireccion" autocomplete="off">
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-4">
 					<label for="txtModCreditoComprobante">N° de Comprobante:</label>
-					<input type="text" class="form-control mayuscula" id="txtModCreditoComprobante">
+					<input type="text" class="form-control mayuscula" id="txtModCreditoComprobante" autocomplete="off">
 				</div>
 				<div class="col-xs-8">
 					<label for="">Producto concedido a crédito:</label> <span class="red-text text-darken-2">*</span>
@@ -61,7 +68,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<label for="">Descripción extra:</label>
-					<input type="text" class="form-control mayuscula" id="txtModCreditoObsExtra">
+					<input type="text" class="form-control mayuscula" id="txtModCreditoObsExtra" autocomplete="off">
 				</div>
 			</div>
 

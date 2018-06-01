@@ -459,7 +459,7 @@ hr{    margin-top: 10px;
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js?version=1.0.1"></script>
-<script src="js/accionesGlobales.js?version=1.0.9"></script>
+<script src="js/accionesGlobales.js?version=1.0.10"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datetimepicker.min.js"></script>
 <script src="js/xlsx.core.js"></script>
@@ -472,15 +472,7 @@ hr{    margin-top: 10px;
 $(document).ready(function(){
 datosUsuario();
 	$('.selectpicker').selectpicker('refresh');
-
-		$('.mitooltip').tooltip();
-		$('input').keypress(function (e) {
-			if (e.keyCode == 13)
-			{
-				$(this).parent().next().children().focus();
-				//$(this).parent().next().children().removeAttr('disabled'); //agregar atributo desabilitado
-			} 
-		});
+	$('.mitooltip').tooltip();
 	$('#dtpFechaVentas').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es'});
 });
 

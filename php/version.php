@@ -1,7 +1,42 @@
 <?php 
-echo "Versión 1.21 Compilación 2018.05.28";
+echo "Versión 1.22 Compilación 2018.05.31";
 
 /*
+Ver 1.22
+Fusion de códigos:
+UPDATE `creditos` SET  `idcliente` = 24 WHERE `idcliente`=38;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 38;
+UPDATE `creditos` SET  `idcliente` = 25 WHERE `idcliente`=37;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 37;
+UPDATE `creditos` SET  `idcliente` = 14 WHERE `idcliente`=16;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 16;
+UPDATE `creditos` SET  `idcliente` = 14 WHERE `idcliente`=20;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 20;
+UPDATE `creditos` SET  `idcliente` = 7 WHERE `idcliente`=36;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 36;
+UPDATE `creditos` SET  `idcliente` = 44 WHERE `idcliente`=45;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 45;
+UPDATE `creditos` SET  `idcliente` = 21 WHERE `idcliente`=32;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 32;
+UPDATE `creditos` SET  `idcliente` = 29 WHERE `idcliente`=30;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 30;
+UPDATE `creditos` SET  `idcliente` = 29 WHERE `idcliente`=43;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 43;
+UPDATE `creditos` SET  `idcliente` = 19 WHERE `idcliente`=42;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 42;
+UPDATE `creditos` SET  `idcliente` = 31 WHERE `idcliente`=28;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 28;
+UPDATE `creditos` SET  `idcliente` = 26 WHERE `idcliente`=27;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 27;
+UPDATE `creditos` SET  `idcliente` = 18 WHERE `idcliente`=33;
+UPDATE `cliente` SET `cliActivo` = '0' WHERE `cliente`.`idCliente` = 33;
+ALTER TABLE `creditos` CHANGE `credCancelado` `credCancelado` INT(1) NULL DEFAULT '0' COMMENT '0 sin cancelar, 1 cancelado, 2 anulado';
+UPDATE `creditos` SET `credAdeuda`=1, credCancelado= 2 WHERE credFecha < '2018-03-01';
+DROP PROCEDURE `listarCreditosFinNumFecha`; CREATE DEFINER=`infocat_root`@`%` PROCEDURE `listarCreditosFinNumFecha`() NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN SELECT year(credFechaCancelacion) as ano, month(credFechaCancelacion) as mes, count(idcreditos) as total FROM grifo.creditos where credCancelado=1 and credCancelado<>2 group by year(credFechaCancelacion), month(credFechaCancelacion) order by year(credFechaCancelacion), month(credFechaCancelacion) desc; END
+
+
+
+
 Ver 1.17
 ALTER TABLE `creditos` ADD `credObservacion` VARCHAR(200) NOT NULL AFTER `idUsuario`;
 Cambio reoprtes y cambios de edicion

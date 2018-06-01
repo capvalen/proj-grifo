@@ -56,29 +56,7 @@ for (var i = 0; i < $.JsonListaPreciosActualizada.length; i++) {
 }
 }
 $('#txtModCreditoDnioRUC').focusout(function () { //console.log('aca')
-	if($('#txtModCreditoDnioRUC').val().length==8){
-		$('#txtModCreditoDnioRUC').prev().prev().prev().text('D.N.I:');
-		$('#lblNombresORazon').text('Nombres y Apellidos:');}
-	if($('#txtModCreditoDnioRUC').val().length>8){
-		$('#txtModCreditoDnioRUC').prev().prev().prev().text('R.U.C.:');
-		$('#lblNombresORazon').text('Razon Social:');}
-	$.ajax({url:'php/listarClientePorRUCoDNI.php', type: 'POST', data:{dniRuc: $('#txtModCreditoDnioRUC').val()}}).done(function (resp) {
-		elemento=JSON.parse(resp);
-		//console.log(elemento.length)
-		if(elemento.length>0){
-			$.each(elemento, function (i, dato) {
-			$('#spanIdCredClienteExiste').text(dato.idCliente);
-			$('#txtModCreditoRazonSocial').val(dato.cliRazonSocial).prop('disabled', true);
-			$('#txtModCreditoCelular').val(dato.cliTelefono).prop('disabled', true);
-			$('#txtModCreditoDireccion').val(dato.cliDireccion).prop('disabled', true);
-			});
-		}else{
-			$('#spanIdCredClienteExiste').text('');
-			$('#txtModCreditoRazonSocial').val('').prop('disabled', false);
-			$('#txtModCreditoCelular').val('').prop('disabled', false);
-			$('#txtModCreditoDireccion').val('').prop('disabled', false);
-		}
-	});
+	
 });
 $('#txtModCreditoCantidad').keyup(function (e) {
 	var cantGalones;
@@ -236,5 +214,44 @@ $('#btnIngresarIngresoExtra').click(function () {
 				$('#btnIngresarGasto').removeClass('disabled');
 			});
 		}
+	}
+});
+$('#divClientesRegistrados').on('click', '.optClienteReg', ()=> {
+	var idCli = $('#divClientesRegistrados .selected a').attr('data-tokens');
+	if(! isNaN(idCli)){
+		/*if($('#txtModCreditoDnioRUC').val().length==8){
+			$('#txtModCreditoDnioRUC').prev().prev().prev().text('D.N.I:');
+			$('#lblNombresORazon').text('Nombres y Apellidos:');}
+		if($('#txtModCreditoDnioRUC').val().length>8){
+			$('#txtModCreditoDnioRUC').prev().prev().prev().text('R.U.C.:');
+			$('#lblNombresORazon').text('Razon Social:');}*/
+		$.ajax({url:'php/listarClientePorSuId.php', type: 'POST', data:{idCli: idCli }}).done(function (resp) {
+			elemento=JSON.parse(resp);
+			//console.log(elemento.length)
+			if(elemento.length>0){
+				$.each(elemento, function (i, dato) {
+				$('#spanIdCredClienteExiste').text(dato.idCliente);
+				$('#txtModCreditoDnioRUC').val(dato.cliRUC).prop('disabled', true);
+				$('#txtModCreditoRazonSocial').val(dato.cliRazonSocial).prop('disabled', true);
+				$('#txtModCreditoCelular').val(dato.cliTelefono).prop('disabled', true);
+				$('#txtModCreditoDireccion').val(dato.cliDireccion).prop('disabled', true);
+				});
+				$('#txtModCreditoComprobante').focus();
+			}else{
+				$('#spanIdCredClienteExiste').text('');
+				$('#txtModCreditoDnioRUC').val('').prop('disabled', false);
+				$('#txtModCreditoRazonSocial').val('').prop('disabled', false);
+				$('#txtModCreditoCelular').val('').prop('disabled', false);
+				$('#txtModCreditoDireccion').val('').prop('disabled', false);
+				$('#txtModCreditoDnioRUC').focus();
+			}
+		});
+	}else{
+		$('#spanIdCredClienteExiste').text('');
+		$('#txtModCreditoDnioRUC').val('').prop('disabled', false);
+		$('#txtModCreditoRazonSocial').val('').prop('disabled', false);
+		$('#txtModCreditoCelular').val('').prop('disabled', false);
+		$('#txtModCreditoDireccion').val('').prop('disabled', false);
+		$('#txtModCreditoDnioRUC').focus();
 	}
 });
