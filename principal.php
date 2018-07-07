@@ -132,7 +132,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 					</div>
 				<!-- Fin de meter contenido principal -->
 				</div><br>
-				<p class="purple-text text-lighten-1"><span ">Aplicativo:<strong> Infocat-Grifo </strong><span class=""><?php include 'php/version.php' ?></span></span></p>
+				<p class="purple-text text-lighten-1"><span >Aplicativo:<strong> Infocat-Grifo </strong><span><?php include 'php/version.php'; ?></span></span></p>
 				</div>
 		</div>
 </div>
@@ -147,7 +147,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js?version=1.0.4"></script>
-<script src="js/accionesGlobales.js?version=1.0.9"></script>
+<script src="js/accionesGlobales.js?version=1.0.11"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>

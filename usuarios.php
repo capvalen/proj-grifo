@@ -232,7 +232,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 				<input type="text" class="form-control text-center" id="txtModalPassUser">
 				<label for="">Nivel:</label>
 				<div  id="divSelectNivelListNew">
-					<select class="selectpicker mayuscula" title="Nivel de usuario..."  data-width="100%" data-live-search="true"">
+					<select class="selectpicker mayuscula" title="Nivel de usuario..."  data-width="100%" data-live-search="true">
 						<?php require 'php/listarNivelesOption.php'; ?>
 					</select>
 				</div>
@@ -280,7 +280,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
 <script src="js/inicializacion.js"></script>
-<script src="js/accionesGlobales.js?version=1.1"></script>
+<script src="js/accionesGlobales.js?version=1.0.11"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/bootstrap-datepicker.es.min.js"></script>

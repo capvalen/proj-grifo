@@ -1,7 +1,10 @@
 <?php 
-echo "Versión 1.22 Compilación 2018.05.31";
+echo "Versión 1.23 Compilación 18.07.07";
 
 /*
+Ver. 1.23
+Agregado Opción de merma
+
 Ver 1.22
 Fusion de códigos:
 UPDATE `creditos` SET  `idcliente` = 24 WHERE `idcliente`=38;

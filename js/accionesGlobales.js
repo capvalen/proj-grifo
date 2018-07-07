@@ -157,8 +157,8 @@ $('#btnIngresarTanqueModal').click(function () {
 
 	if(!$('#btnIngresarTanqueModal').hasClass('disabled')){
 		if( isNaN(valor) || valor==null ){ spanError.text('Falta seleccionar un producto'); spanError.parent().removeClass('sr-only'); }
-		else if( cantidad<=0 ){ spanError.text('No puede guardar un valor cero o negativo'); spanError.parent().removeClass('sr-only'); }
-		else{
+		else if( cantidad==0 ){ spanError.text('No puede guardar un valor cero o negativo'); spanError.parent().removeClass('sr-only'); }
+		else {
 			spanError.parent().addClass('sr-only');
 			$('#btnIngresarTanqueModal').addClass('disabled'); //desabilitamos el boton
 			//guardar
