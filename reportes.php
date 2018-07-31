@@ -543,7 +543,7 @@ $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 				var adeuda='', obs='';
 				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre} <span class="mayuscula">${obs}</span></td>
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}"><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre} <span class="mayuscula">${obs}</span></td>
 		<td>${jsonResp.credcomprobante}</td>
 		<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 		<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
@@ -585,7 +585,7 @@ $('#tableResultadoDetalleCreditos').on('click', '.btnAdeudaDetalle', function ()
 	var idCredito=$(this).parent().parent().attr('id');
 	
 	$.ajax({url: 'php/listarCreditoDetalle.php', type: 'POST', data: {idCred: idCredito}}).done(function (resp) {
-		console.log(resp);
+		//console.log(resp);
 		var creditoResultado=JSON.parse(resp)[0];
 		$('#spIdCred').text(idCredito);
 		$('#detCreRazon').text(creditoResultado.cliRazonSocial);
