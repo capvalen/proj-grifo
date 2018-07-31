@@ -510,7 +510,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 		$('#tableResultadoDetalleCreditos tbody').children().remove();
 		$.ajax({url: 'php/listarCreditoPorFechaVSCliente.php', type: 'POST', data: { mes:mess , anio:año, idCli:clienteId }}).done(function (resp) {
 			$.jsonAdeuda=JSON.parse(resp);
-			console.log($.jsonAdeuda.length);
+			//console.log($.jsonAdeuda.length);
 			if($.jsonAdeuda.length==0){
 				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td>No se encontraron datos de <strong class="mayuscula">`+$('#idClientesCreditos').find('.filter-option').text()+`</strong> en <strong>`+ mess +'/'+ año +`</strong></td></tr>`)
 			}else{
@@ -566,7 +566,7 @@ $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 				var adeuda='', obs='';
 				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td id="${jsonResp.idcreditos}">${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
 					<td>${jsonResp.credcomprobante}</td>
 					<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 					<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
