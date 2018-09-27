@@ -465,7 +465,7 @@ hr{    margin-top: 10px;
 <script src="js/xlsx.core.js"></script>
 <script src="js/FileSaver.js"></script>
 <script src="js/Blob.js"></script>
-<script src="js/tableexport.js"></script> <!-- extraido de https://tableexport.v3.travismclarke.com/ -->
+<script src="js/tableexport.js?version=5.0.2"></script> <!-- extraido de https://tableexport.v3.travismclarke.com/ -->
 
 <!-- Menu Toggle Script -->
 <script>
@@ -497,7 +497,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 				$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
 					<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
 					<td>${jsonResp.credcomprobante}</td>
-					<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+					<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 					<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
 					<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 				</tr>`);
@@ -521,7 +521,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 					$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
 						<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
 						<td>${jsonResp.credcomprobante}</td>
-						<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+						<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 						<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
 						<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 					</tr>`);
@@ -545,7 +545,7 @@ $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
 				$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}"><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre} <span class="mayuscula">${obs}</span></td>
 		<td>${jsonResp.credcomprobante}</td>
-		<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+		<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 		<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
 		<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 	</tr>`);
@@ -568,7 +568,7 @@ $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
 				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td id="${jsonResp.idcreditos}">${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
 					<td>${jsonResp.credcomprobante}</td>
-					<td>${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
+					<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 					<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
 					<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 					</tr>`);
@@ -913,6 +913,7 @@ $('#btnExportarExcel01').click(function () {
 	$("#tableResultadoDetalleCreditos").tableExport({
 		formats:["xlsx"],
 		filename: 'Reporte créditos pendientes',
+		mimeType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
 		bootstrap: true
 	});
 });
