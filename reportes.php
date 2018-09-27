@@ -847,7 +847,9 @@ $('#btnChangeFechaTanque').click(function () {
 	$.ajax({url: 'php/updateFechaTanqueo.php', type: 'POST', data: {
 		idTanq: $('#spIdTanq').text(), fecha: nuevaFecha
 	}}).done(function (resp) {
-		console.log(resp)
+		if(resp=='1'){
+			location.reload();
+		}
 	});
 });
 $('#tabCreditosPendientes').on('click', '.btnEditarCreditoMod', function () {
