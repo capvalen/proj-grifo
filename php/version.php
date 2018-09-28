@@ -1,7 +1,12 @@
 <?php 
-echo "Versión 1.23 Compilación 18.07.07";
+echo "Versión 1.25d Compilación 18.09.028;
 
 /*
+Ver 1.25
+Arreglado actualizacones de tanqueo
+Arreglado fechas en excel
+
+
 Ver. 1.23
 Agregado Opción de merma
 
