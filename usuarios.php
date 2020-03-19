@@ -21,8 +21,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.7" rel="stylesheet">
-		<link href="css/sidebarDeslizable.css?version=1.0.1" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.11" rel="stylesheet">
+		<link href="css/sidebarDeslizable.css?version=1.0.5" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.1">
 		<link rel="stylesheet" href="css/icofont.css">
 		<link rel="stylesheet" href="css/animate.css">
@@ -302,11 +302,11 @@ $('input').keypress(function (e) {
 
 $.ajax({url:'php/listarUsuarios.php', data: 'POST'}).done(function (resp) { console.log(resp)
 	$.each(JSON.parse(resp), function (i, dato) {
-		$('#divUsuariosListado').append(`<div class="row">
-				<div class="col-xs-2 mayuscula"><button class="btn btn-danger btn-circle btn-NoLine btn-outline btnRemoverUsuario" id="${dato.idUsuario}"><i class="icofont icofont-close"></i></button>${i+1}. <span class="userFuncion">${dato.Descripcion}</span></div>
+		$('#divUsuariosListado').append(`<div class="row" style="margin-top: 5px;">
+				<div class="col-xs-2 mayuscula"><button class="btn btn-danger btn-sm btn-sinBorde btn-outline btnRemoverUsuario" id="${dato.idUsuario}"><i class="icofont icofont-close"></i></button> ${i+1}. <span class="userFuncion">${dato.Descripcion}</span></div>
 				<div class="col-xs-3"><span class="apellidos mayuscula">${dato.usuApellido}</span> <span class="nombres mayuscula">${dato.usuNombres}</span></div>
 				<div class="col-xs-2 nick">${dato.usuNick}</div>
-				<div class="col-xs-1"><button class="btn btn-success btn-outline btn-NoLine btnConfigUser" id="${dato.idUsuario}"><i class="icofont icofont-options"></i></button></div></div>`);
+				<div class="col-xs-1"><button class="btn btn-success btn-outline btn-sm btn-sinBorde btnConfigUser" id="${dato.idUsuario}"><i class="icofont icofont-options"></i></button></div></div>`);
 	});
 });
 });//Fin de document ready

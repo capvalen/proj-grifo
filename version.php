@@ -109,11 +109,11 @@ fix editar usuario
 ALTER TABLE `usuario` CHANGE `idSucursal` `idSucursal` INT(11) NOT NULL DEFAULT '1';
 
 
+
+
+
+
 */
 
 
-
-
-
-
-?>
+ ?>

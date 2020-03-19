@@ -11,7 +11,7 @@ $('#agregarBarra').click(function(){
 	$('#txtBarras').val('');}
 });
 $(document).ready(function(){
-	$('#fechaServer').load("php/getFecha.php");
+	$('#fechaServer').load("php/getfecha.php");
 	setInterval(function(){$('#horaServer').load("php/gethora.php");},'60000');
 	$('#listBarras').hide();
 	

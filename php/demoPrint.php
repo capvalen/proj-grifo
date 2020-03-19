@@ -23,7 +23,7 @@ $texto.="                     Total: S/. ".$_POST['total'].""."\r\n";
 fwrite($arch,$texto);
 //fclose($arch);
 
-echo "fin de guardado";
+echo "fin de guardado txt";
 
  shell_exec('print.bat');
 

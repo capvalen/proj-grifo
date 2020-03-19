@@ -21,8 +21,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.8" rel="stylesheet">
-		<link href="css/sidebarDeslizable.css?version=1.0.4" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.11" rel="stylesheet">
+		<link href="css/sidebarDeslizable.css?version=1.0.5" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.3">
 		<link rel="stylesheet" href="css/icofont.css">
 		<link rel="stylesheet" href="css/animate.css">
@@ -32,7 +32,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link rel="shortcut icon" href="images/peto.png" />
 		<link rel="stylesheet" href="css/awesome-bootstrap-checkbox.css"> <!-- extraido de: http://flatlogic.github.io/awesome-bootstrap-checkbox/demo/-->
 		<link rel="stylesheet" href="css/bootstrap-datepicker3.css"> <!-- extraído de: https://uxsolutions.github.io/bootstrap-datepicker/-->
-
+		<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -49,6 +49,13 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 	width: 30%;
 }
 .txtGasInput{margin-bottom: 10px}
+.panel-title{font-size: 20px;}
+#btnRefreshIngVsEgr:hover{
+	color: #fff;
+	background-color: #9d22dc;
+	border-color: #9d22dc;
+}
+pre{background-color: #ffffff;}
 </style>
 
 <div id="wrapper">
@@ -157,7 +164,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<h3>Listado de precios de los productos para hoy</h3>
 							<div class="panel panel-verde " id="pnlTablaModificacionPrecio">
 							<div class="panel-heading">
-								<h3 class="panel-title">Precios programados para: <strong><?php require('php/getFecha.php'); ?>, <?php require('php/gethora.php') ?></strong></h3>
+								<h3 class="panel-title">Precios programados para: <strong><?php require('php/getfecha.php'); ?>, <?php require('php/gethora.php') ?></strong></h3>
 							</div>
 							<div class="container-fluid">
 							<table class="table table-hover">
@@ -190,7 +197,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 						<div class="tab-pane fade container-fluid" id="tabCuadrarCajaEmpleado">
 						<!--Inicio de pestaña 02-->
 						<h3>Cuadre de caja del usuario: <small><?php echo $_SESSION['Atiende']; ?></small></h3>
-						<p class="visible-print"><?php require 'php/getFecha.php'; ?> <?php require 'php/getHora.php'; ?></p>
+						<p class="visible-print"><?php require 'php/getfecha.php'; ?> <?php require 'php/gethora.php'; ?></p>
 						<div class="hidden">
 							
 						<span class="pull-left">Seleccione los filtros del producto:</span>
@@ -340,7 +347,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="col-xs-7 col-sm-8">
 								<div class="panel panel-negro ">
 								<div class="panel-heading">
-									<h3 class="panel-title">Resumen de ventas</h3>
+									<h3 class="panel-title"><i class="icofont icofont-growth"></i> Resumen de ventas</h3>
 								</div>
 								<div class="panel-body">
 								<div class="row">
@@ -370,7 +377,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="col-xs-5 col-sm-4">
 								<div class="panel panel-negro">
 									<div class="panel-heading">
-										<h3 class="panel-title">Resumen de Caja chica</h3>
+										<h3 class="panel-title"><i class="icofont icofont-growth"></i> Resumen de Caja chica</h3>
 									</div>
 									<div class="panel-body">
 										<div class="col-xs-7">
@@ -392,7 +399,9 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 								</div>
 							</div>
 							<div class="row text-center">
-								<button class="btn btn-morado btn-outline hidden hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
+								<button class="btn btn-morita btn-outline hidden hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
+								<button class="btn btn-rosaKit btn-outline hidden hidden-print" id="btnPrintCopia"><i class="icofont icofont-print"></i> Imprimir copia extra</button>
+
 							</div>
 						</div>
 						
@@ -405,7 +414,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 							<div class="row">
 								<div class="col-xs-6">
 									<h4>Turno <small><?php echo $_SESSION['Atiende']; ?></small></h4>
-									<h4>Fecha <small><?php require 'php/getFecha.php'; ?></small></h4>
+									<h4>Fecha <small><?php require 'php/getfecha.php'; ?></small></h4>
 								</div>
 								<div class="col-xs-6"> <button class="btn btn-morado btn-outline hidden-print" id="btnRefreshIngVsEgr2"><i class="icofont icofont-refresh"></i> Actualizar tabla</button></div>
 							</div>
@@ -467,7 +476,7 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js?version=1.0.1"></script>
+<script src="js/inicializacion.js?version=1.0.5"></script>
 <script src="js/accionesGlobales.js?version=1.0.11"></script>
 <script src="js/bootstrap-select.js"></script>
 <!-- <script src="js/bootstrap-datepicker.min.js"></script>
@@ -854,12 +863,33 @@ $('#btnGuardarReporte').click(function () {
 			$.each($('#contenidoACuadrarIngresVsEgres .row'), function (i, credito) {
 				var espacioCred='';
 				if( $(credito).find('.creTipo').text()=='Crédito'){espacioCred="\n\r"; }else{ espacioCred="";}
-				$.creditos+=$(credito).find('.creTipo').text().replace('é','e') + ' '+$(credito).find('.creDescr').text() + '.\n\r Debe S/. '+ $(credito).find('.creMonto').text()  +espacioCred+ ' Grabado: '+ $(credito).find('.creFecha').text()+"\r\n" ;
+				$.creditos+=$(credito).find('.creTipo').text().replace('é','e') + ' '+$(credito).find('.creDescr').text() + '.\n\r Debe S/. '+ $(credito).find('.creMonto').text()  +espacioCred+ ' Grabado: '+ $(credito).find('.creFecha').text() ; //+"\r\n"
 			});
 		}
 		//console.log($.ptexto)
 		moment.locale('es');
-		$.ajax({url:'php/demoPrint.php', type: 'POST', data: {
+		$.ajax({url:'http://localhost/grifo/php/demoPrint.php', type: 'POST', data: {
+			campo:$.ptexto,
+			responsable: '<?php echo $_SESSION['Atiende']; ?>',
+			pcreditos: $.creditos,
+			fecha: moment().format('LLLL'),
+			ingreso: $('#spanPanelResumenIngresos').text(),
+			egreso: $('#spanPanelResumenGastos').text(),
+			venta: $('#spanPanelResumenVentav2').text(),
+			creditos: $('#spanPanelResumenCreditos').text(),
+			total: $('#spanPanelSumaTotalChica').text()
+		}}).done(function (resp) {
+			$('.txtValorNumericoConsumo').attr('readonly', true);
+			$('.txtGasInput').attr('readonly', true);
+			$('#btnRefreshIngVsEgr').addClass('hidden')
+			$('#btnPrintCopia').removeClass('hidden')
+			console.log(resp);
+		});
+		//$('#btnGuardarReporte').removeClass('disabled');
+		//window.print();
+});
+$('#btnPrintCopia').click(function() {
+	$.ajax({url:'http://localhost/grifo/php/demoPrint.php', type: 'POST', data: {
 			campo:$.ptexto,
 			responsable: '<?php echo $_SESSION['Atiende']; ?>',
 			pcreditos: $.creditos,
@@ -872,8 +902,6 @@ $('#btnGuardarReporte').click(function () {
 		}}).done(function (resp) {
 			console.log(resp);
 		});
-		//$('#btnGuardarReporte').removeClass('disabled');
-		//window.print();
 });
 $('#btnGuardarReporteIngresoVsEgreso').click(function () {
 	var ids=''; cadena='';

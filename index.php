@@ -14,7 +14,7 @@ if (isset($_SESSION['Atiende'])){
 	<link rel="stylesheet" href="css/icofont.css"> <!--Iconos en: https://design.google.com/icons/-->
 	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/inicio.css?version=1.0" rel="stylesheet">
+	<link href="css/inicio.css?version=1.0.1" rel="stylesheet">
 	<link href="css/animate.css" rel="stylesheet">
 	<title>Bienvenido: Infocat-Grifo</title>
 	<link rel="shortcut icon" href="images/peto.png" />

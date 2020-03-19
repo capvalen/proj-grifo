@@ -163,6 +163,7 @@ $('#btnIngresarTanqueModal').click(function () {
 			$('#btnIngresarTanqueModal').addClass('disabled'); //desabilitamos el boton
 			//guardar
 			$.ajax({url:'php/insertarTanqueo.php', type: 'POST', data: {idConten: valor, masStock: cantidad, idUser: $.JsonUsuario.idUsuario, obs: $('#txtModTanqueObserv').val() }}).done(function (resp) {
+				console.log( resp );
 				$('.modal-ingresarTanque').modal('hide');
 				if(parseInt(resp)>0){
 					$('#spanExito').text('Agregado '+cantidad+' galones a: '+$('#divSelectModTanqueProducto button').attr('title'));

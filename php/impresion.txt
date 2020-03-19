@@ -1,17 +1,13 @@
- -> Cuadre de: Carlos Alex, Pariona Valencia  Lunes, 12 de Marzo de 2018 a las 10:32 p.m. 
+ -> Cuadre de: Carlos Alex, Pariona Valencia  Jueves, 19 de Marzo de 2020 a las 2:22 p.m. 
  ---------------------------------------------------------------------
  Producto                  |  Precio  | Cta. Ant   | Cta. Nueva  |  Gls.  | SubTotal 
- Pre. C Diesel DB-5 Lado 1  S/. 11.87   20459355.00   20459589.00   2.34   S/. 27.78 
- Pre. C Diesel DB-5 Lado 2  S/. 11.87   37598586.00   37599844.00   12.58  S/. 149.32 
- Pre. B Diesel DB-5 Lado 1  S/. 11.87   240076554.00  240079584.00   30.30  S/. 359.66 
- Pre. B Diesel DB-5 Lado 2  S/. 11.87   334056751.00  334057841.00   10.90  S/. 129.38 
 
  ---------------------------------------------------------------------
  |   Creditos Otorgados En El Turno                                  |
- . Debe S/.  Grabado: 
-
+ .
+ Debe S/.  Grabado: 
  ---------------------------------------------------------------------
  |   Resumen de Caja:                                                |
    Ingresos: S/.  0.00                Egresos S/.  (0.00)
-   Venta: S/.   666.14               Creditos S/.  (0.00)
-                     Total: S/. 666.14
+   Venta: S/.   0.00               Creditos S/.  (0.00)
+                     Total: S/. 0.00

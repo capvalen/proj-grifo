@@ -1,0 +1,9 @@
+
+<IfModule mod_headers.c>    
+    Header set Access-Control-Allow-Origin *
+</IfModule>
+RewriteCond %{HTTPS} on
+# or RewriteCond %{SERVER_PORT} ^443$
+RewriteCond %{REQUEST_URI} !^(app)/
+
+RewriteRule .? http://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

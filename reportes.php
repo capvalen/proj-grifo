@@ -21,8 +21,8 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 		<link href="css/bootstrap.css" rel="stylesheet">
 
 		<!-- Custom CSS -->
-		<link href="css/estilosElementosv2.css?version=1.0.1" rel="stylesheet">
-		<link href="css/sidebarDeslizable.css?version=1.0.2" rel="stylesheet">
+		<link href="css/estilosElementosv2.css?version=1.0.11" rel="stylesheet">
+		<link href="css/sidebarDeslizable.css?version=1.0.5" rel="stylesheet">
 		<link rel="stylesheet" href="css/cssBarraTop.css?version=1.0.4">
 		<link rel="stylesheet" href="css/icofont.css">
 		<link rel="stylesheet" href="css/animate.css">
@@ -458,7 +458,7 @@ hr{    margin-top: 10px;
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js?version=1.0.1"></script>
+<script src="js/inicializacion.js?version=1.0.5"></script>
 <script src="js/accionesGlobales.js?version=1.0.10"></script>
 <script src="js/bootstrap-select.js"></script>
 <script src="js/bootstrap-datetimepicker.min.js"></script>
@@ -488,7 +488,7 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 	
 	if( $('#idClientesCreditos .selected a').attr('data-tokens')==null){ 
 		$('#tableResultadoDetalleCreditos tbody').children().remove();
-		$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) {
+		$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) { console.log( resp );
 			$.jsonAdeuda=JSON.parse(resp);
 			$.each(JSON.parse(resp), function (i, jsonResp) {// console.log(jsonResp);
 				var adeuda='', obs='';
