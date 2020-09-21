@@ -399,7 +399,8 @@ pre{background-color: #ffffff;}
 								</div>
 							</div>
 							<div class="row text-center">
-								<button class="btn btn-morita btn-outline hidden hidden-print" id="btnGuardarReporte"><i class="icofont icofont-print"></i> Guardar e Imprimir reporte</button>
+								<button class="btn btn-morita btn-outline hidden hidden-print" id="btnGuardarReporte"><i class="icofont icofont-save"></i> Guardar reporte</button>
+								<button class="btn btn-primary btn-outline hidden hidden-print" id="btnPrintReporte"><i class="icofont icofont-print"></i> Imprimir reporte</button>
 								<button class="btn btn-rosaKit btn-outline hidden hidden-print" id="btnPrintCopia"><i class="icofont icofont-print"></i> Imprimir copia extra</button>
 
 							</div>
@@ -755,120 +756,129 @@ $('#btnGuardarReporte').click(function () {
 			$(datoD).addClass('hidden-print');
 		}
 	});*/
-	if(!$('#btnGuardarReporte').hasClass('disabled')){
-		$('#btnGuardarReporte').addClass('disabled');
-		$.ptexto ='';
-		$.each($('.rowProductosMalla'), function (i, rowD) { //console.log(rowD)
-			if($(rowD).find('.txtValorNumericoConsumo').val()==''){
-				$(rowD).addClass('hidden-print');
-			}
-			else{/* Prueba de jalar cantidades y contadores y enviarlos a demoPrint.php*/
-				var pnombre='', pprecio='', pcontAntes='', pcontAct='', pconsumo='', psubTotal='';
-				pnombre=' '+$(rowD).parent().attr('data')+' '+$(rowD).find('.spanProducto').text() + ' '+ $(rowD).find('.spanLado').text();
-				for (var i = pnombre.length; i <= 27; i++) {
-					pnombre+=' ';
-				}
-				pprecio= $(rowD).find('.divPrecioFijo').parent().text()+' ';
-				for (var i = pprecio.length; i <= 11; i++) {
-					pprecio+=' ';
-				}
-				
-				pcontAntes= ''+parseFloat($(rowD).find('.divContadorPrevio').text()).toFixed(2);
-				for (var i = pcontAntes.length; i <= 11; i++) {
-					pcontAntes+=' ';
-				}
-				pcontAct= '  '+parseFloat($(rowD).find('.txtValorNumericoConsumo').val()).toFixed(2)+' ';
-				for (var i = pcontAct.length; i <= 12; i++) {
-					pcontAct+=' ';
-				}
-				pconsumo= '  '+$(rowD).find('.divConsumoProd').text();
-				for (var i = pconsumo.length; i <= 7; i++) {
-					pconsumo+=' ';
-				}
-				psubTotal=' '+$(rowD).find('.divVentaConsumo').parent().text();
-				for (var i = 0; i <1; i++) {//18
-					psubTotal+=' ';
-				}
-				
-				$.ptexto+=pnombre+pprecio+pcontAntes+pcontAct+pconsumo+psubTotal+"\r\n";
-				if( $(rowD).parent().attr('id')=='spanSurtidorGas'){
-					$.ptexto+="                                        "+parseFloat($(rowD).find('.divContadorSoles').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorSolesConsumo').val()).toFixed(2);
-					$.ptexto+="\r\n                                        "+parseFloat($(rowD).find('.divContadorGalones').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorLitrosConsumo').val()).toFixed(2)+"\r\n";
-				}
-				
-			}
-			if(totalMalla==i){
-				if($('#spanPremierC .rowProductosMalla.hidden-print').length==$('#spanPremierC .rowProductosMalla').length){
-					$('#spanPremierC').parent().parent().addClass('hidden-print');
-				}
-				if($('#spanPremierB .rowProductosMalla.hidden-print').length==$('#spanPremierB .rowProductosMalla').length){
-					$('#spanPremierB').parent().parent().addClass('hidden-print');
-				}
-				if($('#spanSurtidorGas .rowProductosMalla.hidden-print').length==$('#spanSurtidorGas .rowProductosMalla').length){
-					$('#spanSurtidorGas').parent().parent().addClass('hidden-print');
-				}
-
-				
-			}
-		});
-
-		$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
-			if(resp!=0){
-				var idVenta=resp;
-				$.each($('.rowProductosMalla'), function (i, dato) {
-					if($(dato).find('.txtValorNumericoConsumo').val()!=0 && $(dato).find('.txtValorNumericoConsumo').val()!='' ){
-						//console.log($(dato).find('.idProdConsumo').text());
-						var idProd=$(dato).find('.idProdConsumo').text();
-						var consum=$(dato).find('.divConsumoProd').text();;
-						var idConten=$(dato).find('.idContenedorCons').text();
-						var contadorTotal=$(dato).find('.txtValorNumericoConsumo').val();
-						var contaSoles=$(dato).find('.txtValorSolesConsumo').val();
-						var contaLitros=$(dato).find('.txtValorLitrosConsumo').val(); 
-						var contaAntes=$(dato).find('.divContadorPrevio').text();
-						var contaLitroAntes=$(dato).find('.divContadorPrevio').text();
-						var contaSolesAntes=$(dato).find('.divContadorPrevio').text();
-						var ventaSubTotal =$(dato).find('.divVentaConsumo').text();
-						if( $(dato).parent().attr('id')=='spanSurtidorGas'){
-							$.ajax({url: 'php/insertarCuadreCajaDetalleGas.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contSoles: contaSoles, contLitros: contaLitros, contAntes:contaAntes, ventaSubTotal:ventaSubTotal, contaLitroAntes: contaLitroAntes, contaSolesAntes: contaSolesAntes }}).done(function (respu) {
-								console.log(respu)
-							});
-						}else{
-							$.ajax({url: 'php/insertarCuadreCajaDetalle.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contAntes:contaAntes, ventaSubTotal:ventaSubTotal }}).done(function (respu) {
-								console.log(respu)
-							});
-						}
-					}
-				});
-			}
-
-			if(totalRowsCaja>0){
-				$.each( $('#contenidoACuadrarIngresVsEgres .row'), function (i, caja) {
-					contadorRow++;
-					idsCaja+=','+$(caja).find('.idCaja').text();
-					//console.log(contadorRow);
-					if(contadorRow==totalRowsCaja){
-						idsCaja=idsCaja.substring(1,idsCaja.length);
-						 $.ajax({url:'php/actualizarCajaImpresion.php', type: 'POST', data: {Losids:idsCaja }}).done(function (resp) {
-						 });
-					}
-				});
-			}
-		});
-
+	
+	$('#btnGuardarReporte').addClass('hidden');
+	//$('#btnPrintReporte').removeClass('hidden');
+	$.ptexto ='';
+	$.each($('.rowProductosMalla'), function (i, rowD) { //console.log(rowD)
+		if($(rowD).find('.txtValorNumericoConsumo').val()==''){
+			$(rowD).addClass('hidden-print');
 		}
-		$.creditos='';
-		if($('#contenidoACuadrarIngresVsEgres .row').length>0){
-			$.creditos+=" ---------------------------------------------------------------------\r\n";
-			$.creditos+=" |   Creditos otorgados en el turno                                  |\r\n";
-			$.each($('#contenidoACuadrarIngresVsEgres .row'), function (i, credito) {
-				var espacioCred='';
-				if( $(credito).find('.creTipo').text()=='Crédito'){espacioCred="\n\r"; }else{ espacioCred="";}
-				$.creditos+=$(credito).find('.creTipo').text().replace('é','e') + ' '+$(credito).find('.creDescr').text() + '.\n\r Debe S/. '+ $(credito).find('.creMonto').text()  +espacioCred+ ' Grabado: '+ $(credito).find('.creFecha').text() ; //+"\r\n"
+		else{/* Prueba de jalar cantidades y contadores y enviarlos a demoPrint.php*/
+			var pnombre='', pprecio='', pcontAntes='', pcontAct='', pconsumo='', psubTotal='';
+			pnombre=' '+$(rowD).parent().attr('data')+' '+$(rowD).find('.spanProducto').text() + ' '+ $(rowD).find('.spanLado').text();
+			for (var i = pnombre.length; i <= 27; i++) {
+				pnombre+=' ';
+			}
+			pprecio= $(rowD).find('.divPrecioFijo').parent().text()+' ';
+			for (var i = pprecio.length; i <= 11; i++) {
+				pprecio+=' ';
+			}
+			
+			pcontAntes= ''+parseFloat($(rowD).find('.divContadorPrevio').text()).toFixed(2);
+			for (var i = pcontAntes.length; i <= 11; i++) {
+				pcontAntes+=' ';
+			}
+			pcontAct= '  '+parseFloat($(rowD).find('.txtValorNumericoConsumo').val()).toFixed(2)+' ';
+			for (var i = pcontAct.length; i <= 12; i++) {
+				pcontAct+=' ';
+			}
+			pconsumo= '  '+$(rowD).find('.divConsumoProd').text();
+			for (var i = pconsumo.length; i <= 7; i++) {
+				pconsumo+=' ';
+			}
+			psubTotal=' '+$(rowD).find('.divVentaConsumo').parent().text();
+			for (var i = 0; i <1; i++) {//18
+				psubTotal+=' ';
+			}
+			
+			$.ptexto+=pnombre+pprecio+pcontAntes+pcontAct+pconsumo+psubTotal+"\r\n";
+			if( $(rowD).parent().attr('id')=='spanSurtidorGas'){
+				$.ptexto+="                                        "+parseFloat($(rowD).find('.divContadorSoles').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorSolesConsumo').val()).toFixed(2);
+				$.ptexto+="\r\n                                        "+parseFloat($(rowD).find('.divContadorGalones').text()).toFixed(2)+"     "+parseFloat($(rowD).find('.txtValorLitrosConsumo').val()).toFixed(2)+"\r\n";
+			}
+			
+		}
+		if(totalMalla==i){
+			if($('#spanPremierC .rowProductosMalla.hidden-print').length==$('#spanPremierC .rowProductosMalla').length){
+				$('#spanPremierC').parent().parent().addClass('hidden-print');
+			}
+			if($('#spanPremierB .rowProductosMalla.hidden-print').length==$('#spanPremierB .rowProductosMalla').length){
+				$('#spanPremierB').parent().parent().addClass('hidden-print');
+			}
+			if($('#spanSurtidorGas .rowProductosMalla.hidden-print').length==$('#spanSurtidorGas .rowProductosMalla').length){
+				$('#spanSurtidorGas').parent().parent().addClass('hidden-print');
+			}
+
+			
+		}
+	});
+
+	$.ajax({url:'php/insertarCuadreCajaCabeceras.php', type: 'POST', data: { sumTotal: $('#spanSumaTotasr').text(), obs:'', idUser: $.JsonUsuario.idUsuario }}).done(function (resp) {
+		if(resp!=0){
+			var idVenta=resp;
+			$.each($('.rowProductosMalla'), function (i, dato) {
+				if($(dato).find('.txtValorNumericoConsumo').val()!=0 && $(dato).find('.txtValorNumericoConsumo').val()!='' ){
+					//console.log($(dato).find('.idProdConsumo').text());
+					var idProd=$(dato).find('.idProdConsumo').text();
+					var consum=$(dato).find('.divConsumoProd').text();;
+					var idConten=$(dato).find('.idContenedorCons').text();
+					var contadorTotal=$(dato).find('.txtValorNumericoConsumo').val();
+					var contaSoles=$(dato).find('.txtValorSolesConsumo').val();
+					var contaLitros=$(dato).find('.txtValorLitrosConsumo').val(); 
+					var contaAntes=$(dato).find('.divContadorPrevio').text();
+					var contaLitroAntes=$(dato).find('.divContadorPrevio').text();
+					var contaSolesAntes=$(dato).find('.divContadorPrevio').text();
+					var ventaSubTotal =$(dato).find('.divVentaConsumo').text();
+					if( $(dato).parent().attr('id')=='spanSurtidorGas'){
+						$.ajax({url: 'php/insertarCuadreCajaDetalleGas.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contSoles: contaSoles, contLitros: contaLitros, contAntes:contaAntes, ventaSubTotal:ventaSubTotal, contaLitroAntes: contaLitroAntes, contaSolesAntes: contaSolesAntes }}).done(function (respu) {
+							console.log(respu)
+						});
+					}else{
+						$.ajax({url: 'php/insertarCuadreCajaDetalle.php', type: 'POST', data: {idVent: idVenta, idPro: idProd, cant:consum, idCont: idConten, contador:contadorTotal, contAntes:contaAntes, ventaSubTotal:ventaSubTotal }}).done(function (respu) {
+							console.log(respu)
+						});
+					}
+				}
 			});
 		}
-		//console.log($.ptexto)
-		moment.locale('es');
-		$.ajax({url:'http://localhost/grifo/php/demoPrint.php', type: 'POST', data: {
+
+		if(totalRowsCaja>0){
+			$.each( $('#contenidoACuadrarIngresVsEgres .row'), function (i, caja) {
+				contadorRow++;
+				idsCaja+=','+$(caja).find('.idCaja').text();
+				//console.log(contadorRow);
+				if(contadorRow==totalRowsCaja){
+					idsCaja=idsCaja.substring(1,idsCaja.length);
+						$.ajax({url:'php/actualizarCajaImpresion.php', type: 'POST', data: {Losids:idsCaja }}).done(function (resp) {
+						});
+				}
+			});
+		}
+	});
+
+	}
+	$.creditos='';
+	if($('#contenidoACuadrarIngresVsEgres .row').length>0){
+		$.creditos+=" ---------------------------------------------------------------------\r\n";
+		$.creditos+=" |   Creditos otorgados en el turno                                  |\r\n";
+		$.each($('#contenidoACuadrarIngresVsEgres .row'), function (i, credito) {
+			var espacioCred='';
+			if( $(credito).find('.creTipo').text()=='Crédito'){espacioCred="\n\r"; }else{ espacioCred="";}
+			$.creditos+=$(credito).find('.creTipo').text().replace('é','e') + ' '+$(credito).find('.creDescr').text() + '.\n\r Debe S/. '+ $(credito).find('.creMonto').text()  +espacioCred+ ' Grabado: '+ $(credito).find('.creFecha').text() ; //+"\r\n"
+		});
+	}
+	//console.log($.ptexto)
+	moment.locale('es');
+
+	$('#btnPrintReporte').removeClass('hidden');
+	//window.print();
+});
+$('#btnPrintReporte').click(function() {
+	armarImpresion()
+});
+function armarImpresion(){
+	$.ajax({url:'http://localhost/grifo/php/demoPrint.php', type: 'POST', data: {
 			campo:$.ptexto,
 			responsable: '<?php echo $_SESSION['Atiende']; ?>',
 			pcreditos: $.creditos,
@@ -878,16 +888,19 @@ $('#btnGuardarReporte').click(function () {
 			venta: $('#spanPanelResumenVentav2').text(),
 			creditos: $('#spanPanelResumenCreditos').text(),
 			total: $('#spanPanelSumaTotalChica').text()
-		}}).done(function (resp) {
+		}}).success(function (resp) {
 			$('.txtValorNumericoConsumo').attr('readonly', true);
 			$('.txtGasInput').attr('readonly', true);
 			$('#btnRefreshIngVsEgr').addClass('hidden')
 			$('#btnPrintCopia').removeClass('hidden')
 			console.log(resp);
+		}).error(function(erro){
+			console.log( 'Servidor no activo' );
+			$('.modalSolucionImpresion').modal('show');
+			//Llamando modal de instrucciones
+
 		});
-		//$('#btnGuardarReporte').removeClass('disabled');
-		//window.print();
-});
+}
 $('#btnPrintCopia').click(function() {
 	$.ajax({url:'http://localhost/grifo/php/demoPrint.php', type: 'POST', data: {
 			campo:$.ptexto,
