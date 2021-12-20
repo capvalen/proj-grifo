@@ -25,6 +25,11 @@ if (isset($_SESSION['Atiende'])){
 
 <body >
 <style type="text/css">
+.wello.login-box legend{
+padding-bottom: 1rem;}
+label{
+	color:#545454;
+}
 	body{background: linear-gradient(90deg, #100b19 10%, #291c40 90%);}
 	.container{ margin-top:80px; padding:0 50px}
 	.wello{padding:40px 50px; border-radius: 6px;}
@@ -42,8 +47,11 @@ if (isset($_SESSION['Atiende'])){
 	<div class="row">
 		<div class="col-md-12">
 			<div class="wello login-box" style="color:#493267" >
-				<h2 class="text-center" style="font-family: 'Arial', cursive;">Info-Cat</h2>
-				<legend  style="color:#493267"><small style=" font-size: 80%;">Sistema para grifos</small></legend>
+			<center>
+				<img src="https://infocatsoluciones.com/img/peto.png" style="max-width:100%;" />
+			</center>
+				<h2 class="text-center" style="font-family: 'Arial', cursive;">Infocat Soluciones</h2>
+				<legend  style="color:#493267"><small style=" font-size: 80%; color:#545454">Sistema para grifos</small></legend>
 				
 			<div class="form-group">
 				<label for="username"><i class="icofont icofont-user"></i> Usuario</label>
@@ -59,7 +67,7 @@ if (isset($_SESSION['Atiende'])){
 			</div>
 			<div class="form-group text-center text-danger hidden" id="divError">Error en alguno de los datos, complételos todos cuidadosamente.</div>
 			
-			<div class="row pull-right" ><small><?php include 'php/version.php' ?> | <?php echo date("Y"); ?> <a href="https://www.facebook.com/pg/infocat.soluciones/photos/?tab=album&album_id=2059119974302334">®  Info-cat</a></small></div>
+			<div class="row pull-right" ><small><?php include 'php/version.php' ?> | <?php echo date("Y"); ?> <a href="https://www.facebook.com/pg/infocat.soluciones/photos/?tab=album&album_id=2059119974302334">®  Infocat</a></small></div>
 			</div>
 		</div>
 	</div>
