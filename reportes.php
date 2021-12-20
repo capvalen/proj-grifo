@@ -158,7 +158,7 @@ hr{    margin-top: 10px;
 							<p>Clientes con <strong>Créditos pendientes</strong>: <span id="idClientesCreditos"><select class="selectpicker mayuscula" title="Clientes..."  data-width="30%" data-live-search="true">
 									<?php require 'php/listarCreditosFaltaACliente.php' ?>
 								</select></span></p>
-							<p><button class="btn btn-success btn-lg btn-outline" id="btnExportarExcel01"><i class="icofont icofont-file-excel"></i> Exportar</button></p>
+							<div><button class="btn btn-success btn-outline" id="btnExportarExcel01"><i class="icofont icofont-file-excel"></i> Exportar</button> <button class="btn btn-warning btn-outline hidden" id="btnGuardarBloques" onclick="actualizarBloque()"><i class="icofont icofont-save"></i> Actualizar en bloque</button></div>
 							<div class="container-fluid">
 								 <!-- <div class="row"><strong>
 								 									<div class="col-xs-4">Detalle</div>
@@ -469,6 +469,7 @@ hr{    margin-top: 10px;
 
 <!-- Menu Toggle Script -->
 <script>
+$.listadoCancelar=[];
 $(document).ready(function(){
 datosUsuario();
 	$('.selectpicker').selectpicker('refresh');
@@ -476,6 +477,40 @@ datosUsuario();
 	$('#dtpFechaVentas').datetimepicker({ format: 'DD/MM/YYYY', locale: 'es'});
 });
 
+function agregarLista(e,queId){
+
+	if( e.target.checked ){ //si esta marcado
+		if($.listadoCancelar.indexOf(queId)==-1){
+			$.listadoCancelar.push(queId);
+		}
+	}else{
+		$.listadoCancelar.splice($.listadoCancelar.indexOf(queId),1);
+	}
+	if($.listadoCancelar.length==0){
+		$('#btnGuardarBloques').addClass('hidden')
+	}else{
+		$('#btnGuardarBloques').removeClass('hidden')
+	}
+	//console.log( $.listadoCancelar );
+}
+
+function actualizarBloque(){
+	//console.log( $.listadoCancelar );
+
+	$.ajax({url: 'php/finalizarCreditoPorBloque.php', type: 'POST', data: {lista:$.listadoCancelar }}).done(function (resp) {
+		console.log( resp );
+		if(resp=='ok'){
+			$.listadoCancelar.forEach( dato =>{
+				$(`tr[id='${dato}']`).remove();
+			})
+			alert('Actualización exitosa')
+		}else{
+			alert('No se pudo actualizar, revise nuevamente');
+
+		}
+	});
+
+}
 
 $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 	var texto= moment($(this).attr('data-tokens'), 'YYYY/M');
@@ -488,18 +523,21 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 	
 	if( $('#idClientesCreditos .selected a').attr('data-tokens')==null){ 
 		$('#tableResultadoDetalleCreditos tbody').children().remove();
-		$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) { console.log( resp );
+		$.ajax({url: 'php/listarCreditoPorFechaMesAno.php', type: 'POST', data: { mes:mess , anio:año }}).done(function (resp) { //console.log( resp );
 			$.jsonAdeuda=JSON.parse(resp);
 			$.each(JSON.parse(resp), function (i, jsonResp) {// console.log(jsonResp);
 				var adeuda='', obs='';
 				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
 				$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
-					<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+					<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gal. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span> <br>${adeuda}</td>
 					<td>${jsonResp.credcomprobante}</td>
 					<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 					<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
-					<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+					<td><?php if($_SESSION['Power']=='1'): ?> 
+						<input type="checkbox" class="chkBloque" onclick="agregarLista(event,${jsonResp.idcreditos})" >
+						<button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>
+						<?php endif;?> </td>
 				</tr>`);
 			});
 			$('#tableResultadoDetalleCreditos').find('caption').remove();
@@ -519,11 +557,13 @@ $('#idFechasCreditos').on('click', '.optCreditoFecha', function () {
 					if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 					if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
 					$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}">
-						<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+						<td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span> <br>${adeuda}</td>
 						<td>${jsonResp.credcomprobante}</td>
 						<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 						<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
-						<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+						<td> <?php if($_SESSION['Power']=='1') echo '
+						<input type="checkbox" class="chkBloque" onclick="agregarLista(event,${jsonResp.idcreditos})" >
+						<button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-sm btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 					</tr>`);
 				});
 			}
@@ -543,11 +583,13 @@ $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 				var adeuda='', obs='';
 				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-				$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}"><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre} <span class="mayuscula">${obs}</span></td>
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr id="${jsonResp.idcreditos}"><td>${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.prodNombre} <span class="mayuscula">${obs}</span> <br>${adeuda}</td>
 		<td>${jsonResp.credcomprobante}</td>
 		<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 		<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
-		<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+		<td><?php if($_SESSION['Power']=='1') echo '
+		<input type="checkbox" class="chkBloque" onclick="agregarLista(event,${jsonResp.idcreditos})" >
+		<button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 	</tr>`);
 			});
 			$('#tableResultadoDetalleCreditos').find('caption').remove();
@@ -566,11 +608,13 @@ $('#idClientesCreditos').on('click', '.optCreditoCliente', function () {
 				var adeuda='', obs='';
 				if(jsonResp.credObservacion!=''){obs='<strong>Obs.</strong> '+jsonResp.credObservacion;}
 				if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td id="${jsonResp.idcreditos}">${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span></td>
+				$('#tableResultadoDetalleCreditos tbody').append(`<tr><td id="${jsonResp.idcreditos}">${$('#tableResultadoDetalleCreditos tbody tr').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} gls. de ${jsonResp.contDescripcion} <span class="mayuscula">${obs}</span><br>${adeuda} </td>
 					<td>${jsonResp.credcomprobante}</td>
 					<td class="tableexport-string">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</td>
 					<td>${parseFloat(jsonResp.credCosto).toFixed(2)}</td>
-					<td>${adeuda} <?php if($_SESSION['Power']=='1') echo '<br><button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
+					<td><?php if($_SESSION['Power']=='1') echo '
+					<input type="checkbox" class="chkBloque" onclick="agregarLista(event,${jsonResp.idcreditos})" >
+					<button class="btn btn-sm btn-success btn-outline btnEditarCreditoMod" data-id="${jsonResp.idcreditos}"><i class="icofont icofont-ui-edit"></i></button> <button class="btn btn-primary btn-outline btnAdeudaDetalle"><i class="icofont icofont-ui-rate-blank"></i></button>' ?></td>
 					</tr>`);
 				});	
 			}
@@ -650,11 +694,12 @@ $('#idFechasCreditosFin').on('click', '.optCreditoFin', function () {
 		$.each(JSON.parse(resp), function (i, jsonResp) { console.log(jsonResp);
 			var adeuda='';
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#divResultadoDetallCreditosFin').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetallCreditosFin .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
+			$('#divResultadoDetallCreditosFin').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetallCreditosFin .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}<br> ${adeuda} </div>
 					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
 					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
 					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
-					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnCreditoFinalDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
+					<div class="col-xs-2">
+					<input type="checkbox" class="chkBloque" onclick="agregarLista(event,${jsonResp.idcreditos})" ><button class="btn btn-primary btn-outline btnCreditoFinalDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
 		});
 	})
 });
@@ -669,11 +714,11 @@ $('#idClientesCreditosFin').on('click', '.optCreditoCliente', function () {
 		$.each(JSON.parse(resp), function (i, jsonResp) { //console.log(jsonResp);
 			var adeuda='';
 			if(jsonResp.credadeuda=='1'){ adeuda='<span class="red-text text-darken-2">Pendiente de pago</span>'} else { adeuda='<span class="light-green-text">Cancelado</span>'}
-			$('#divResultadoDetallCreditosFin').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetallCreditosFin .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre}</div>
+			$('#divResultadoDetallCreditosFin').append(`<div class="row" id="${jsonResp.idcreditos}"><div class="col-xs-4 ">${$('#divResultadoDetallCreditosFin .row').length+1}. <span class="mayuscula">${jsonResp.cliRazonSocial}</span>, solicitó: ${jsonResp.credCantidad} galones de ${jsonResp.prodNombre} <br>${adeuda}</div>
 					<div class="col-xs-2">${jsonResp.credcomprobante}</div>
 					<div class="col-xs-2">${moment(jsonResp.credfecha).format('DD/MM/YYYY')}</div>
 					<div class="col-xs-2">${parseFloat(jsonResp.credCosto).toFixed(2)}</div>
-					<div class="col-xs-2">${adeuda} <button class="btn btn-primary btn-outline btnCreditoFinalDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
+					<div class="col-xs-2"> <button class="btn btn-primary btn-outline btnCreditoFinalDetalle"><i class="icofont icofont-ui-rate-blank"></i></button></div></div>`);
 		});
 	})
 });
