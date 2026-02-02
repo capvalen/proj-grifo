@@ -235,30 +235,9 @@ pre{background-color: #ffffff;}
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 							</div> -->
-						
 						<div class="panel panel-morado">
 							<div class="panel-heading">
-								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier C</strong></h3>
-							</div>
-							<div class="container-fluid" style="padding-bottom: 10px;">
-							<div class="row" style="padding-top: 5px;">
-								<strong>
-									<div class="col-xs-3 col-sm-2">Producto</div>
-									<div class="col-xs-1 col-sm-1">Precio</div>
-									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
-									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-									<div class="col-xs-1 col-sm-1">Consumo (gl.)</div>
-									<div class="col-xs-2 col-sm-2">Venta</div>
-								</strong>
-							</div>
-							<div class="spanSurtidores" id="spanPremierC" data='Pre. C' style="font-size: 15px;">
-								
-							</div>
-							</div>
-						</div>
-						<div class="panel panel-morado">
-							<div class="panel-heading">
-								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Premier B</strong></h3>
+								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Isla 1</strong></h3>
 							</div>
 							<div class="container-fluid" style="padding-bottom: 10px;">
 								<div class="row" style="padding-top: 5px;">
@@ -277,6 +256,27 @@ pre{background-color: #ffffff;}
 							</div>
 
 						</div>
+						<div class="panel panel-morado">
+							<div class="panel-heading">
+								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Isla 2</strong></h3>
+							</div>
+							<div class="container-fluid" style="padding-bottom: 10px;">
+							<div class="row" style="padding-top: 5px;">
+								<strong>
+									<div class="col-xs-3 col-sm-2">Producto</div>
+									<div class="col-xs-1 col-sm-1">Precio</div>
+									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
+									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
+									<div class="col-xs-1 col-sm-1">Consumo (gl.)</div>
+									<div class="col-xs-2 col-sm-2">Venta</div>
+								</strong>
+							</div>
+							<div class="spanSurtidores" id="spanPremierC" data='Pre. C' style="font-size: 15px;">
+								
+							</div>
+							</div>
+						</div>
+						
 						<div class="panel panel-morado">
 							<div class="panel-heading">
 								<h3 class="panel-title"> <i class="icofont icofont-stock-mobile"></i><strong>Surtidor de Gas</strong></h3>
@@ -500,18 +500,7 @@ $(document).ready(function(){
 		var fechaNue=moment($(dato2).text());
 		$(this).text( fechaNue.format('LLLL'));
 		});
-/*	$('#tbodyProductosListado').children().remove();
-	$.get({url:'php/listarTodosProductosContenedor.php', type: 'POST'}).done(function (resp) {
-		$.each(JSON.parse(resp), function (i, dato2) { console.log(dato2)
-			$('#tbodyProductosListado').append(`<tr  class='${dato2.contColorMaterialize}'>
-				<!--<td>${dato2.grupoDescripcion}</td>
-				<td>${dato2.ladoDescripcion}</td>-->
-				<td><strong>${dato2.contDescripcion}</strong></td>
-				<td>${parseFloat(dato2.contPrecio).toFixed(2)}</td>
-				<td>${moment(dato2.contUltimaFecha).format('LLLL')}</td>
-			</tr>`);//dddd DD, MMMM YYYY hh:mm a
-		});
-	});*/
+
 	$.get({url: 'php/listarTodosProductos.php', type: 'POST'}).done(function (resp) {
 		//console.log(resp)
 		
@@ -534,9 +523,9 @@ $(document).ready(function(){
 				<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
 				<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
 			</div>`);*/
-			if( parseInt($('#tbodyProductosListado #'+dato.idContenedor).find('.tdStock').text())>0 ){considerar='';}else{considerar='disabled';}
+			if( parseInt($('#tbodyProductosListado #'+dato.idContenedor).find('.tdStock').text())>0 ){considerar='';}else{considerar='';}
 			switch(dato.grupoDescripcion){ /*${Math.round(Math.random() * (900000 - 100000) + 100000)}*/
-				case 'Premier B': 
+				case 'Isla 1': 
 					if( dato.prodNombre =='Diesel DB-5'){
 						$('#spanPremierB').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 							<div class="idProdConsumo hidden">${dato.idproductos}</div>
@@ -564,7 +553,7 @@ $(document).ready(function(){
 					}
 
 					 break;
-				case 'Premier C': 
+				case 'Isla 2': 
 				if( dato.prodNombre =='Diesel DB-5'){
 					$('#spanPremierC').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
@@ -597,11 +586,14 @@ $(document).ready(function(){
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-md-1 col-xs-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-						<div class="col-md-2 col-xs-2 text-center"><pre><p class="divContadorPrevio">${dato.prodCtaAnterior}</p><p class="divContadorSoles">${dato.ctaSolesAnterior}</p><p class="divContadorGalones">${dato.ctaGalones}</p></pre></div>
+						<div class="col-md-2 col-xs-2 text-center">
+						<pre><p class="divContadorSoles">${dato.ctaSolesAnterior}</p><p class="divContadorGalones">${dato.ctaGalones}</p><p class="divContadorPrevio">${dato.prodCtaAnterior}</p></pre>
+						</div>
 						<div class="col-md-2 col-xs-2 hidden-print">
-							<input type="numeric" class="form-control txtGasInput txtValorNumericoConsumo text-center" id="${i}" ${considerar} placeholder="Cuenta mecánica">
 							<input type="numeric" class="form-control txtGasInput txtValorSolesConsumo text-center" ${considerar} placeholder="Cuenta en Soles">
-							<input type="numeric" class="form-control txtGasInput txtValorLitrosConsumo text-center" ${considerar} placeholder="Cuenta litros"></div>
+							<input type="numeric" class="form-control txtGasInput txtValorLitrosConsumo text-center" ${considerar} placeholder="Cuenta memoria">
+							<input type="numeric" class="form-control txtGasInput txtValorNumericoConsumo text-center" id="${i}" ${considerar} placeholder="Cuenta mecánica">
+						</div>
 						<div class="col-md-2 col-xs-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-md-1 col-xs-1 divConsumoProd">-</div>
 						<div class="col-md-2 col-xs-2">S/. <span class="divVentaConsumo"></span></div>
