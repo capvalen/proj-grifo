@@ -11,8 +11,12 @@ $('#agregarBarra').click(function(){
 	$('#txtBarras').val('');}
 });
 $(document).ready(function(){
-	$('#fechaServer').load("php/getfecha.php");
-	setInterval(function(){$('#horaServer').load("php/gethora.php");},'60000');
+	//$('#fechaServer').load("php/getfecha.php");
+	actualizarHora();
+	setInterval(function(){
+		//$('#horaServer').load("php/gethora.php");
+		actualizarHora();
+	},'60000');
 	$('#listBarras').hide();
 	
 	//$('.side-nav').hide();
@@ -20,6 +24,28 @@ $(document).ready(function(){
 	
 
 });
+function actualizarHora() {
+	const ahora = new Date();
+
+	// Formatear la hora (04:30 pm)
+	let horas = ahora.getHours();
+	const ampm = horas >= 12 ? 'pm' : 'am';
+	horas = horas % 12;
+	horas = horas ? horas : 12; // Convertir 0 a 12 para las 12 am
+	const horasFormateadas = horas.toString().padStart(2, '0');
+	const minutos = ahora.getMinutes().toString().padStart(2, '0');
+	const segundos = ahora.getSeconds().toString().padStart(2, '0');
+	const horaFormateada = `${horasFormateadas}:${minutos} ${ampm}`;
+
+	// Formatear la fecha (28 Feb. 2026)
+	const dia = ahora.getDate();
+	const mes = ahora.toLocaleString('en-US', { month: 'short' }); // Ejemplo: "Feb"
+	const año = ahora.getFullYear();
+	const fechaFormateada = `${dia} ${mes}. ${año}`;
+
+	// Mostrar fecha + hora en el elemento
+	document.getElementById('horaServer').textContent = `${fechaFormateada} ${horaFormateada}`;
+}
 $.fn.modal.prototype.constructor.Constructor.DEFAULTS.backdrop = 'static'; //Para que no cierre el modal, cuando hacen clic en cualquier parte
 
 function esNumero(cadena) //true para si es número sólo

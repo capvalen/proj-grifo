@@ -55,7 +55,9 @@ if (@!$_SESSION['Atiende']){//sino existe enviar a index
 	background-color: #9d22dc;
 	border-color: #9d22dc;
 }
-pre{background-color: #ffffff;}
+pre{background-color: #ffffff;
+line-height: 1;}
+.cuentasPre p{ margin:0}
 </style>
 
 <div id="wrapper">
@@ -130,7 +132,7 @@ pre{background-color: #ffffff;}
 										<span class="form-control-clear glyphicon glyphicon-remove-circle form-control-feedback hidden"></span>
 									</div>
 								 </li>
-								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span class="mayuscula" id="menuNombreUsuario"><?php echo $_SESSION["Atiende"]; ?></span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"> <?php require('php/gethora.php') ?></span> </small></a></li>
+								 <li id="liDatosPersonales"><a href="#!"><p><strong>Usuario: </strong> <span class="mayuscula" id="menuNombreUsuario"><?php echo $_SESSION["Atiende"]; ?></span></p><small class="text-muted text-center" id="menuFecha"><span id="fechaServer"></span> <span id="horaServer"> </span> </small></a></li>
 									
 				<li class="text-center"><a href="php/desconectar.php"><span class="visible-xs">Cerrar Sesión</span><i class="icofont icofont-ui-power"></i></a></li>
 							</ul>
@@ -164,7 +166,7 @@ pre{background-color: #ffffff;}
 							<h3>Listado de precios de los productos para hoy</h3>
 							<div class="panel panel-verde " id="pnlTablaModificacionPrecio">
 							<div class="panel-heading">
-								<h3 class="panel-title">Precios programados para: <strong><?php require('php/getfecha.php'); ?>, <?php require('php/gethora.php') ?></strong></h3>
+								<h3 class="panel-title">Precios programados para: <strong><?php require('php/getfecha.php'); ?>, </strong></h3>
 							</div>
 							<div class="container-fluid">
 							<table class="table table-hover">
@@ -288,7 +290,7 @@ pre{background-color: #ffffff;}
 									<div class="col-xs-1 col-sm-1">Precio</div>
 									<div class="col-xs-2 col-sm-2"><span class="hidden-print">Cuenta anterior</span> <span class="visible-print">Cta. Ant.</span> </div>
 									<div class="col-xs-2 col-sm-2 hidden-print">Cuenta actual</div>
-									<div class="col-xs-1 col-sm-1">Consumo (L.)</div>
+									<div class="col-xs-1 col-sm-1">Consumo (gl.)</div>
 									<div class="col-xs-2 col-sm-2">Venta</div>
 								</strong>
 								</div>
@@ -477,7 +479,7 @@ pre{background-color: #ffffff;}
 <!-- Bootstrap Core JavaScript -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/moment.js"></script>
-<script src="js/inicializacion.js?version=1.0.5"></script>
+<script src="js/inicializacion.js?version=1.0.7"></script>
 <script src="js/accionesGlobales.js?version=1.0.11"></script>
 <script src="js/bootstrap-select.js"></script>
 <!-- <script src="js/bootstrap-datepicker.min.js"></script>
@@ -581,18 +583,21 @@ $(document).ready(function(){
 				}
 					 break;
 				case 'Surtidor de Gas':
-					$('#spanSurtidorGas').prepend(`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
+					$('#spanSurtidorGas').prepend(/*html*/`<div class="row ${dato.prodColorMaterialize} rowProductosMalla">
 						<div class="idProdConsumo hidden">${dato.idproductos}</div>
 						<div class="idContenedorCons hidden">${dato.idContenedor}</div>
 						<div class="col-md-2 col-xs-3 mayuscula"><strong>${$('#spanSurtidorGas .row').length+1}. <span class="spanGrupo"><span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
 						<div class="col-md-1 col-xs-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
 						<div class="col-md-2 col-xs-2 text-center">
-						<pre><p class="divContadorSoles">${dato.ctaSolesAnterior}</p><p class="divContadorGalones">${dato.ctaGalones}</p><p class="divContadorPrevio">${dato.prodCtaAnterior}</p></pre>
+						<pre class="cuentasPre">
+						<p class="divContadorSoles">${dato.ctaSolesAnterior}</p>
+						<p class="divContadorPrevio">${dato.prodCtaAnterior}</p>
+						<p class="divContadorGalones">${dato.ctaGalones}</p></pre>
 						</div>
 						<div class="col-md-2 col-xs-2 hidden-print">
 							<input type="numeric" class="form-control txtGasInput txtValorSolesConsumo text-center" ${considerar} placeholder="Cuenta en Soles">
-							<input type="numeric" class="form-control txtGasInput txtValorLitrosConsumo text-center" ${considerar} placeholder="Cuenta memoria">
-							<input type="numeric" class="form-control txtGasInput txtValorNumericoConsumo text-center" id="${i}" ${considerar} placeholder="Cuenta mecánica">
+							<input type="numeric" class="form-control txtGasInput txtValorNumericoConsumo text-center" id="${i}" ${considerar} placeholder="Cuenta memoria">
+							<input type="numeric" class="form-control txtGasInput txtValorLitrosConsumo text-center"  ${considerar} placeholder="Cuenta mecánica">
 						</div>
 						<div class="col-md-2 col-xs-2 visible-print divCuentaNueva">S/. -</div>
 						<div class="col-md-1 col-xs-1 divConsumoProd">-</div>

@@ -1,7 +1,7 @@
 <?php
 	$server="localhost";
 	$username="root";
-	$password="";
+	$password="*123456*";
 	$db='grifo';
 
 	$conection= mysqli_connect($server,$username,$password,$db )or die("No se ha podido establecer la conexion");

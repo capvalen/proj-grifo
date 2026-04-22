@@ -1,7 +1,12 @@
 <?php 
-echo "Versión 1.27 Compilación 21.1220";
+echo "Versión 1.28 Compilación 26.0422";
 
 /*
+ver 1.28
+Verificado que todos los productos resten correctamente su stock
+Stocks finales actualizados
+Ya no pide hora al servidor
+
 Ver 1.25
 Arreglado actualizacones de tanqueo
 Arreglado fechas en excel
