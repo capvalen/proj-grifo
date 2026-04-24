@@ -25,6 +25,6 @@ fwrite($arch,$texto);
 
 echo "fin de guardado txt";
 
- shell_exec('print.bat');
+//shell_exec('print.bat');
 
  ?>

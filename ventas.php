@@ -510,21 +510,6 @@ $(document).ready(function(){
 		$('#spanPremierB').children().remove();$('#spanPremierC').children().remove();$('#spanSurtidorGas').children().remove();
 		var considerar='';
 		$.each(JSON.parse(resp), function (i, dato) { // console.log(dato)
-				/*<div class="col-xs-5 col-sm-3">Producto</div>
-					<div class="col-xs-2 col-sm-1">Precio</div>
-					<div class="col-xs-1 col-sm-1">Cuenta anterior</div>
-					<div class="col-xs-1 col-sm-1">Consumo</div>
-					<div class="col-xs-2 col-sm-2">Venta</div>
-					Math.round(Math.random() * (900000 - 100000) + 100000) || dato.prodUltimoContador ------------ */
-			/*$('#spanListadoNuevosCuadres').append(`<div class="row ${dato.prodColorMaterialize}">
-				<div class="idProdConsumo hidden">${dato.idproductos}</div>
-				<div class="col-xs-5 col-sm-3 mayuscula"><strong>${i+1}. <span class="spanGrupo">${dato.grupoDescripcion}</span>, <span class="spanProducto">${dato.prodNombre}</span>, <span class="spanLado">${dato.ladoCorto}</span></strong></div>
-				<div class="col-xs-2 col-sm-1 mayuscula">S/. <span class="divPrecioFijo">${parseFloat(dato.prodPrecioActual).toFixed(2)}</span></div>
-				<div class="col-xs-1 col-sm-2 divContadorPrevio">${Math.round(Math.random() * (900000 - 100000) + 100000)}</div>
-				<div class="col-xs-2 col-sm-2 hidden-print"><input type="numeric" class="form-control txtValorNumericoConsumo text-center" id="${i}" ></div>
-				<div class="col-xs-1 col-sm-1 divConsumoProd">-</div>
-				<div class="col-xs-2 col-sm-2 divVentaConsumo">S/. -</div>
-			</div>`);*/
 			if( parseInt($('#tbodyProductosListado #'+dato.idContenedor).find('.tdStock').text())>0 ){considerar='';}else{considerar='';}
 			switch(dato.grupoDescripcion){ /*${Math.round(Math.random() * (900000 - 100000) + 100000)}*/
 				case 'Isla 1': 
@@ -858,17 +843,18 @@ $('#btnGuardarReporte').click(function () {
 	$.creditos='';
 	if($('#contenidoACuadrarIngresVsEgres .row').length>0){
 		$.creditos+=" ---------------------------------------------------------------------\r\n";
-		$.creditos+=" |   Creditos otorgados en el turno                                  |\r\n";
+		$.creditos+=" |   Créditos otorgados en el turno                                  |\r\n";
 		$.each($('#contenidoACuadrarIngresVsEgres .row'), function (i, credito) {
 			var espacioCred='';
 			if( $(credito).find('.creTipo').text()=='Crédito'){espacioCred="\n\r"; }else{ espacioCred="";}
-			$.creditos+= $(credito).find('.creTipo').text().replace('é','e') + ' '+$(credito).find('.creDescr').text() + '. Debe S/. '+ $(credito).find('.creMonto').text()  + ' Grabado: '+ $(credito).find('.creFecha').text() + espacioCred ; //+"\r\n"
+			$.creditos+= $(credito).find('.creTipo').text() + ' '+$(credito).find('.creDescr').text() + '. Debe S/. '+ $(credito).find('.creMonto').text()  + ' Grabado: '+ $(credito).find('.creFecha').text() + espacioCred +"\r\n";
 		});
 	}
 	//console.log($.ptexto)
 	moment.locale('es');
 
 	$('#btnPrintReporte').removeClass('hidden');
+	window.open('http://localhost/grifo/php/mostrarResultado.php', '_blank');
 	//window.print();
 
 });
@@ -894,9 +880,8 @@ function armarImpresion(){
 			console.log(resp);
 		}).error(function(erro){
 			console.log( 'Servidor no activo' );
-			$('.modalSolucionImpresion').modal('show');
 			//Llamando modal de instrucciones
-
+			$('.modalSolucionImpresion').modal('show');
 		});
 }
 $('#btnPrintCopia').click(function() {
@@ -912,6 +897,8 @@ $('#btnPrintCopia').click(function() {
 			total: $('#spanPanelSumaTotalChica').text()
 		}}).done(function (resp) {
 			console.log(resp);
+			if(resp == 'fin de guardado txt')
+				window.open('http://localhost/grifo/php/mostrarResultado.php', '_blank');
 		});
 });
 $('#btnGuardarReporteIngresoVsEgreso').click(function () {

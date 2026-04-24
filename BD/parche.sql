@@ -71,8 +71,8 @@ WHERE `contenedorProductos`.`idcontenedorProductos` = 1;
 
 UPDATE `contenedorProductos`
 SET
-    `contStock` = 3100,
-    `contStockLitros` = 3100 * 3.785,
+    `contStock` = 4600,
+    `contStockLitros` = 4600 * 3.785,
     `contUltimaFecha` = NOW()
 WHERE `contenedorProductos`.`idcontenedorProductos` = 2;
 
@@ -85,7 +85,7 @@ WHERE `contenedorProductos`.`idcontenedorProductos` = 4;
 
 UPDATE `contenedorProductos`
 SET
-    `contStock` = 889.14,
-    `contStockLitros` = 889.14 * 3.785,
+    `contStock` = 389.14,
+    `contStockLitros` = 389.14 * 3.785,
     `contUltimaFecha` = NOW()
 WHERE `contenedorProductos`.`idcontenedorProductos` = 5;
